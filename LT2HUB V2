@@ -1,0 +1,419 @@
+local function detectGameName()
+    local MarketplaceService = game:GetService("MarketplaceService")
+    local success, productInfo = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
+    
+    if success then
+        return productInfo.Name
+    else
+        return "UnknownGame"
+    end
+end
+
+local detectedGameName = detectGameName()
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local function checkGameID(allowedGameIDs)
+    local gameID = game.PlaceId
+    for _, id in pairs(allowedGameIDs) do
+        if gameID == id then
+            return true
+        end
+    end
+    return false
+end
+
+
+local Window = Rayfield:CreateWindow({
+    Name = "LT2Hub V2 | " .. detectedGameName,
+    Icon = 18368530595,
+    LoadingTitle = "LT2Hub V2 | " .. detectedGameName,
+    LoadingSubtitle = "by IHateSchool",
+    Theme = {
+        TextColor = Color3.fromRGB(220, 220, 220),
+        Background = Color3.fromRGB(15, 15, 15),
+        Topbar = Color3.fromRGB(15, 15, 15),
+        Shadow = Color3.fromRGB(5, 5, 5),
+        NotificationBackground = Color3.fromRGB(15, 15, 15),
+        NotificationActionsBackground = Color3.fromRGB(139, 0, 0),
+        TabBackground = Color3.fromRGB(15, 15, 15),
+        TabStroke = Color3.fromRGB(35, 35, 35),
+        TabBackgroundSelected = Color3.fromRGB(139, 0, 0),
+        TabTextColor = Color3.fromRGB(220, 220, 220),
+        SelectedTabTextColor = Color3.fromRGB(255, 255, 255),
+        ElementBackground = Color3.fromRGB(15, 15, 15),
+        ElementBackgroundHover = Color3.fromRGB(25, 25, 25),
+        SecondaryElementBackground = Color3.fromRGB(10, 10, 10),
+        ElementStroke = Color3.fromRGB(25, 25, 25),
+        SecondaryElementStroke = Color3.fromRGB(20, 20, 20),
+        SliderBackground = Color3.fromRGB(139, 0, 0),
+        SliderProgress = Color3.fromRGB(139, 0, 0),
+        SliderStroke = Color3.fromRGB(165, 20, 20),
+        ToggleBackground = Color3.fromRGB(10, 10, 10),
+        ToggleEnabled = Color3.fromRGB(139, 0, 0),
+        ToggleDisabled = Color3.fromRGB(80, 80, 80),
+        ToggleEnabledStroke = Color3.fromRGB(165, 20, 20),
+        ToggleDisabledStroke = Color3.fromRGB(100, 100, 100),
+        ToggleEnabledOuterStroke = Color3.fromRGB(80, 80, 80),
+        ToggleDisabledOuterStroke = Color3.fromRGB(50, 50, 50),
+        DropdownSelected = Color3.fromRGB(25, 25, 25),
+        DropdownUnselected = Color3.fromRGB(15, 15, 15),
+        InputBackground = Color3.fromRGB(10, 10, 10),
+        InputStroke = Color3.fromRGB(35, 35, 35),
+        PlaceholderColor = Color3.fromRGB(220, 220, 220)
+    },
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+    ConfigurationSaving = {
+        Enabled = false,
+        FolderName = "LT2Hub V2",
+        FileName = "LT2Hub V2 | " .. detectedGameName
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = "LT2Hub V2 | " .. detectedGameName,
+        Subtitle = "Key System",
+        Note = "No method of obtaining the key is provided",
+        FileName = "Key",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"LT2"}
+    }
+})
+
+game:GetService("Workspace").Stores.WoodRUs.Parts.OPEN24HOURS.SurfaceGui.TextLabel.Text = "ODYSSEY"
+game:GetService("Workspace").Stores.WoodRUs.Parts.BULLETINBULLETIN.SurfaceGui.TextLabel.Text = "ODYSSEY V1"
+game:GetService("Workspace").Stores.WoodRUs.Parts.PREMIUMSELECTION.SurfaceGui.TextLabel.Text = "Odyssey | " .. detectedGameName
+game:GetService("Workspace").Stores.WoodRUs.Parts.SELLWOOD.SurfaceGui.TextLabel.Text = "IHS WaZ Here"
+game:GetService("Workspace").Stores.WoodRUs.Parts.WOODDROPOFF.SurfaceGui.TextLabel.Text = "ButterHub = Scam"
+
+
+local HomeP = Window:CreateTab("Home", 4483362458) 
+local SStaus = Window:CreateTab("Script Status", 4483362458)
+local IHS = Window:CreateTab("IHS Scripts (May Be Patched)", 4483362458) 
+local Frees = Window:CreateTab("Free Scripts", 4483362458) 
+local Paids = Window:CreateTab("Paid Scripts", 4483362458) 
+local MBP = Window:CreateTab("May Be Patched", 4483362458)
+local Settings = Window:CreateTab("Settings", 4483362458) 
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Paragraph = HomeP:CreateParagraph({
+    Title = "Welcome " .. LocalPlayer.DisplayName .. " to LumberHub V2",
+    Content = "Welcome to LumberHub V2, the go-to place for Lumber Tycoon scripts. Here, you'll find all public scripts, whether free or paid, along with details for each one. LumberHub V2 is designed to make script execution easy while keeping everything up-to-date and working smoothly. If you ever need help, reach out to IHateschool. Hope you enjoy using LumberHub V2!"
+})
+
+local Paragraph = HomeP:CreateParagraph({
+    Title = "LumberHub V2 Last Updated",
+    Content = "5/4/2025"
+})
+
+local Paragraph = HomeP:CreateParagraph({
+    Title = "LumberHub V2 Script Dev:",
+    Content = "IhateSchool"
+})
+
+
+
+local Section = SStaus:CreateSection("Script Status")
+local Section = SStaus:CreateSection("Free Script Status")
+
+local Paragraph = SStaus:CreateParagraph({Title = "Ancestor (Free)", Content = "Status: May Be Patched"})
+local Paragraph = SStaus:CreateParagraph({Title = "Dark X (Free)", Content = "Status: Patched"})
+local Paragraph = SStaus:CreateParagraph({Title = "Kron Hub (Free)", Content = "Status: Unknown"})
+local Paragraph = SStaus:CreateParagraph({Title = "ODYSSEY (Free)", Content = "Status: Unreleased"})
+local Paragraph = SStaus:CreateParagraph({Title = "SchoolHub V3 (Free)", Content = "Status: May Be Patched"})
+local Paragraph = SStaus:CreateParagraph({Title = "Toads (Free)", Content = "Status: Working"})
+
+local Section = SStaus:CreateSection("Paid Script Status")
+
+local Paragraph = SStaus:CreateParagraph({Title = "Astra Hub Paid (£7)", Content = "Status: Unknown"})
+local Paragraph = SStaus:CreateParagraph({Title = "ButterHub Paid ($5)", Content = "Status: Unknown"})
+local Paragraph = SStaus:CreateParagraph({Title = "Lyofe Script Paid ($25)", Content = "Status: Unknown"})
+local Paragraph = SStaus:CreateParagraph({Title = "Scorp Paid (£5)", Content = "Status: Patched"})
+local Paragraph = SStaus:CreateParagraph({Title = "Serenity Script Paid ($6)", Content = "Status: Unknown"})
+
+
+
+ 
+local Section = IHS:CreateSection("IHS Scripts Status (May Be Patched)")
+
+local Button = IHS:CreateButton({
+    Name = "SchoolHub V3 (May Be Patched)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/IHateSchoolIsCool/FuckCheapShops/refs/heads/main/SchoolHubV3"))()
+    end,
+})
+
+local Button = IHS:CreateButton({
+    Name = "ODYSSEY V1 (Unreleased) (May Be Patched)",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "LT2Hub V2 | " .. detectedGameName,
+            Content = "ODYSSEY V1 (unavailable)",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+    end,
+})
+
+
+
+local Button = IHS:CreateButton({
+    Name = "Join IHS Discord",
+    Callback = function()
+        local url = "https://discord.gg/C6cJe2XGZY"
+        if syn and syn.request then
+            syn.request({Url = url, Method = "GET"})
+        elseif http and http.request then
+            http.request({Url = url, Method = "GET"})
+        else
+            game:GetService("GuiService"):OpenBrowserWindow(url)
+        end
+    end,
+})
+
+local Section = Frees:CreateSection("Free Scripts (Working)")
+
+--KronHub
+local Paragraph = Frees:CreateParagraph({Title = "KronHub", Content = "Top Features: AutoBuy, Dupe, BaseDupe, Building"})
+
+local Button = Frees:CreateButton({
+    Name = "Join KronHub Discord",
+    Callback = function()
+        local url = "https://discord.gg/Gw8beaRCyn"
+        if syn and syn.request then
+            syn.request({Url = url, Method = "GET"})
+        elseif http and http.request then
+            http.request({Url = url, Method = "GET"})
+        else
+            game:GetService("GuiService"):OpenBrowserWindow(url)
+        end
+    end,
+})
+
+local Button = Frees:CreateButton({
+    Name = "Kron Hub (Working)",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/DevKron/Kron_Hub/refs/heads/main/version_1.0'))("IHSWAZHere")
+    end,
+})
+
+--Toads
+local Paragraph = Frees:CreateParagraph({Title = "Toads", Content = "Top Features: AutoBuy, Building, Unique Script"})
+
+local Button = Frees:CreateButton({
+    Name = "Join Toads Discord",
+    Callback = function()
+        local url = "https://discord.gg/w2qXrj9wuh"
+        if syn and syn.request then
+            syn.request({Url = url, Method = "GET"})
+        elseif http and http.request then
+            http.request({Url = url, Method = "GET"})
+        else
+            game:GetService("GuiService"):OpenBrowserWindow(url)
+        end
+    end,
+})
+
+local Button = Frees:CreateButton({
+    Name = "Toads (Working)",
+    Callback = function()
+        loadstring(game:HttpGet("https://bit.ly/3x90l99"))("TOADS")
+    end,
+})
+
+
+
+local Section = Paids:CreateSection("Paid Scripts")
+
+--AstraHub
+
+local Paragraph = Paid:CreateParagraph({Title = "Astra Hub", Content = "Top Features:(Paid £7) Base Dupe, TL TP"})
+
+
+local Button = Paids:CreateButton({
+    Name = "Join Astra Hub Discord",
+    Callback = function()
+        local url = "https://discord.gg/jKZ8dCDyM7"
+        if syn and syn.request then
+            syn.request({Url = url, Method = "GET"})
+        elseif http and http.request then
+            http.request({Url = url, Method = "GET"})
+        else
+            game:GetService("GuiService"):OpenBrowserWindow(url)
+        end
+    end,
+})
+
+local AsKey = "" 
+
+local Input = Paids:CreateInput({
+    Name = "Astra Hub Key",
+    CurrentValue = "",
+    PlaceholderText = "Input Key Here",
+    RemoveTextAfterFocusLost = false,
+    Flag = "AstraHubKey",
+    Callback = function(Text)
+        AsKey = Text 
+    end,
+})
+
+local Button = Paids:CreateButton({
+    Name = "Astra Hub (Working)",
+    Callback = function()
+        getgenv().LDKey = AsKey 
+
+        loadstring(game:HttpGet([[https://raw.githubusercontent.com/kode-sec/Butter/refs/heads/main/main.lua]]))()
+    end,
+})
+
+-- ButterHub
+
+local Paragraph = Paid:CreateParagraph({Title = "ButterHub", Content = "Top Features:(Paid $5) Base Dupe, Dupe, AutoBuy, Building"})
+
+
+local Button = Paids:CreateButton({
+    Name = "Join Butter Hub Discord",
+    Callback = function()
+        local url = "https://discord.gg/jKZ8dCDyM7"
+        if syn and syn.request then
+            syn.request({Url = url, Method = "GET"})
+        elseif http and http.request then
+            http.request({Url = url, Method = "GET"})
+        else
+            game:GetService("GuiService"):OpenBrowserWindow(url)
+        end
+    end,
+})
+
+local BHKey = "" 
+
+local Input = Paids:CreateInput({
+    Name = "ButterHub Key",
+    CurrentValue = "",
+    PlaceholderText = "Input Key Here",
+    RemoveTextAfterFocusLost = false,
+    Flag = "ButterHubKey",
+    Callback = function(Text)
+        BHKey = Text 
+    end,
+})
+
+local Button = Paids:CreateButton({
+    Name = "ButterHub (Working)",
+    Callback = function()
+        getgenv().LDKey = BHKey 
+
+        loadstring(game:HttpGet([[https://raw.githubusercontent.com/kode-sec/Butter/refs/heads/main/main.lua]]))()
+    end,
+})
+
+--Serenity
+local Paragraph = Paid:CreateParagraph({Title = "Serenity", Content = "Top Features:(Paid $6) Tl dupe, base dupe, fast asf item tp/sorter"})
+
+local Button = Paids:CreateButton({
+    Name = "Join Serenity Discord",
+    Callback = function()
+        local url = "https://discord.gg/7JKypVBKrz"
+        if syn and syn.request then
+            syn.request({Url = url, Method = "GET"})
+        elseif http and http.request then
+            http.request({Url = url, Method = "GET"})
+        else
+            game:GetService("GuiService"):OpenBrowserWindow(url)
+        end
+    end,
+})
+
+
+local SeKey = "" 
+
+local Input = Paids:CreateInput({
+    Name = "Serenity Key",
+    CurrentValue = "",
+    PlaceholderText = "Input Key Here",
+    RemoveTextAfterFocusLost = false,
+    Flag = "SerenityKey",
+    Callback = function(Text)
+        SeKey = Text 
+    end,
+})
+
+local Button = Paids:CreateButton({
+    Name = "Serenity (Working)",
+    Callback = function()
+        script_key = SeKey;
+
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/81d4dcfb55825d729d0930d8ac3271f3.lua"))()
+    end,
+})
+
+
+
+--Scorp
+
+local Paragraph = Paid:CreateParagraph({Title = "Scorp", Content = "Top Features:(Paid $6) AutoBuy, Sorting, I cant remember"})
+
+
+local Button = Paids:CreateButton({
+    Name = "Join Scorp Discord",
+    Callback = function()
+        local url = "https://discord.gg/AzsBkgggXB"
+        if syn and syn.request then
+            syn.request({Url = url, Method = "GET"})
+        elseif http and http.request then
+            http.request({Url = url, Method = "GET"})
+        else
+            game:GetService("GuiService"):OpenBrowserWindow(url)
+        end
+    end,
+})
+
+local SCPKey = "" 
+
+local Input = Paids:CreateInput({
+    Name = "Scorp Key",
+    CurrentValue = "",
+    PlaceholderText = "Input Key Here",
+    RemoveTextAfterFocusLost = false,
+    Flag = "ScorpKey",
+    Callback = function(Text)
+        SCPKey = Text 
+    end,
+})
+
+local Button = Paids:CreateButton({
+    Name = "Scorp (Patched)",
+    Callback = function()
+        _G.wl_key = SCPKey
+        loadstring(game:HttpGet("https://scripts.luawl.com/hosted/2825/12138/Scorp.lua", true))()
+    end,
+})
+
+
+local Section = Settings:CreateSection("Character Status")
+local Paragraph = Settings:CreateParagraph({Title = "Display Name", Content = game:GetService("Players").LocalPlayer.DisplayName})
+local Paragraph = Settings:CreateParagraph({Title = "UserName", Content = game:GetService("Players").LocalPlayer.Name})
+local Paragraph = Settings:CreateParagraph({Title = "User ID", Content = game:GetService("Players").LocalPlayer.UserId})
+local Paragraph = Settings:CreateParagraph({Title = "Executor", Content = identifyexecutor()})
+local Paragraph = Settings:CreateParagraph({
+    Title = "Date and Time Display",
+    Content = os.date("%B %d, %Y %I:%M:%S %p") 
+})
+
+local function updateDateTime()
+    while true do
+        local currentDateTime = os.date("%B %d, %Y %I:%M:%S %p")
+        Paragraph:Set({Title = "Date and Time Display", Content = currentDateTime})
+        wait(1)
+    end
+end
+
+spawn(updateDateTime)
