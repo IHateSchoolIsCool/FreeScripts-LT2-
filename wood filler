@@ -1,0 +1,82 @@
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/bacon"))()
+local window = lib:CreateWindow("SH Filler")
+
+local WoodPlayer
+local WoodType
+local AbortFiler = false
+local TreeList = {'Generic', 'GoldSwampy', 'CaveCrawler', 'Cherry', 'Frost', 'Volcano', 'Oak', 'Walnut', 'Birch', 'SnowGlow', 'Fir', 'Pine', 'GreenSwampy', 'Koa', 'Palm', 'LoneCave', 'Spooky', 'SpookyNeon', 'BlueSpruce'}
+
+local Players = lib:CreateDropdown(window, "Select Player")
+
+local Wood = lib:CreateDropdown(window, "Select Wood")
+
+local function MeasurePing()
+    local time = tick()
+game:GetService("ReplicatedStorage"):WaitForChild("TestPing"):InvokeServer()
+    return tick() - time
+end
+
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+    lib:NewDropdownButton(window, Players, v.name, function()
+        WoodPlayer = v.name
+        game.ReplicatedStorage.Notices.SendUserNotice:Fire(string.format('%s Was Selected', v.name))
+     end)
+end
+
+for i,v in pairs(TreeList) do
+    lib:NewDropdownButton(window, Wood, v, function()
+        WoodType = v
+        game.ReplicatedStorage.Notices.SendUserNotice:Fire(string.format('%s Was Selected', v))
+     end)
+end
+
+local start = lib:CreateButton(window, "Start Auto Filer", function()
+    game.ReplicatedStorage.Notices.SendUserNotice:Fire('Filler Started')
+    while true do
+        if AbortFiler then AbortFiler = false break end
+        AbortFiler = false 
+        task.wait(1) 
+        for i, v in pairs(game.Workspace.PlayerModels:GetChildren()) do
+            if v:FindFirstChild("Owner") and v.Owner.Value ~= nil and v.Owner.Value == game.Players[WoodPlayer] then
+                if v:FindFirstChild("TreeClass") and v.TreeClass.Value == WoodType then
+                    local Freeze, Pos = Instance.new("BodyVelocity", v), Instance.new("BodyPosition", v)
+                    Freeze.Velocity = Vector3.new(0, 0, 0)
+                    Freeze.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                    Freeze.P = 9000
+                    Pos.MaxForce = Vector3.new(0, 0, 0)
+                    Pos.P = 100000
+                    Wood = v
+                end
+            end
+        end
+        for _, z in pairs(game.Workspace.PlayerModels:GetChildren()) do
+
+				if z:FindFirstChild("Owner") and z.Owner.Value == game.Players.LocalPlayer then
+					if z:FindFirstChild("BuildDependentWood") then
+						if z:FindFirstChild("Type") and z.Type.Value == "Blueprint" then 
+                            BP = z
+						end
+					end
+				end
+			end
+
+                            MeasurePing()
+                            task.wait(2)
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Wood.WoodSection.CFrame
+                            MeasurePing()
+                            task.wait(1)
+                            game:GetService("ReplicatedStorage").Interaction.ClientIsDragging:FireServer(Wood)
+                            MeasurePing()
+                            Wood.WoodSection.CFrame = BP.BuildDependentWood.CFrame
+                            task.wait()
+                            MeasurePing()
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = BP.BuildDependentWood.CFrame
+        end
+end)
+
+local abort = lib:CreateButton(window, "Abort Auto Filer", function()
+    AbortFiler = true
+    game.ReplicatedStorage.Notices.SendUserNotice:Fire('Filler Abort')
+end)
+
+ 
