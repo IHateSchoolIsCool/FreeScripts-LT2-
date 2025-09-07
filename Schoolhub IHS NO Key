@@ -1,0 +1,1935 @@
+-- Destroys UI 
+for i,v in pairs(game.CoreGui:GetDescendants()) do
+    if v.Name == "SchoolHub | #Fuck All Cheap Shops" then
+    v:Destroy()
+    end
+end
+
+
+
+
+-- Open / Closed
+if game:GetService("UserInputService").TouchEnabled and game:GetService("UserInputService").KeyboardEnabled == true then
+			
+    local OpenUi = Instance.new("ScreenGui")
+    local DropShadow = Instance.new("Frame")
+    local Open = Instance.new("TextButton")
+    local UIText = Instance.new("TextLabel")
+    local OpenString = true
+    
+    --Properties:
+    
+    OpenUi.Name = "Open Ui"
+    OpenUi.Parent = game.CoreGui
+    OpenUi.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    DropShadow.Name = "DropShadow"
+    DropShadow.Parent = OpenUi
+    DropShadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    DropShadow.BorderSizePixel = 0
+    DropShadow.Position = UDim2.new(0, 500, 0, 10)  --{0, -33}, {0, 5}
+    DropShadow.Size = UDim2.new(0, 90, 0, 28)
+    DropShadow.ZIndex = 4
+    
+    Open.Name = "Open"
+    Open.Parent = DropShadow
+    Open.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Open.BorderSizePixel = 0
+    Open.Position = UDim2.new(0.459571004, -45, -0.575309217, 10)
+    Open.Selectable = false
+    Open.Size = UDim2.new(0, 90, 0, 30)
+    Open.ZIndex = 5
+    Open.Font = Enum.Font.SourceSans
+    Open.Text = ""
+    Open.TextSize = 18.000
+    
+    UIText.Name = "UIText"
+    UIText.Parent = Open
+    UIText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    UIText.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    UIText.BorderSizePixel = 0
+    UIText.Position = UDim2.new(-6.78168419e-07, 0, 0, 0)
+    UIText.Size = UDim2.new(0, 90, 0, 30)
+    UIText.Font = Enum.Font.ArialBold
+    UIText.Text = "Close Ui"
+    UIText.TextColor3 = Color3.fromRGB(0, 0, 0)
+    UIText.TextSize = 21.000
+    UIText.TextWrapped = true
+    
+    -- Scripts:
+    
+    local function AYQUHYR_fake_script() -- Open.LocalScript 
+        local script = Instance.new('LocalScript', Open)
+        script.Parent.MouseButton1Down:Connect(function()
+            if OpenString == true then
+                script.Parent.UIText.Text = "Open UI"
+                OpenString = false
+                game:GetService("CoreGui")["SchoolHub | #Fuck All Cheap Shops"].Main.Visible = false
+            else
+                script.Parent.UIText.Text = "Close UI"
+                OpenString = true
+                game:GetService("CoreGui")["SchoolHub | #Fuck All Cheap Shops"].Main.Visible = true
+            end
+        end)
+        
+    end
+    coroutine.wrap(AYQUHYR_fake_script)()
+            else
+                print("Probably not a Mobile User")
+            end
+
+-- Teleport 
+
+function GetPlrs()
+    local Plrs = {}
+    for i, v in next, game.Players:GetPlayers() do
+        table.insert(Plrs, v.Name)
+    end
+    return Plrs
+end
+
+local playerList = GetPlrs()
+
+local plr = game.Players.LocalPlayer
+
+local AllPlayers = {"Select Player"}
+for i,v in next,game.Players:GetPlayers() do
+    if not table.find(AllPlayers,v.Name) then
+        table.insert(AllPlayers,v.Name)
+    end
+end
+
+function TeleportToBase(Plr)
+    for i,v in next, game:GetService("Workspace").Properties:GetChildren() do
+        if v:FindFirstChild("Owner") and tostring(v.Owner.Value) == Plr then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.OriginSquare.CFrame + Vector3.new(0,2,0)
+            break
+        end
+    end
+end
+
+
+function TeleportToPlayer(Plr)
+    for i,v in next, game.Players:GetPlayers() do
+        if tostring(v.Name) == Plr then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.CFrame.p)
+            --print("Teleported")
+            break
+        end
+    end
+end
+
+
+
+--Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
+-- init
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
+local venyx = library.new("SchoolHub | #Fuck All Cheap Shops", 5013109572)
+
+
+-- Speical Notes
+local example = {   
+    "Lmao Skidware Goes BRRRRR",
+    "0xitScam",
+    "Watch Butter Skid This",
+    "#FuckCheapShops",
+    "Free Synapse X Download 2025",
+    "NEW LT2 Money Dupe",
+    "Ancestor V3, 20% Coded 80% Skided"
+    }
+    
+    local randomNum = Random.new() :NextInteger(1, #example)
+
+-- Special Note Part 2
+local tipsTable = {
+    "Byfron Gay",
+    "Come Buy From Wood Wonders",
+    "Oddy & Ernestlin can go fuck themselfs",
+    "IhateSchool #1 Shop Owner",
+    "Thank You Butterhub for suggetion",
+    "New Money Dupe?",
+    "Fuck Cheap Shops",
+    "Lmao Skidware Goes BRRRRR",
+    "0xitScam",
+    "#FuckCheapShops",
+    "Free Synapse X Download 2025",
+    "Ancestor V3, 20% Coded 80% Skided",
+    "Cazed #1 Scripter",
+    "S409Hub Is Better then Luaware",
+    "Luaware = Vomit",
+    "Dont Trust R600a / Dxrc Soda",
+    "Macbooks & Ios Goes BRRR",
+    "jinx dont do tickets on time",
+    "ThugLifEven never answers dms"
+}
+
+task.spawn(
+    function()
+        wait(5)
+        local randomIndex = math.random(1, #tipsTable)
+        local randomTip = tipsTable[randomIndex]
+
+        venyx:Notify("Did you know", randomTip)
+
+    end
+)
+
+
+-- Sign Reconfiguired ("Credits to Blood Gui")
+
+--- Open 24h Sign
+game:GetService("Workspace").Stores.WoodRUs.Parts.OPEN24HOURS.SurfaceGui.TextLabel.Text = "SchoolHub"
+
+-- Bullitin Board
+game:GetService("Workspace").Stores.WoodRUs.Parts.BULLETINBULLETIN.SurfaceGui.TextLabel.Text = "Fuck Silent"
+
+-- Premium Selection
+game:GetService("Workspace").Stores.WoodRUs.Parts.PREMIUMSELECTION.SurfaceGui.TextLabel.Text = "SchoolHub | #Fuck Cheap Shops"
+
+-- Sell Wood Sign
+game:GetService("Workspace").Stores.WoodRUs.Parts.SELLWOOD.SurfaceGui.TextLabel.Text = "IHS WaZ Here"
+
+-- Wood Drop Off sign
+game:GetService("Workspace").Stores.WoodRUs.Parts.WOODDROPOFF.SurfaceGui.TextLabel.Text = "Thanks Cazed, BitrarOfc & Thomas V1"
+
+
+-- World 
+game.Lighting.Changed:Connect(function()
+    if AlwaysDay then
+        if AlwaysNight then return end
+        game.Lighting.TimeOfDay = "12:00:00"
+        game.Lighting.SunPos.Value = 1
+
+        game:GetService("Lighting").Ambient = Color3.new(1, 1, 1)
+        game:GetService("Lighting").ColorShift_Bottom = Color3.new(1, 1, 1)
+        game:GetService("Lighting").ColorShift_Top = Color3.new(1, 1, 1)
+    end
+    if AlwaysNight then
+        if AlwaysDay then return end
+        game.Lighting.TimeOfDay = "00:00:00"
+        game.Lighting.SunPos.Value = -1
+    end
+    if NoFog then
+        game.Lighting.FogEnd = 100000
+    end
+end)
+
+
+function WalkOnWater(Val)
+    for i,v in next, game:GetService("Workspace").Water:GetChildren() do
+        if v.Name == "Water" then
+            v.CanCollide = Val
+        end
+    end
+end
+
+function BridgeDown(Bridge)
+    for i,v in next, game:GetService("Workspace").Bridge.VerticalLiftBridge.Lift:GetChildren() do
+        if not Bridge then
+            v.CFrame = v.CFrame + Vector3.new(0,26,0)
+        else
+            v.CFrame = v.CFrame - Vector3.new(0,26,0)
+        end
+    end
+end
+
+function RemoveWater(Val)
+    for i,v in next, game:GetService("Workspace").Water:GetChildren() do
+        if v.Name == "Water" then
+            if not Val then
+                v.Transparency = 0
+            else
+                v.Transparency = 1
+            end
+        end
+    end
+end
+
+
+function BetterG()
+    local light = game.Lighting
+    light:ClearAllChildren()
+    local color = Instance.new("ColorCorrectionEffect",light)
+    local bloom = Instance.new("BloomEffect",light)
+    local sun = Instance.new("SunRaysEffect",light)
+    local blur = Instance.new("BlurEffect",light)
+    local config = {ColorCorrection = true;Sun = true;Lighting = true;BloomEffect = true;}
+    color.Enabled = true
+    color.Contrast = 0.15
+    color.Brightness = 0.1
+    color.Saturation = 0.25
+    color.TintColor = Color3.fromRGB(255, 222, 211)
+    sun.Enabled = true
+    sun.Intensity = 0.2
+    sun.Spread = 1
+    bloom.Enabled = true
+    bloom.Intensity = 1
+    bloom.Size = 32
+    bloom.Threshold = 1
+    blur.Enabled = true
+    blur.Size = 3
+    light.Ambient = Color3.fromRGB(0, 0, 0)
+    light.ColorShift_Bottom = Color3.fromRGB(0, 0, 0)
+    light.ColorShift_Top = Color3.fromRGB(0, 0, 0)
+    light.ExposureCompensation = 0
+    light.GlobalShadows = true
+    light.OutdoorAmbient = Color3.fromRGB(112, 117, 128)
+    light.Outlines = false
+end
+
+
+-- Unload Base
+local Loadsenv = getupvalue(getsenv(game.Players.LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("LoadSaveGUI"):WaitForChild("LoadSaveClient")).saveSlot, 12)
+    
+    function SetSlotTo(v)
+    if Loadsenv and typeof(Loadsenv) == "number" then
+    game.Players.LocalPlayer.CurrentSaveSlot.Set:Invoke(v, Loadsenv)
+    end
+    end
+    
+    
+    
+    function LoadSlot(SlotNum)
+    if game.Players.LocalPlayer.CurrentlySavingOrLoading.Value == true then return end
+    if not game.ReplicatedStorage.LoadSaveRequests.ClientMayLoad:InvokeServer(game.Players.LocalPlayer) then
+    game.ReplicatedStorage.Notices.SendUserNotice:Fire("Error!, Load on cooldown please wait")
+    repeat task.wait() until game.ReplicatedStorage.LoadSaveRequests.ClientMayLoad:InvokeServer(game.Players.LocalPlayer)
+    end
+    if game.Players.LocalPlayer.CurrentSaveSlot.Value ~= -1 then
+    game.ReplicatedStorage.LoadSaveRequests.RequestSave:InvokeServer(SlotNum, game.Players.LocalPlayer)
+    SetSlotTo(-1)
+    end
+    game.ReplicatedStorage.Notices.SendUserNotice:Fire("Loading Slot")
+    game.ReplicatedStorage.LoadSaveRequests.RequestLoad:InvokeServer(SlotNum,game.Players.LocalPlayer)
+    repeat task.wait() until game.Players.LocalPlayer.CurrentlySavingOrLoading.Value ~= true
+    if game.Players.LocalPlayer.OwnsProperty.Value == true then
+    SetSlotTo(SlotNum)
+    return game.ReplicatedStorage.Notices.SendUserNotice:Fire("Slot "..SlotNum.." loaded successfully")
+    end
+    game.ReplicatedStorage.Notices.SendUserNotice:Fire("Slot deloaded successfully")
+    end
+
+
+
+
+
+--Hard Dragger
+function Dragger()
+    game.Workspace.ChildAdded:connect(function(a)
+        if a.Name == "Dragger" then
+            a.Color = Color3.fromRGB(TheR, TheG, TheB)
+            local bg = a:WaitForChild("BodyGyro")
+            local bp = a:WaitForChild("BodyPosition")
+            repeat
+                if CustomDragger then
+                    task.wait()
+                    bp.P = 120000
+                    bp.D = 1000        
+                    bp.maxForce = Vector3.new(math.huge,math.huge,math.huge)
+                    bg.maxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                else
+                    wait()
+                    bp.P = 10000
+                    bp.D = 800
+                    bp.maxForce = Vector3.new(17000, 17000, 17000)
+                    bg.maxTorque = Vector3.new(200, 200, 200)
+                end
+            until not a
+        end
+    end)
+end
+
+-- Fly
+local Mouse =  game.Players.LocalPlayer:GetMouse()
+IsClientFlying = false
+FlySpeed = 200
+FlyBind = 'Q'
+
+function Teleport(CF)
+
+    repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart')
+
+    xpcall(function()
+
+        game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:PivotTo(CF * CFrame.Angles(math.rad(game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.X), math.rad(game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.Y), math.rad(game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.Z)))
+        
+    end,
+
+    function()
+
+        game.Players.LocalPlayer.Character:PivotTo(CF)
+        
+    end)
+    
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.RotVelocity = Vector3.new()
+
+end
+
+
+function BetterFly()
+
+    local MaxSpeed, WeldOne, WeldTwo = 9e9
+
+    repeat task.wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild('Head')
+
+    local Steer, BackSteer = {Forward = 0, Back = 0, Left = 0, Right = 0}, {Forward = 0, Back = 0, Left = 0, Right = 0}
+
+    game.Players.LocalPlayer.Character.Humanoid.PlatformStand = (not game.Players.LocalPlayer.Character.Humanoid.SeatPart and true) or false
+    
+    if game.Players.LocalPlayer.Character.Humanoid.SeatPart then
+
+        Car = game.Players.LocalPlayer.Character.Humanoid.SeatPart
+        WeldOne = Instance.new('Weld', game.Players.LocalPlayer.Character.Humanoid.SeatPart)
+        WeldTwo = Instance.new('Weld', game.Players.LocalPlayer.Character.HumanoidRootPart)
+        WeldOne.Part0 = game.Players.LocalPlayer.Character.HumanoidRootPart
+        WeldOne.Part1 = game.Players.LocalPlayer.Character.Humanoid.SeatPart
+        WeldTwo.Part0 = game.Players.LocalPlayer.Character.HumanoidRootPart
+        WeldTwo.Part1 = game.Players.LocalPlayer.Character.Humanoid.SeatPart
+
+    end
+
+    function Fly()
+
+        local Gyro = Instance.new('BodyGyro', game.Players.LocalPlayer.Character.HumanoidRootPart)
+        Gyro.P = 9e4
+        Gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        Gyro.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        local Velocity = Instance.new('BodyVelocity', game.Players.LocalPlayer.Character.HumanoidRootPart)
+        Velocity.Velocity = Vector3.new(0, 0, 0)
+        Velocity.maxForce = Vector3.new(9e9, 9e9, 9e9)
+
+        repeat task.wait()
+
+            if not (workspace:FindFirstChild('Dragger')) then 
+
+                local FlySpeed, SteerSpeed = FlySpeed, 50
+
+                if Steer.Left + Steer.Right ~= 0 or Steer.Forward + Steer.Back ~= 0 then
+
+                    SteerSpeed = FlySpeed
+
+                    if SteerSpeed > MaxSpeed then
+
+                        SteerSpeed = MaxSpeed
+
+                    end
+
+                elseif not (Steer.Left + Steer.Right ~= 0 or Steer.Forward + Steer.Back ~= 0) and speed ~= 0 then
+
+                    SteerSpeed = SteerSpeed - 50
+
+                    if SteerSpeed < 0 then
+
+                        FlySpeed = 0
+                        
+                    end
+
+                end
+
+                if (Steer.Left + Steer.Right) ~= 0 or (Steer.Forward + Steer.Back) ~= 0 then
+
+                    Velocity.Velocity = ((game.workspace.CurrentCamera.CoordinateFrame.lookVector * (Steer.Forward + Steer.Back)) + ((game.workspace.CurrentCamera.CoordinateFrame * CFrame.new(Steer.Left + Steer.Right, (Steer.Forward + Steer.Back) * .2, 0).p) - game.workspace.CurrentCamera.CoordinateFrame.p)) * SteerSpeed
+                    BackSteer = {Forward = Steer.Forward, Back = Steer.Back, Left = Steer.Left, Right = Steer.Right}
+
+                elseif (Steer.Left + Steer.Right == 0 or Steer.Forward + Steer.Back == 0) and SteerSpeed ~= 0 then
+                    
+                    Velocity.Velocity =((game.workspace.CurrentCamera.CoordinateFrame.lookVector * (BackSteer.Forward + BackSteer.Back)) + ((game.workspace.CurrentCamera.CoordinateFrame * CFrame.new(BackSteer.Left + BackSteer.Right, (BackSteer.Forwardorward + BackSteer.Back) * .2, 0).p) - game.workspace.CurrentCamera.CoordinateFrame.p)) * SteerSpeed
+                
+                else
+                    
+                    Velocity.Velocity = Vector3.new(0, 0, 0)
+                
+                end
+
+                Gyro.CFrame = game.workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((Steer.Forward + Steer.Back) * 50 * SteerSpeed / MaxSpeed), 0, 0)
+
+            end
+        
+        until not IsClientFlying
+
+        Gyro:Destroy()
+
+        Velocity:Destroy()
+
+        if WeldOne and WeldTwo then
+
+            WeldOne:Destroy()
+            WeldTwo:Destroy()
+            Teleport(CFrame.new(Car.CFrame.p))
+
+        end
+
+        game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+
+    end
+
+    Mouse.KeyDown:Connect(
+        function(Key)
+            if Key:lower() == 'w' then
+                isWDown = true
+                Steer.Forward = 1
+            elseif Key:lower() == 'a' then
+                isADown = true
+                Steer.Left = -1
+            elseif Key:lower() == 's' then
+                isSDown = true
+                Steer.Back = -1
+            elseif Key:lower() == 'd' then
+                isSDown = true
+                Steer.Right = 1
+            end
+        end
+    )
+    Mouse.KeyUp:Connect(
+        function(Key)
+            if Key:lower() == 'w' then
+                isWDown = false
+                Steer.Forward = 0
+            elseif Key:lower() == 'a' then
+                isADown = false
+                Steer.Left = 0
+            elseif Key:lower() == 's' then
+                isSDown = false
+                Steer.Back = 0
+            elseif Key:lower() == 'd' then
+                isDDown = false
+                Steer.Right = 0
+            end
+        end
+    )
+    Fly()
+end
+
+
+--end wood 
+function ViewEndTree(Val)
+    for i,v in pairs(game.Workspace:GetChildren()) do
+        if v.Name == "TreeRegion" then
+            for i,v in pairs(v:GetChildren()) do
+                if v:FindFirstChild("Owner") and tostring(v.Owner.Value) == "nil" then
+                    if v:FindFirstChild("TreeClass") and tostring(v.TreeClass.Value) == "LoneCave" then
+                        if Val then
+                            game.Workspace.Camera.CameraSubject = v:FindFirstChild("WoodSection")
+                        else
+                            game.Workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- Slot Tools
+OwnerNm = game.Players.LocalPlayer
+
+
+-- No Clip
+function toggleNoClip()
+    local disableCollide 
+    disableCollide = game:GetService("RunService").Stepped:connect(function()
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+    if noclipping == false then
+    disableCollide:Disconnect()
+    return
+    end
+    if v:IsA("BasePart") then
+    v.CanCollide = false
+    end
+    end
+    end)
+    end
+
+-- themes
+local themes = {
+Background = Color3.fromRGB(24, 24, 24),
+Glow = Color3.fromRGB(0, 0, 0),
+Accent = Color3.fromRGB(10, 10, 10),
+LightContrast = Color3.fromRGB(20, 20, 20),
+DarkContrast = Color3.fromRGB(14, 14, 14),  
+TextColor = Color3.fromRGB(255, 255, 255)
+}
+
+
+-- waypoints
+local WaypointsPositions = {["The Den"] = CFrame.new(323, 49, 1930), ["Lighthouse"] = CFrame.new(1464.8, 356.3, 3257.2), ["Safari"] = CFrame.new(111.853, 11.0005, -998.805), ["Bridge"] = CFrame.new(112.308, 11.0005, -782.358), ["Bob's Shack"] = CFrame.new(260, 8, -2542), ["EndTimes Cave"] = CFrame.new(113, -214, -951), ["The Swamp"] = CFrame.new(-1209, 132, -801), ["The Cabin"] = CFrame.new(1244, 66, 2306), ["Volcano"] = CFrame.new(-1585, 625, 1140), ["Boxed Cars"] = CFrame.new(509, 5.2, -1463), ["Tiaga Peak"] = CFrame.new(1560, 410, 3274), ["Land Store"] = CFrame.new(258, 5, -99), ["Link's Logic"] = CFrame.new(4605, 3, -727), ["Palm Island"] = CFrame.new(2549, -5, -42), ["Palm Island 2"] = CFrame.new(1960, -5.900, -1501), ["Palm Island 3"] = CFrame.new(4344, -5.900, -1813), ["Fine Art Shop"] = CFrame.new(5207, -166, 719), ["SnowGlow Biome"] = CFrame.new(-1086.85, -5.89978, -945.316), ["Cave"] = CFrame.new(3581, -179, 430), ["Shrine Of Sight"] = CFrame.new(-1600, 195, 919), ["Fancy Furnishings"] = CFrame.new(491, 13, -1720), ["Docks"] = CFrame.new(1114, 3.2, -197), ["Strange Man"] = CFrame.new(1061, 20, 1131), ["Wood Dropoff"] = CFrame.new(323.406, -2.8, 134.734), ["Snow Biome"] = CFrame.new(889.955, 59.7999, 1195.55), ["Wood RUs"] = CFrame.new(265, 5, 57), ["Green Box"] = CFrame.new(-1668.05, 351.174, 1475.39), ["Spawn"] = CFrame.new(172, 2, 74), ["Cherry Meadow"] = CFrame.new(220.9, 59.8, 1305.8), ["Bird Cave"] = CFrame.new(4813.1, 33.5, -978.8),}
+
+-- first page
+local credits = venyx:addPage("Credits", 5012544693)
+local credit = credits:addSection("Credits")
+
+credit:addButton(
+    "Owner: IHateSchool",
+    function()
+        venyx:Notify("Owner:", "IHS")
+    end
+)
+
+credit:addButton(
+    "Script Devs: IHS, Cazed, BitRarOFC & Thomasv1",
+    function()
+        venyx:Notify("Script Devs:", "IHS, Cazed, BitRarOFC")
+    end
+)
+
+credit:addButton(
+    "Testers Vaxeal, JinxMoke, ThugLifEven, Pete <3",
+    function()
+        venyx:Notify("Amazing", "Testers")
+    end
+)
+
+credit:addButton(
+    "#1 Testers Vaxeal",
+    function()
+        venyx:Notify("Amazing", "Tester")
+    end
+)
+
+credit:addButton(
+    "Best Builder Patrick Star",
+    function()
+        venyx:Notify("Patrick has Built", "4 Detail bases in 1 Year")
+    end
+)
+
+credit:addButton(
+    "Credits: Denosaur For The Venyx UI Lib",
+    function()
+    venyx:Notify("UI Lib:", "Denosaur")
+    end
+    )
+
+credit:addKeybind("Toggle UI", 
+    Enum.KeyCode.LeftControl, 
+    function()
+    venyx:toggle()
+    end)
+
+credit:addButton(
+    "Destroy UI",
+    function()
+        for i,v in pairs(game.CoreGui:GetDescendants()) do
+            if v.Name == "SchoolHub | #Fuck All Cheap Shops" then
+            v:Destroy()
+            end
+        end        
+        venyx:Notify("GoodBye:", "User")
+    end
+)
+    
+
+
+local UISettings = credits:addSection("Ui Customization")
+
+for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
+UISettings:addColorPicker(theme, color, function(color3)
+venyx:setTheme(theme, color3)
+end)
+end
+    
+
+
+
+
+local SupportDevs = credits:addSection("Support These Devs")
+
+SupportDevs:addButton(
+    "Execute Toads",
+    function()
+        loadstring(game:HttpGet('https://bit.ly/3x90l99'))('TOADS')
+    end 
+)
+
+SupportDevs:addButton(
+    "Execute Interject",
+    function()
+        venyx:Notify("Cazed Script","Number 1")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Interject.lua"))()
+    end 
+)
+
+
+--- Second page
+local characters = venyx:addPage("Character", 5012544693)
+local character = characters:addSection("Character")
+
+character:addSlider("Walkspeed", 16, 16, 200, function(value)
+    _G.WS = value;
+    local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+    Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+    Humanoid.WalkSpeed = _G.WS;
+    end)
+    Humanoid.WalkSpeed = _G.WS;
+
+    end)    
+
+
+    local SprintSpeed = 100
+    character:addKeybind("Sprint", 
+    Enum.KeyCode.LeftShift, 
+    function()
+    local player = game.Players.LocalPlayer
+    local userInputService = game:GetService("UserInputService")
+    
+    userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+        if not gameProcessedEvent and input.KeyCode == Enum.KeyCode.LeftShift then
+            _G.WS = SprintSpeed;
+            local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+            Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                Humanoid.WalkSpeed = _G.WS;
+            end)
+            Humanoid.WalkSpeed = _G.WS;
+        end
+    end)
+    
+    userInputService.InputEnded:Connect(function(input)
+        if input.KeyCode == Enum.KeyCode.LeftShift then
+            _G.WS = 16;
+            local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+            Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                Humanoid.WalkSpeed = _G.WS;
+            end)
+            Humanoid.WalkSpeed = _G.WS;
+        end
+    end)
+end)
+
+
+
+
+
+
+
+character:addSlider("Jump Power", 50, 50, 500, function(value)
+    _G.JP = value
+        local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid
+        Humanoid:GetPropertyChangedSignal("JumpPower"):Connect(function()
+        Humanoid.JumpPower = _G.JP
+        end)
+        Humanoid.JumpPower = _G.JP
+
+    end)
+
+
+character:addToggle(
+    "Infinite Jump",
+    false,
+    function(Value)
+    local InfiniteJumpEnabled = Value
+    game:GetService("UserInputService").JumpRequest:connect(function()
+    if InfiniteJumpEnabled then
+    game.Players.LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+    end
+    end)
+    end
+)  
+
+
+
+local Other = characters:addSection("Other Stuff")
+
+
+Other:addToggle("No Clip", false, function(value)
+    print("Toggled", value)
+    if value == true then
+        noclipping = true
+        toggleNoClip()
+        elseif value == false then
+        noclipping = false
+        toggleNoClip()
+        end
+    end)
+
+    Other:addSlider("FlySpeed", 200, 20, 500, function(value)
+        FlySpeed = value
+        end)
+
+
+    Other:addKeybind("FLY",
+        Enum.KeyCode.Q,
+        function()
+            IsClientFlying = not IsClientFlying
+            BetterFly()
+        end
+    )
+
+    Other:addSlider("Hip Height", 0, 0, 200, function(value)
+        getgenv().HipHeightValue = (value); --set your desired walkspeed here
+        game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = getgenv().HipHeightValue;
+        end)
+        game.Players.LocalPlayer.Character.Humanoid.HipHeight = getgenv().HipHeightValue;
+        end)
+
+
+
+
+local fov Other:addSlider("FOV", 70, 10, 140, function(value)
+    game.Workspace.Camera.FieldOfView = value
+    end    
+)
+
+Other:addToggle("Hard Dragger", false, function(Value)
+    CustomDragger = Value
+    end)
+    Dragger()
+
+
+
+Other:addButton(
+    "Btools",
+    function()
+        BTools()
+    end
+        
+)
+
+Other:addToggle('Flashlight', false, function(Value)
+    Light(Value)
+    end)
+
+Other:addButton(
+    "Click 2 Tp",
+    function()
+    local UIS = game:GetService("UserInputService")
+
+local Player = game.Players.LocalPlayer
+local Mouse = Player:GetMouse()
+
+
+function GetCharacter()
+   return game.Players.LocalPlayer.Character
+end
+
+function Teleport(pos)
+   local Char = GetCharacter()
+   if Char then
+       Char:MoveTo(pos)
+   end
+end
+
+
+UIS.InputBegan:Connect(function(input)
+   if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+       Teleport(Mouse.Hit.p)
+   end
+end)
+	end
+    
+)
+
+
+local ShopTeleports = characters:addSection("Shop Teleport")
+
+
+ShopTeleports:addDropdown("Teleport to waypoints", {"The Den", "Lighthouse", "Safari", "Bridge", "Bob's Shack", "EndTimes Cave", "The Swamp", "The Cabin", "Volcano", "Boxed Cars", "Tiaga Peak", "Land Store", "Link's Logic", "Palm Island", "Palm Island 2", "Palm Island 3", "Fine Art Shop", "SnowGlow Biome", "Cave", "Shrine Of Sight", "Fancy Furnishings", "Docks", "Strange Man", "Wood Dropoff", "Snow Biome", "Wood RUs", "Green Box", "Spawn", "Cherry Meadow", "Bird Cave",}, function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = WaypointsPositions[Value]
+    return
+    end)
+
+
+
+local PlayerTeleports = characters:addSection("Player Teleport Teleports")
+
+PlayerTeleports:addDropdown("TP To Players", playerList, function(Value)
+    TeleportToPlayer(Value)
+ end)
+    
+local BaseTeleports = characters:addSection("Base Teleports")
+
+ BaseTeleports:addDropdown("TP To Bases", playerList, function(Value)
+    TeleportToBase(Value)
+ end)
+
+local Miscs = characters:addSection("Miscellaneous")
+
+
+Miscs:addButton(
+    "Anti AFK",
+    function()
+    game.Players.LocalPlayer.Idled:connect(function()
+    vu:Button2Down(Vector2.new(0,0),game.workspace.CurrentCamera.CFrame)
+    wait(1)
+    vu:Button2Up(Vector2.new(0,0),game.workspace.CurrentCamera.CFrame)
+    end)   
+    end
+    )
+
+Miscs:addButton(
+    "Inf Camera Zoom",
+    function()
+        game.Players.LocalPlayer.CameraMaxZoomDistance = math.huge
+    end
+)
+
+
+
+
+
+
+local Worlds = venyx:addPage("World", 6034287522)
+local World = Worlds:addSection("World")
+
+World:addToggle("Always Day", false, function(Value)
+    if Value == "" then
+        AlwaysDay = true
+    else
+        daystuff = Value
+        AlwaysDay = Value
+    end
+    end)
+
+
+World:addToggle("Always Night", false, function(Value)
+    AlwaysNight = Value
+    end)
+    
+World:addToggle("No Fog", false, function(Value)
+    if Value == "" then
+        NoFog = true
+    else
+        nofogst = Value
+        NoFog = Value
+    end
+    end)
+    
+    
+        World:addToggle("Shadows", false, function(Value)
+        game:GetService("Lighting").GlobalShadows = Value
+        end)
+    
+    
+        World:addToggle("Bridge up/Down", false, function(Value)
+        BridgeDown(Value)
+        end)
+    
+    
+    
+        World:addToggle("Water Walk", false, function(Value)
+        WalkOnWater(Value)
+        end)
+    
+    
+    
+        World:addToggle("Remove Water", false, function(Value)
+        RemoveWater(Value)
+        end)
+    
+    
+        World:addButton("HD Graphics", function()
+        BetterG()
+        end)
+            
+        World:addButton("HD Water", function()
+        for i,v in next, game.Workspace:GetDescendants() do
+            if v:IsA("Part") and v.Name == "SeaSand" then
+                v.Size = Vector3.new(2048, 60, 2048)
+            end
+        end
+    
+        for i,v in next, game.Workspace:GetDescendants() do
+            if v:IsA("Part") and v.Name == "Water" then
+                v.Size = Vector3.new(20480, 6, 20080)
+                game.Workspace.Terrain:fillBlock(v.CFrame, v.Size, Enum.Material.Water)
+                v:Destroy()
+            end
+        end
+        end)
+    
+
+
+
+
+--- Fourth page
+local Builds = venyx:addPage("Building", 6035067834)
+local Build = Builds:addSection("Building")
+
+
+local GDPE2 = Dpe:Channel("Gift Dupe #2")
+GDPE2:Slider(
+    "Slot",
+    1,
+    6,
+    1,
+    function(value)
+        GiftDupeSlot = value
+    end
+)
+
+GDPE2:Seperator()
+
+GDPE2:Toggle(
+    "Auto Rejoin Vip (Must be on server list)",
+    false,
+    function(value)
+        KickPlayerdupe = value
+    end
+)
+
+local KickAmount = 0
+
+GDPE2:Textbox(
+    "Last Item",
+    "Insert Amount",
+    true,
+    function(value)
+        KickAmount = value
+    end
+)
+
+GDPE2:Seperator()
+local greenitem
+local KickCount = KickAmount
+local Count = 0
+
+GDPE2:Button(
+    "Gift Checker (Must Do Everytime)",
+    function()
+        local folder = game:GetService("Workspace").Effects.StructureModel
+
+        local children = folder:GetChildren()
+        local lastItem = children[#children]
+        greenitem = lastItem.Name
+        Count = 0
+        for i,v in next, game:GetService("Workspace").Effects.StructureModel:GetChildren() do
+            if v.Name == greenitem then
+            Count = Count + 1
+            end
+        end
+
+        DiscordLib:Notification(greenitem, Count, "Okay!")
+    end
+)
+
+GDPE2:Button(
+    "Gift Dupe",
+    function()
+        DiscordLib:Notification("SchoolHub", "Gift Dupe Started (Remember this may wipe)", "Okay!")
+
+
+        scr=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient)
+
+
+        spawn(function()
+            game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(GiftDupeSlot ,game.Players.LocalPlayer) -- add a slider for the slot number
+        end)
+        repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible
+        for i=1,1 do
+            wait(1)
+            scr.scrollSelection(-1)
+            wait()
+            scr.selectionMade()
+            wait()
+            scr.selectionMade()
+            local added = game.Workspace.PlayerModels.ChildAdded:connect(function(Item)
+                if (Item.Name == greenitem) then
+                    local Owner = Item:WaitForChild('Owner', 10)
+                    if Owner.Value == game.Players.LocalPlayer then
+                        KickCount = KickCount + 1
+                    end
+                end
+            end)
+            repeat wait() until KickCount == Count
+                        FreeLand()
+                        if KickPlayerdupe then
+                            game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+                        else
+                            game:Shutdown()
+                        end
+        end
+    end
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local Land = Builds:addSection("Land Tools")
+
+
+
+local Wood = Builds:addSection("Wood Section")
+
+Wood:addButton(
+    "Sell Wood",
+    function()
+        selltool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+    selltool.Name = "Sell Tool"
+    selltool.CanBeDropped = false
+    selltool.RequiresHandle = false
+    selltool.Activated:Connect(function()
+        if game.Players.LocalPlayer:GetMouse().Target.Parent:FindFirstChild("WoodSection") then
+            WoodSectionParent =  game.Players.LocalPlayer:GetMouse().Target.Parent
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = WoodSectionParent.WoodSection.CFrame + Vector3.new(0, 25, 0)
+            game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(WoodSectionParent)
+            task.wait()
+            for _,WoodSection in pairs(WoodSectionParent:GetChildren()) do
+                if WoodSection.Name == "WoodSection" then
+                    task.spawn(function()
+                        for i = 1, 50 do
+                            WoodSection.CFrame = CFrame.new(Vector3.new(315, -0.296, 85.791))*CFrame.Angles(math.rad(90),0,0)
+                            WoodSection.Velocity = Vector3.new(0,0,0)
+                            task.wait()
+                        end
+                    end)
+                end
+            end
+        end
+    end)
+
+
+
+selltool.Equipped:Connect(function()
+    for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Anchored = true
+        end
+    end
+end)
+
+
+selltool.Unequipped:Connect(function()
+    for _, part in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Anchored = false
+        end
+    end
+end)
+    end
+)
+
+
+-- Fifth page
+local Slots = venyx:addPage("Slot", 6034333276)
+local Slot = Slots:addSection("Land Plots")
+
+Slot:addButton(
+    "Free Land",
+    function()
+        FreeLand()
+    end
+)
+
+Slot:addButton(
+    "Maxland",
+    function()
+        MaxLand()
+    end
+)
+
+Slot:addButton(
+    "Claim Land Tool",
+    function()
+        local mouse = game.Players.LocalPlayer:GetMouse()
+local Claim = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+Claim.Name = "Claim Land"
+Claim.CanBeDropped = true
+Claim.RequiresHandle = false
+
+Claim.Activated:Connect(function()
+    if (mouse.Target.Name == "OriginSquare" or mouse.Target.Name == "Square")  then
+    if mouse.Target.Parent.Owner.Value == nil then
+    game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(mouse.Target.Parent,mouse.Target.Position)
+    game:GetService"Players".LocalPlayer.Character.HumanoidRootPart.CFrame = mouse.Target.CFrame
+    end
+    end
+end)
+    end
+)
+
+Slot:addToggle('LandArt', false, function(Value)
+    LandArt(Value)
+    end)
+     
+
+
+
+local Clock = Slots:addSection("Timer")
+
+Clock:addSlider("Slot", 0, 0, 6, function(value)
+    CenterDupeCheck = value
+end
+)
+
+
+Clock:addButton(
+    "Check Slot",
+    function()
+        scr=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient)
+        loadedSlot=nil
+        spawn(function()
+            loadedSlot=game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(CenterDupeCheck ,game.Players.LocalPlayer) --make a slider for slot
+        end)
+        repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible
+        for i=1,1 do 
+            wait(1)
+            scr.scrollSelection(-1)
+            wait()
+            scr.selectionMade()
+            wait()
+            scr.selectionMade();
+            wait()
+            local decimals = 2
+            local x = os.clock()
+
+            repeat wait() until game.Players.LocalPlayer.OwnsProperty.Value == true
+            local t = (string.format("%."..tostring(decimals).."f\n", os.clock() - x))
+            venyx:Notify("Time", "You Got " .. t)
+            game.Players.LocalPlayer.OwnsProperty.Value = false
+        end
+    end
+)
+
+local LandChecker = Slots:addSection("Checker")
+
+LandChecker:addButton(
+    "Land Check",
+    function()
+        --- Modified By Cazed & originally created by silent
+local Count = 0
+
+for i,v in next, game:GetService("Workspace").Effects.StructureModel:GetChildren() do
+if v.Name == "Square" or v.Name == "OriginSquare" then
+Count = Count + 1
+end
+end
+
+if Count > 1000 then
+game.ReplicatedStorage.Notices.SendUserNotice:Fire("ERROR, You Have Over The Land Limit. You Have "..Count.."Plots")
+else
+game.ReplicatedStorage.Notices.SendUserNotice:Fire("You Are Safe To Load. You Have "..Count.." Plots")
+end
+    end
+)
+
+
+
+
+
+
+--- Six page
+local Dupeing = venyx:addPage("Duping", 6035053278)
+local Unloadsave = Dupeing:addSection("Unload Slot")
+
+Unloadsave:addButton("Deload Your Slot", 
+    function()
+    if   game.Players.LocalPlayer.CurrentSaveSlot.Value ~= 1 then
+        LoadSlot(math.huge)
+    else
+        venyx:Notify("Error!", "You currenly do not have a slot loaded")
+        end
+    end)
+
+
+
+local OldDupe = Dupeing:addSection("Time / Center Dupe")
+    
+
+OldDupe:addSlider("Slot", 0,0,6, function(value)
+    BaseDupe = value
+    end)
+
+OldDupe:addSlider("Time", 0,0,400, function(value)
+BaseTime = value
+end)
+
+
+
+OldDupe:addButton("Time Maxland Dupe", function()
+    function FreeLand()
+        for i,v in next, game:GetService("Workspace").Properties:GetChildren() do
+            if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(v,v.OriginSquare.Position)
+                break
+            end
+        end
+    end
+                
+            scr=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient)
+        
+        
+            spawn(function()
+            game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(BaseDupe ,game.Players.LocalPlayer) -- add a slider for the slot number
+            end)
+            repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible
+            for i=1,20 do 
+                wait(1)
+                print(example[randomNum])
+                randomNum = Random.new() :NextInteger(1, #example)
+                scr.scrollSelection(-1)
+                wait()
+                print(example[randomNum])
+                randomNum = Random.new() :NextInteger(1, #example)
+                scr.selectionMade()
+                wait()
+                print(example[randomNum])
+                randomNum = Random.new() :NextInteger(1, #example)
+                scr.selectionMade()
+                wait(BaseTime) --add slider for time to leave
+                FreeLand()
+                game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+            end
+    end)
+
+
+
+
+OldDupe:addButton("Center Dupe", function()
+    
+
+
+
+
+
+
+    
+                    
+scr=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient)
+            
+            
+spawn(function()
+game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(BaseDupe ,game.Players.LocalPlayer) -- add a slider for the slot number
+end)
+repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible
+for i=1,20 do 
+        wait(1)
+        print(example[randomNum])
+        randomNum = Random.new() :NextInteger(1, #example)
+        scr.scrollSelection(-1)
+        wait()
+        print(example[randomNum])
+        randomNum = Random.new() :NextInteger(1, #example)
+        scr.selectionMade()
+        wait()
+        print(example[randomNum])
+        randomNum = Random.new() :NextInteger(1, #example)
+        scr.selectionMade()
+        wait(BaseTime) --add slider for time to leave
+        FreeLand()
+        game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+    end
+end)
+    
+
+
+local NewDupe = Dupeing:addSection("Gift Dupe")
+
+
+
+
+NewDupe:addSlider("Slot", 0, 0, 6, function(value)
+    GiftDupeSlot = value
+    end
+)
+    
+
+
+NewDupe:addButton(
+    "Gift Dupe Make sure you in the green Screen and check console", 
+    function()
+        print("Fuck Cheap Shops")
+    end
+)
+
+NewDupe:addButton(
+    "(Then press step #1 then click Quit Then select slot then dupe)", 
+    function()
+        print("Fuck Cheap Shops")
+    end
+)
+
+local greenitem
+NewDupe:addButton(
+    "Step 1", 
+    function()
+    local folder = game:GetService("Workspace").Effects.StructureModel
+  
+  local children = folder:GetChildren()
+  local lastItem = children[#children]
+  greenitem = lastItem.Name
+
+  print(greenitem)
+        end
+    )
+    
+NewDupe:addButton(
+    "Gift Dupe", 
+    function()
+        function FreeLand()
+            for i,v in next, game:GetService("Workspace").Properties:GetChildren() do
+                if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                    game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(v,v.OriginSquare.Position)
+                    break
+                end
+            end
+        end
+        
+        
+        scr=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient)
+        
+        
+            spawn(function()
+            game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(GiftDupeSlot ,game.Players.LocalPlayer) -- add a slider for the slot number
+            end)
+            repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible
+            for i=1,1 do 
+                wait(1)
+                print(example[randomNum])
+                randomNum = Random.new() :NextInteger(1, #example)
+                scr.scrollSelection(-1)
+                wait()
+                print(example[randomNum])
+                randomNum = Random.new() :NextInteger(1, #example)
+                scr.selectionMade()
+                 wait()
+                print(example[randomNum])
+                randomNum = Random.new() :NextInteger(1, #example)
+                scr.selectionMade()
+                local added = game.Workspace.PlayerModels.ChildAdded:Connect(function(Item)
+                if (Item.Name == greenitem) then 
+                local Owner = Item:WaitForChild('Owner', 10)
+                if Owner.Value == game.Players.LocalPlayer then
+                FreeLand()
+                game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+                end
+                end
+                end)
+            end
+    
+    
+    end
+)
+    
+    
+    
+    local NewDupe = Dupeing:addSection("Wood Dupe")
+    
+    NewDupe:addSlider("Slot", 0, 0, 6, function(value)
+        WoodDupeSlot = value
+    end
+    )
+    
+    NewDupe:addButton(
+        "(Requires Unboxed End Times, Many, Basic Hatchet On plot)", 
+        function()
+            print("Fuck Cheap Shops")
+        end
+    )
+    
+    NewDupe:addButton(
+        "Wood Dupe", 
+        function()
+            function FreeLand()
+                for i,v in next, game:GetService("Workspace").Properties:GetChildren() do
+                    if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                        game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(v,v.OriginSquare.Position)
+                        break
+                    end
+                end
+            end
+        
+        
+            scr=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient)
+        
+        
+                spawn(function()
+                game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(WoodDupeSlot ,game.Players.LocalPlayer) -- add a slider for the slot number
+                end)
+                repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible
+                for i=1,1 do 
+                    wait(1)
+                    scr.scrollSelection(-1)
+                    wait()
+                    scr.selectionMade()
+                    wait()
+                    scr.selectionMade()
+                    local added = game.Workspace.PlayerModels.ChildAdded:Connect(function(Axe)
+                    if (Axe.Name == "ManyAxe" or Axe.Name == "EndTimesAxe" or Axe.Name == "BasicHatchet") then
+                    local Owner = Axe:WaitForChild('Owner', 10)
+                    if Owner.Value == game.Players.LocalPlayer then
+                    FreeLand()
+                    game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+                    end
+                    end
+                    end)
+                end
+    
+    
+        end
+    )
+    
+    
+    
+   
+
+    GDPE:Seperator()
+
+    GDPE:Button(
+        "Center Gift Dupe",
+        function()
+            DiscordLib:Notification("SchoolHub", "Center Gift Dupe Started", "Okay!")
+    
+    
+            scr=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient)
+    
+    
+            spawn(function()
+                game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(GiftDupeSlot ,game.Players.LocalPlayer) -- add a slider for the slot number
+            end)
+            repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible
+            for i=1,20 do
+                wait(1)
+                scr.scrollSelection(-1)
+                wait()
+                scr.selectionMade()
+                wait()
+                scr.selectionMade()
+                local added = game.Workspace.PlayerModels.ChildAdded:connect(function(Item)
+                    if (Item.Name == greenitem) then
+                        local Owner = Item:WaitForChild('Owner', 10)
+                        if Owner.Value == game.Players.LocalPlayer then
+                            if KickPlayerdupe then
+                                game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+                            else
+                                game:Shutdown()
+                            end
+                        end
+                    end
+                end)
+            end
+        end
+    )
+    
+
+
+local AxeDupe = Dupeing:addSection("Axe Dupe")
+
+AxeDupe:addButton(
+    "Axe Dupe",
+    function()
+        function MergeTables(Tbl, NewTbl)
+            for Index, Value in next, Tbl do 
+                NewTbl[#NewTbl + 1] = Value 
+            end
+            return NewTbl
+        end
+        
+        function GetAxes()
+            local Axes = {}
+            local Tools = MergeTables(game.Players.LocalPlayer.Backpack:GetChildren(), game.Players.LocalPlayer.Character:GetChildren())
+            for i = 1, #Tools do
+                local Axe = Tools[i]
+                if Axe:FindFirstChild('CuttingTool') then
+                    Axes[#Axes + 1] = Axe
+                end
+            end
+            return Axes
+        end
+        
+        
+        function CanClientLoad()
+            if not game.ReplicatedStorage.LoadSaveRequests.ClientMayLoad:InvokeServer(Player) then
+                game.ReplicatedStorage.Notices.SendUserNotice:Fire('Waiting For Load Timeout. Please Wait...')
+                repeat  
+                    task.wait()
+                until game.ReplicatedStorage.LoadSaveRequests.ClientMayLoad:InvokeServer(Player)
+            end
+            return true
+        end
+        
+        for i = 1, 1 do --AxeDupeTime
+            local Axes, Slot = GetAxes(), game.Players.LocalPlayer.CurrentSaveSlot.Value 
+        
+            if Slot <= 0 then 
+                return game.ReplicatedStorage.Notices.SendUserNotice:Fire('You Must Have A Slot Loaded For This Feature To Work.')
+            end
+        
+            local SlotData = game:GetService("Players").Interjectwood1.PlayerGui.LoadSaveGUI.SlotInfo
+            local DataSize = tonumber(SlotData.Main.SizeV.Text)
+        
+            CanClientLoad() 
+        
+            local BackpackAxes = game.Players.LocalPlayer.Backpack:GetChildren()
+        
+            if #Axes == 0 then 
+                return game.ReplicatedStorage.Notices.SendUserNotice:Fire('This Feature Requires Your Axes To Be In Your Backpack.')
+            end
+        
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =CFrame.new(0, -200, 0)
+        
+            if tonumber(DataSize) == 1 then
+                time = 4
+            elseif tonumber(DataSize) == 2 then
+                time = 2
+            elseif tonumber(DataSize) == 3 then
+                time = 2
+            elseif tonumber(DataSize) == 4 then
+                time = 2
+            elseif tonumber(DataSize) == 5 then
+                time = 1
+            elseif tonumber(DataSize) == 6 then
+                time = 1
+            elseif tonumber(DataSize) == 7 then
+                time = 1
+            elseif tonumber(DataSize) >= 8 then
+                time = 0
+            end
+        
+            task.wait(time)
+        
+            game.ReplicatedStorage.LoadSaveRequests.RequestLoad:InvokeServer(Slot, game.Players.LocalPlayer)
+        end
+    end
+)
+
+
+local SignDuping = Dupeing:addSection("Sign Dupe")
+
+
+local PlayerList = {}
+    for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+    table.insert(PlayerList,v.Name)
+    end
+
+SignDuping:addDropdown("Select player", PlayerList , function(value)
+    SignDupeAcc = value
+end)
+
+
+SignDuping:addSlider("Slot", 0, 0, 6, function(value)
+    SignDupeSlot = value
+
+end
+)
+
+
+SignDuping:addToggle("Toggle Dupe", false, function(value)
+    SoldSignDupeToggle = value
+    startSigndupe() 
+end)
+
+
+--- seven page
+local Slotimporters = venyx:addPage("Slot Importer", 6031280882)
+local Slotimporter = Slotimporters:addSection("Slot Names")
+
+
+Slotimporter:addTextbox("Slot 1 Name", "Slot 1", function(value, focusLost)
+    Slot1Export = value
+    
+    if focusLost then
+    venyx:Notify("Shop", value)
+    end
+    end)
+
+Slotimporter:addTextbox("Slot 2 Name", "Slot 2", function(value, focusLost)
+    Slot2Export = value
+        
+    if focusLost then
+    venyx:Notify("Shop", value)
+    end
+    end)
+
+Slotimporter:addTextbox("Slot 3 Name", "Slot 3", function(value, focusLost)
+    Slot3Export = value
+        
+    if focusLost then
+    venyx:Notify("Shop", value)
+    end
+    end)
+
+        
+Slotimporter:addTextbox("Slot 4 Name", "Slot 4", function(value, focusLost)
+    Slot4Export = value
+        
+    if focusLost then
+    venyx:Notify("Shop", value)
+    end
+    end)
+    
+Slotimporter:addTextbox("Slot 5 Name", "Slot 5", function(value, focusLost)
+    Slot5Export = value
+            
+    if focusLost then
+    venyx:Notify("Shop", value)
+    end
+    end)
+    
+Slotimporter:addTextbox("Slot 6 Name", "Slot 6", function(value, focusLost)
+    Slot6Export = value
+            
+    if focusLost then
+    venyx:Notify("Shop", value)
+    end
+    end)
+
+Slotimporter:addButton(
+    "Save Slot Names",
+    function()
+        BaseName[1] = Slot1Export 
+        BaseName[2] = Slot2Export 
+        BaseName[3] = Slot3Export 
+        BaseName[4] = Slot4Export 
+        BaseName[5] = Slot5Export 
+        BaseName[6] = Slot6Export 
+    end
+)
+
+local DiscordImporter = Slotimporters:addSection("Slot Discord Importer")
+
+
+
+
+
+DiscordImporter:addTextbox("Discord Export", "Import Url", function(value, focusLost)
+    ExportWebHook = value
+            
+    if focusLost then
+    venyx:Notify("Shop", value)
+    end
+    end)
+
+
+
+
+
+
+
+DiscordImporter:addButton(
+    "Discord Embed Export",
+    function()
+        local request = http_request or request or (syn and syn.request)
+local LoadSaveClient = getsenv(game.Players.LocalPlayer.PlayerGui.LoadSaveGUI.LoadSaveClient)
+local message = ''
+
+function GetPlayersSlotInfo(Client)
+    local Data = game.ReplicatedStorage.LoadSaveRequests.GetMetaData:InvokeServer(Client)
+    local Info = {}
+
+    for i = 1, #Data do
+        if Data[i].SaveMeta[#Data[i].SaveMeta] then
+            local Datasize, Timestamp = Data[i].SaveMeta[#Data[i].SaveMeta].NumKeys, Data[i].SaveMeta[#Data[i].SaveMeta].Timestamp
+            Info[#Info + 1] = {
+            Datasize = Datasize,
+            Timestamp = LoadSaveClient.getDate(Timestamp + 1435708800)
+            }
+        end
+    end
+    return Info
+end
+
+request({
+    Method = "POST",
+    Url = ExportWebHook,
+    Headers = {
+        ["Content-Type"] = "application/json",
+    },
+    Body = game:GetService("HttpService"):JSONEncode({
+        username = "Lt2 Shop Export",
+        content = "Exporting "..game.Players.LocalPlayer.Name.."'s Bases:"
+    })
+})
+
+
+local SlotInfo = GetPlayersSlotInfo(game.Players.LocalPlayer)  
+for i = 1, #SlotInfo do
+    local SlotInformation = SlotInfo[i]
+    local BaseNames = BaseName[i]
+    local Datasize, Timestamp = SlotInformation.Datasize, SlotInformation.Timestamp
+    message = message.."Slot "..i.." ( "..tostring(BaseNames).." ) Data Size: "..Datasize.." Base Last Loaded "..Timestamp.."\n"
+end
+
+request({
+    Method = "POST",
+    Url = ExportWebHook,
+    Headers = {
+        ["Content-Type"] = "application/json",
+    },
+    Body = game:GetService("HttpService"):JSONEncode({
+        username = "Lt2 Shop Export",
+        content = "```"..message.."```"
+    })
+})
+    end
+)
+    
+
+local DiscsShops = venyx:addPage("Top Discord Shops", 6031265983)
+local DiscsShop = DiscsShops:addSection("Top Discord Shops")
+
+
+DiscsShop:addButton(
+"Join Wood Wonders (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/DHQV2dZWMv",
+    name = "Wood Wonders",
+    })
+setclipboard("https://discord.gg/DHQV2dZWMv")
+end
+)
+
+
+DiscsShop:addButton(
+"Join IHateSchool LT2 Shop (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/cUUF94rnvw",
+    name = "IBM Remastered",
+    })
+setclipboard("https://discord.gg/cUUF94rnvw")
+end
+)
+
+
+DiscsShop:addButton(
+"Join Jo1c LT2 Shop (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/TqJwn52axS",
+    name = "Jo1c Scripts",
+    })
+setclipboard("https://discord.gg/TqJwn52axS")
+end
+)
+
+DiscsShop:addButton(
+"Join Vaxeal LT2 Shop (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/fEhC39AHzq",
+    name = "Vax's Bases",
+    })
+setclipboard("https://discord.gg/fEhC39AHzq")
+end
+)
+
+DiscsShop:addButton(
+"Join BONCELy LT2 Shop (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/xZwAJarZXn",
+    name = "BONCELy Shop",
+    })
+setclipboard("https://discord.gg/xZwAJarZXn")
+end
+)
+
+DiscsShop:addButton(
+"Join JINXMOKE LT2 Shop (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/yW4fd58eEQ",
+    name = "Jinx Shop",
+    })
+setclipboard("https://discord.gg/yW4fd58eEQ")
+end
+)
+
+DiscsShop:addButton(
+"Join ThugLifEven LT2 Shop (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/DtBmsmXkeK",
+    name = "ThugLifEven Shop",
+    })
+setclipboard("https://discord.gg/DtBmsmXkeK")
+end
+)
+
+DiscsShop:addButton(
+"Join BitRarOFC LT2 Shop (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/UQhtkHjuCe",
+    name = "BitrarOFC Shop (New)",
+    })
+setclipboard("https://discord.gg/UQhtkHjuCe")
+end
+)
+
+DiscsShop:addButton(
+"Join Triton LT2 Shop (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/tYwEVprYzR",
+    name = "Tritons GIfts & More",
+    })
+setclipboard("https://discord.gg/tYwEVprYzR")
+end
+)
+
+
+
+local Settings = venyx:addPage("Settings", 6031265983)
+local Setting = DiscsShops:addSection("Settings")
+
+
+
+-- load
+venyx:SelectPage(venyx.pages[1], true) -- no default for more freedom
+
+
+
+
+
+
+
+
+
+
+
+
+
+WDPE:Button(
+    "Wood Center Dupe"
+    function()
+        DiscordLib:Notification("SchoolHub", "Center Started", "Okay!")
+        src=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient)
+
+        Spawn(function()
+        game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(WoodDupeSlot ,game.Players.LocalPlayer) -- add a slider for the slot number
+    end)
+    repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible
+    for i=1,20 do
+        wait(1)
+        scr.scrollSelection(-1)
+        wait()
+        scr.selectionMade()
+        wait()
+        scr.selectionMade()
+        local added = game.Workspace.PlayerModels.ChildAdded:Connect(function(Axe)
+            if (Axe.Name == "ManyAxe" or Axe.Name == "EndTimesAxe" or Axe.Name == "BasicHatchet") then --- Leave if Spawn
+                local Owner = Axe:WaitForChild('Owner', 10)
+                if Owner.Value == game.Players.LocalPlayer then
+                    FreeLand()
+                    game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+                
+                end
+            end)
+        end
+    end
+)
