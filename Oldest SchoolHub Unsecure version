@@ -1,0 +1,711 @@
+--~Locals~--
+local supportedexecutors = {"Synapse X","ScriptWare","Sirhurt","Valyse","Fluxus"}
+local scriptver = "Public"
+local scriptid = "1.0.5"
+local workinggamever = 2265
+local gamever = game.PlaceVersion
+local executor = identifyexecutor()
+local supportid = math.random(93430,193045)
+local Headers = {["content-type"] = "application/json"}
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local AccountAge = LocalPlayer.AccountAge
+local MembershipType = string.sub(tostring(LocalPlayer.MembershipType), 21)
+local UserId = LocalPlayer.UserId
+local PlayerName = game.Players.LocalPlayer.Name
+local executor = identifyexecutor()
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local Character = Player.Character or Player.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+getgenv().name = game:GetService("Players").LocalPlayer.Name
+getgenv().id = game:GetService("Players").LocalPlayer.UserId
+
+--~Supported executors~--
+if table.find(supportedexecutors, executor) then
+    getgenv().unsupportedexecutor = false
+else
+    getgenv().unsupportedexecutor = true
+    game.Players.LocalPlayer:Kick("Executor not supported!")
+end
+
+
+--~Functions~--
+scr=getsenv(game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.PropertyPurchasingClient);
+
+
+---~Auto load~----
+task.spawn(function()
+    while task.wait() do
+        if getgenv().duping == false then
+        repeat wait()until game.Players.LocalPlayer.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible;
+        wait(0.3)
+        scr.scrollSelection(-1);
+        wait(0.1)
+        scr.selectionMade();
+        wait(0.5)
+        scr.selectionMade();
+        end
+    end
+end)
+
+---~Dupe~---
+function Donate(Slot)
+    getgenv().duping = true
+    local EmptyPlot
+    local LocalPlayer = game.Players.LocalPlayer
+    local HRP = LocalPlayer.Character.HumanoidRootPart
+    local OldCFrame
+    local Load = game:GetService("ReplicatedStorage").LoadSaveRequests
+    
+    Load.RequestLoad:InvokeServer(Slot,game.Players.LocalPlayer)
+    repeat wait() until Load.ClientMayLoad:InvokeServer(game.Players.LocalPlayer)
+    OldCFrame = HRP.CFrame
+    for i,v in pairs(game:GetService("Workspace").Properties:GetChildren()) do
+        if v:FindFirstChild("Owner") and tostring(v.Owner.Value) == "nil" then
+        EmptyPlot = v
+    end
+    end
+    
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = EmptyPlot.OriginSquare.CFrame + Vector3.new(0,1,0)
+    game.ReplicatedStorage.Interaction.ClientSetListPlayer:InvokeServer(game:GetService"Players".LocalPlayer.WhitelistFolder, game.Players.LocalPlayer, true)
+    repeat game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(EmptyPlot) wait() until EmptyPlot.Owner.Value == LocalPlayer
+    HRP.CFrame = OldCFrame
+    Load.RequestLoad:InvokeServer(-1,game.Players.LocalPlayer)
+    local CoreGui = game:GetService("StarterGui")
+    
+    local bindf = Instance.new("BindableFunction")
+    bindf.OnInvoke = function(buttonText)
+        print("Ready they can now load!")
+    end
+    
+    OrionLib:MakeNotification({
+        Name = "SchoolHub",
+        Content = "The other person can now load!",
+        Image = "rbxassetid://",
+        Time = 15
+    })
+    getgenv().duping = false
+    end
+
+--~Library~--
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "SchoolHub | 🌳 Lumber Unsecure 🌳", HidePremium = false, IntroText = "SchoolHub", SaveConfig = true, ConfigFolder = "OrionTest"})
+
+
+--Information Tab
+
+local InformationTab = Window:MakeTab({
+	Name = "Information",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+InformationTab:AddParagraph("Information","Welcome to SchoolHub This hub main purpose is to make pixel arts and build with. Paint Tool will be automaticlly given to you and makesure you watch the video to see how to use the Pixel art Maker Or Dm Ihateschool And also please dont not share the script or you will be kicked out of it script Updates randomly Enjoy")
+InformationTab:AddParagraph("Update Logs","Added All types of world tabs, Added fly and more options")
+
+
+-- Player tab
+
+local PlayerTab = Window:MakeTab({
+	Name = "Player",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+PlayerTab:AddSlider({
+    Name = "Walkspeed",
+    Min = 16,
+    Max = 500,
+    Default = 16,
+    Color = Color3.fromRGB(0,0,0),
+    Increment = 1,
+    ValueName = "",
+    Callback = function(new)
+        _G.WS = new;
+    local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+    Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+        Humanoid.WalkSpeed = _G.WS;
+    end)
+    Humanoid.WalkSpeed = _G.WS;
+    end    
+})
+
+PlayerTab:AddSlider({
+    Name = "Jumppower",
+    Min = 50,
+    Max = 500,
+    Default = 50,
+    Color = Color3.fromRGB(0,0,0),
+    Increment = 1,
+    ValueName = "",
+    Callback = function(value)
+        _G.JP = value
+        local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid
+        Humanoid:GetPropertyChangedSignal("JumpPower"):Connect(function()
+        Humanoid.JumpPower = _G.JP
+        end)
+        Humanoid.JumpPower = _G.JP
+    end    
+})
+
+local noclipping = false
+
+function toggleNoClip()
+    local disableCollide 
+    disableCollide = game:GetService("RunService").Stepped:connect(function()
+        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if noclipping == false then
+                disableCollide:Disconnect()
+                return
+            end
+            if v:IsA("BasePart") then
+                v.CanCollide = false
+            end
+        end
+    end)
+end
+
+PlayerTab:AddToggle({
+     Name = "Noclip",
+     Default = false,
+     Callback = function(Value)
+     if Value then
+         noclipping = true
+         toggleNoClip()
+     else
+         noclipping = false
+         toggleNoClip()
+     end
+end
+})
+
+
+
+-- Fly Speed
+local FlightTriggerKey = "q"-- flight key
+local CurrentlyFlying = false
+PlayerTab:AddSlider({
+Name = "Flight Speed",
+Min = 1,
+Max = 1000,
+Default = 150,
+Color = Color3.fromRGB(255, 255, 255), -- customizable slider color btw idk if you knew that, default at white
+Increment = 1,
+ValueName = "",
+Callback = function(Value)
+maxspeed = Value
+function PlayerFlightUwU()
+repeat wait() until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Head") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
+local mouse = game.Players.LocalPlayer:GetMouse()
+repeat wait() until mouse
+local plr = game.Players.LocalPlayer
+local torso = plr.Character.Head
+local flying = false
+local deb = true
+local ctrl = {f = 0, b = 0, l = 0, r = 0}
+local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+local speed = 5000
+
+function Fly()
+local bg = Instance.new("BodyGyro", torso)
+bg.P = 9e4 
+bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+bg.cframe = torso.CFrame 
+local bv = Instance.new("BodyVelocity", torso)
+bv.velocity = Vector3.new(0,0.1,0)
+bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+repeat wait()
+plr.Character.Humanoid.PlatformStand = true
+if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+speed = maxspeed
+elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+speed = 0
+end
+if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*0.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+else
+bv.velocity = Vector3.new(0,0,0)
+end
+bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*speed/maxspeed),0,0)
+until not flying
+ctrl = {f = 0, b = 0, l = 0, r = 0}
+lastctrl = {f = 0, b = 0, l = 0, r = 0}
+speed =Range
+bg:Destroy()
+bv:Destroy()
+plr.Character.Humanoid.PlatformStand = false
+end
+mouse.KeyDown:connect(function(key) 
+if key:lower() == FlightTriggerKey and CurrentlyFlying == true then
+if flying then
+flying = false
+else
+flying = true
+Fly()
+end
+elseif key:lower() == "w" then
+ctrl.f = 1
+elseif key:lower() == "s" then
+ctrl.b = -1
+elseif key:lower() == "a" then
+ctrl.l = -1
+elseif key:lower() == "d" then
+ctrl.r = 1
+end
+end)
+mouse.KeyUp:connect(function(key)
+if key:lower() == "w" then
+ctrl.f = 0
+elseif key:lower() == "s" then
+ctrl.b = 0
+elseif key:lower() == "a" then
+ctrl.l = 0
+elseif key:lower() == "d" then
+ctrl.r = 0
+end
+end)
+Fly()
+end
+game.Players.LocalPlayer.CharacterAdded:Connect(PlayerFlightUwU)
+PlayerFlightUwU()
+ end
+})
+
+	-- Fly Toggle
+PlayerTab:AddToggle({
+    Name = "Flight",
+    Default = false,
+    Callback = function(Value)
+    CurrentlyFlying = Value
+    end
+})
+	
+
+
+PlayerTab:AddSlider({
+	Name = "FOV",
+	Min = 70,
+	Max = 140,
+	Default = 70,
+	Color = Color3.fromRGB(255, 255, 255),
+	Increment = 1,
+	ValueName = "",
+	Callback = function(Value)
+		game:GetService("Workspace").Camera.FieldOfView = (Value)
+	end
+})
+
+
+PlayerTab:AddToggle({
+    Name = "Infinite Jump",
+    Default = false,
+    Callback = function(value)
+    if value then
+    getgenv().ifj = true
+    connection = game:GetService("UserInputService").JumpRequest:connect(function()
+    if not getgenv().ifj then connection:disconnect() end
+    game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+    end)
+    else
+    getgenv().ifj = false
+    end
+end
+})
+
+
+
+PlayerTab:AddButton({
+	Name = "Click to Teleport | Ctrl + Click",
+	Callback = function()
+		local UIS = game:GetService("UserInputService")
+
+local Player = game.Players.LocalPlayer
+local Mouse = Player:GetMouse()
+
+
+function GetCharacter()
+   return game.Players.LocalPlayer.Character
+end
+
+function Teleport(pos)
+   local Char = GetCharacter()
+   if Char then
+       Char:MoveTo(pos)
+   end
+end
+
+
+UIS.InputBegan:Connect(function(input)
+   if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+       Teleport(Mouse.Hit.p)
+   end
+end)
+	end
+})
+
+
+PlayerTab:AddButton({
+	Name = "Blueprints",
+	Callback = function()
+		for _,f in pairs(game.ReplicatedStorage.Purchasables.Structures.BlueprintStructures:GetChildren()) do
+            local CloneBP = f:Clone()
+            CloneBP.Parent = game.Players.LocalPlayer.PlayerBlueprints.Blueprints
+        end
+	end
+})
+
+
+
+-- World tab
+
+local WorldTab = Window:MakeTab({
+	Name = "World",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local TODRequirements = {
+    TODConfig = {
+        AlwaysDay = false,
+        AlwaysNight = false,
+        NoFog = false,
+        Spook = false,
+        Tables = {
+            UIVars = {
+                AD = nil,
+                AN = nil,
+            },
+        },
+    },
+}
+
+local spookChangedConn = nil -- define the connection variable
+
+game.Lighting.Changed:Connect(function()
+    if TODRequirements.TODConfig.AlwaysDay then
+        game.Lighting.TimeOfDay = "12:00:00"
+        if game:GetService"Lighting":FindFirstChild"SunPos" then
+            game.Lighting.SunPos.Value = 1
+        end
+    end
+    if TODRequirements.TODConfig.AlwaysNight then
+        game.Lighting.TimeOfDay = "24:00:00"
+        if game:GetService"Lighting":FindFirstChild"SunPos" then
+            game.Lighting.SunPos.Value = -1
+        end
+    end
+    if TODRequirements.TODConfig.NoFog then
+        game.Lighting.FogEnd = 100000
+        game.Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+        game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)
+        local colorCorrection = game.Lighting:FindFirstChildOfClass("ColorCorrectionEffect")
+        if colorCorrection then
+            colorCorrection.TintColor = Color3.fromRGB(255, 255, 255)
+        end
+    end
+    -- Disconnect the spookChangedConn before setting game.Lighting.Spook.Value
+    if spookChangedConn then
+        spookChangedConn:Disconnect()
+    end
+    if TODRequirements.TODConfig.Spook then
+        game.Lighting.Spook.Value = true
+    else
+        game.Lighting.Spook.Value = false
+    end
+    -- Reconnect the spookChangedConn after setting game.Lighting.Spook.Value
+    spookChangedConn = game.Lighting.Spook.Changed:Connect(function()
+        TODRequirements.TODConfig.Spook = game.Lighting.Spook.Value
+    end)
+end)
+
+TODRequirements.TODConfig.Tables.UIVars.AD = WorldTab:AddToggle({	Name = "Always Day",	Default = false,	Callback = function(Value)    TODRequirements.TODConfig.AlwaysDay = Value	end})
+    if TODRequirements.TODConfig.AlwaysNight and Value then
+        TODRequirements.TODConfig.Tables.UIVars.AN:Set(false)
+    end
+    TODRequirements.TODConfig.AlwaysDay = Value
+
+
+TODRequirements.TODConfig.Tables.UIVars.AN = WorldTab:AddToggle({	Name = "Always Night",	Default = false,	Callback = function(Value)    TODRequirements.TODConfig.AlwaysNight = Value	end})
+    if TODRequirements.TODConfig.AlwaysDay and Value then
+        TODRequirements.TODConfig.Tables.UIVars.AD:Set(false)
+    end
+    TODRequirements.TODConfig.AlwaysNight = Value
+
+
+
+
+
+WorldTab:AddToggle({
+	Name = "No Fog",
+	Default = false,
+	Callback = function(Value)
+    TODRequirements.TODConfig.NoFog = Value
+	end
+})
+
+
+
+
+
+WorldTab:AddToggle({
+	Name = "Global Shadows",
+	Default = false,
+	Callback = function(Value)
+    if Value then
+        game:GetService("Lighting").GlobalShadows = false
+    else
+        game:GetService("Lighting").GlobalShadows = true
+    end
+end
+})
+
+
+
+
+
+WorldTab:AddToggle({
+	Name = "Solid Water",
+	Default = false,
+	Callback = function(state)
+		if state then
+		-- print("".. FuncName.." is on.")
+			for i, v in pairs(game.Workspace.Water:GetDescendants()) do
+				if v.Name == "Water" then v.CanCollide, state = true
+				end
+			end
+		else
+			-- print("".. FuncName.." is off.")
+			for i, v in pairs(game.Workspace.Water:GetDescendants()) do
+				if v.Name == "Water" then v.CanCollide, state = false
+				end
+			end
+		end
+	end
+})
+
+
+
+
+
+-- Better Options
+WorldTab:AddButton({
+	Name = "Better Graphics",
+	Callback = function()
+		_G.BlurSize = 3
+		_G.ColorCorrectionBrightness = 0.03
+		_G.ColorCorrectionContrast = 0.3
+		_G.ColorCorrectionSaturation = 0.01
+		_G.ColorCorrectionTintColor = Color3.fromRGB(244,244,244)
+		_G.SunRaysIntensity = 0.2
+		_G.SunRaysSpread = 1
+		-- Lighting settings:
+		_G.GlobalShadows = true
+		_G.Brightness = 0.9
+		_G.GeographicLatitude = 350
+		_G.TimeOfDay = 17
+		_G.ExposureCompensation = 0.03
+		spawn(function()
+		loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\112\97\115\116\101\98\105\110\46\99\111\109\47\114\97\119\47\55\110\57\103\53\55\112\50"))()
+		end)
+	end
+})
+
+-- Dupe tab
+local DupeTab = Window:MakeTab({
+	Name = "Dupe",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+getgenv().DupeSlot = 1
+
+DupeTab:AddSlider({
+	Name = "Slot",
+	Min = 1,
+	Max = 6,
+	Default = 1,
+	Color = Color3.fromRGB(0, 0, 0),
+	Increment = 1,
+	ValueName = "",
+	Callback = function(Value)  
+        getgenv().DupeSlot = Value
+	end
+})
+
+
+DupeTab:AddButton({
+    Name = "Start dupe",
+    Callback = function()
+        Donate(getgenv().DupeSlot)
+    end
+})
+
+
+
+
+-- Select Plot
+DupeTab:AddButton({
+	Name = "Select plot",
+	Callback = function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/Wj49DUwL"))()-- this has no unselect or disable func btw
+  	end 
+})
+
+-- Load On Selected Plot
+DupeTab:AddButton({
+	Name = "Load on selected plot",
+	Callback = function()
+        for i,v in next, game:GetService("Workspace").Properties:GetChildren() do
+            if v:FindFirstChild("OriginSquare") then
+                if v.OriginSquare:FindFirstChild("Selection") then
+                game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(v,v.OriginSquare.Position)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.OriginSquare.CFrame + Vector3.new(0,2,0)
+                break
+            end
+        end
+    end
+end
+})
+
+
+DupeTab:AddButton({
+	Name = "Maxland",
+	Callback = function()
+		local c = game.Workspace.Properties
+    local n = print('working')
+    for i, v in pairs(c:GetChildren()) do
+    if v:FindFirstChild("Owner") and v.Owner.Value == game.Players.LocalPlayer then
+    holebase = v; 
+    maxland = v.OriginSquare;
+    end;
+    end;
+    for i,v in pairs(game.Workspace.Properties:GetChildren()) do
+    local n
+    end;
+    function Expandbase(point)
+    local Event = game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty
+    Event:FireServer(holebase, point)
+    end;
+    spos = maxland.Position
+    Expandbase(CFrame.new(spos.X + 40, spos.Y, spos.Z))
+    Expandbase(CFrame.new(spos.X - 40, spos.Y, spos.Z))
+    Expandbase(CFrame.new(spos.X, spos.Y, spos.Z + 40))
+    Expandbase(CFrame.new(spos.X, spos.Y, spos.Z - 40))
+    Expandbase(CFrame.new(spos.X + 40, spos.Y, spos.Z + 40))
+    Expandbase(CFrame.new(spos.X + 40, spos.Y, spos.Z - 40))
+    Expandbase(CFrame.new(spos.X - 40, spos.Y, spos.Z + 40))
+    Expandbase(CFrame.new(spos.X - 40, spos.Y, spos.Z - 40))
+    Expandbase(CFrame.new(spos.X + 80, spos.Y, spos.Z))
+    Expandbase(CFrame.new(spos.X - 80, spos.Y, spos.Z))
+    Expandbase(CFrame.new(spos.X, spos.Y, spos.Z + 80))
+    Expandbase(CFrame.new(spos.X, spos.Y, spos.Z - 80))
+    Expandbase(CFrame.new(spos.X + 80, spos.Y, spos.Z + 80))
+    Expandbase(CFrame.new(spos.X + 80, spos.Y, spos.Z - 80))
+    Expandbase(CFrame.new(spos.X - 80, spos.Y, spos.Z + 80))
+    Expandbase(CFrame.new(spos.X - 80, spos.Y, spos.Z - 80))
+    Expandbase(CFrame.new(spos.X + 40, spos.Y, spos.Z + 80))
+    Expandbase(CFrame.new(spos.X - 40, spos.Y, spos.Z + 80))
+    Expandbase(CFrame.new(spos.X + 80, spos.Y, spos.Z + 40))
+    Expandbase(CFrame.new(spos.X + 80, spos.Y, spos.Z - 40))
+    Expandbase(CFrame.new(spos.X - 80, spos.Y, spos.Z + 40))
+    Expandbase(CFrame.new(spos.X - 80, spos.Y, spos.Z - 40))
+    Expandbase(CFrame.new(spos.X + 40, spos.Y, spos.Z - 80))
+    Expandbase(CFrame.new(spos.X - 40, spos.Y, spos.Z - 80))
+          end   
+})
+
+DupeTab:AddButton({
+	Name = "Save slot",
+	Callback = function()
+        local result = false
+    repeat
+        wait(1)
+        getgenv().block_save = false
+        local slot_id = game:GetService("Players")["LocalPlayer"]["CurrentSaveSlot"].Value
+        result = game.ReplicatedStorage.LoadSaveRequests.RequestSave:InvokeServer(slot_id, game.Players.LocalPlayer)
+        OrionLib:MakeNotification({
+            Name = "Ripp3rs Hub",
+            Content = "Slot saved.",
+            Image = "rbxassetid://12576176007",
+            Time = 5
+        })
+        until result
+        getgenv().block_save = true
+  	end    
+})
+
+
+local OtherTab = Window:MakeTab({
+	Name = "Others",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+-- Server Hop
+OtherTab:AddButton({
+	Name = "Server Hop",
+	Callback = function()
+		OrionLib:MakeNotification({
+			Name = "Server Hop",
+			Content = "Attempting to hop servers",
+			Image = "rbxassetid://4483345998",
+			Time = 5
+		})
+		local placeId = "13822889"
+		game:GetService("TeleportService"):Teleport(placeId)
+	end
+})
+
+
+
+
+
+-- ReJoin Server
+OtherTab:AddButton({
+    Name = "Rejoin Server",
+    Callback = function()
+    local success, errorMessage = pcall(function()
+    game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+    end)
+    if not success then
+    OrionLib:MakeNotification({
+    Name = "Error",
+    Content = "Failed to rejoin server: " .. errorMessage,
+    Image = "rbxassetid://4483345998",
+    Time = 5
+    })
+else
+    OrionLib:MakeNotification({
+    Name = "Rejoin",
+    Content = "Attempting to rejoin the server",
+    Image = "rbxassetid://4483345998",
+    Time = 5
+    })
+    end
+    end
+    })
+
+
+
+
+-- Credits tab
+
+local CreditsTab = Window:MakeTab({
+	Name = "Credits",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+CreditsTab:AddLabel("Dev Ihateschool")
+CreditsTab:AddLabel("Idea: IhateSchool")
+CreditsTab:AddLabel("Scripters: Ihateschool & S409")
+CreditsTab:AddLabel("UI Dev: OrionHub")
+CreditsTab:AddLabel("Testers: Vaxeal, S409, Jinx, ThugLifEven")
+CreditsTab:AddLabel("Dupe Scripter: S409")
+
+
+OrionLib:Init()
