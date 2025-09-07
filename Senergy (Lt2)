@@ -1,0 +1,233 @@
+local uilibrary = loadstring(game:HttpGet("https://pastebin.com/raw/QuUw30qp"))()
+local windowz = uilibrary:CreateWindow("Senergy", "Lumber Tycoon 2", true)
+
+-- Home Page
+local Page1 = windowz:CreatePage("Home")
+local Section1 = Page1:CreateSection("Home Features")
+
+-- Teleport Tool
+Section1:CreateButton("Teleport Tool", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/SppR0Hir"))()
+end)
+
+-- ServerHop
+Section1:CreateButton("ServerHop", function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/zejAFmGa"))()
+end)
+
+-- World Page
+local Page2 = windowz:CreatePage("World")
+local Section2Lighting = Page2:CreateSection("Lighting Features")
+local Section2Water = Page2:CreateSection("Water Features")
+
+-- Always Day
+local dayToggle = false
+local originalAmbient = game.Lighting.Ambient or Color3.fromRGB(128, 128, 128)
+Section2Lighting:CreateToggle("Always Day", {Toggled=false, Description="Set The Time To Always Be Day, Untoggle To Revert To Normal."}, function(Value)
+    dayToggle = Value
+    if dayToggle then
+        spawn(function()
+            while dayToggle do
+                if game.Lighting then
+                    game.Lighting.TimeOfDay = "12:00:00"
+                    game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+                end
+                task.wait(0)
+            end
+        end)
+    else
+        if game.Lighting then
+            game.Lighting.TimeOfDay = "12:00:00"
+            game.Lighting.Ambient = originalAmbient
+        end
+        dayToggle = false
+    end
+end)
+
+-- Always Night
+local nightToggle = false
+Section2Lighting:CreateToggle("Always Night", {Toggled=false, Description="Set The Time To Always Be Night, Untoggle To Revert To Normal."}, function(Value)
+    nightToggle = Value
+    if nightToggle then
+        spawn(function()
+            while nightToggle do
+                if game.Lighting then
+                    game.Lighting.TimeOfDay = "00:00:00"
+                end
+                task.wait(0)
+            end
+        end)
+    end
+end)
+
+-- Game Brightness Slider
+Section2Lighting:CreateSlider("Game Brightness Slider", {Min = 0.8, Max = 5, DefaultValue = 0.8}, function(Value)
+    if game.Lighting then
+        game.Lighting.Brightness = Value
+    end
+end)
+
+-- No Fog / Remove Fog
+local fogToggle = false
+local originalFogEnd = game.Lighting.FogEnd or 6400
+Section2Lighting:CreateToggle("No Fog / Remove Fog", {Toggled=false, Description="Destroys Fog, Untoggle To Bring Fog Back."}, function(Value)
+    if Value then
+        originalFogEnd = game.Lighting.FogEnd or 6400
+        fogToggle = true
+        spawn(function()
+            while fogToggle do
+                if game.Lighting then
+                    game.Lighting.FogEnd = 100000
+                end
+                task.wait(0)
+            end
+        end)
+    else
+        fogToggle = false
+        if game.Lighting then
+            game.Lighting.FogEnd = 6400
+        end
+    end
+end)
+
+-- Disable Game Shadows
+local shadowsToggle = false
+local originalShadows = game.Lighting.GlobalShadows
+Section2Lighting:CreateToggle("Disable Game Shadows", {Toggled=false, Description="Disable Game Shadows, Might Increase FPS. Untoggle To Restore."}, function(Value)
+    if Value then
+        originalShadows = game.Lighting.GlobalShadows
+        game.Lighting.GlobalShadows = false
+    else
+        game.Lighting.GlobalShadows = true
+    end
+end)
+
+-- Toggle Spook Lighting
+local spookToggle = false
+Section2Lighting:CreateToggle("Toggle Spook Lighting", {Toggled=false, Description="Enable Spook Lighting, Untoggle To Restore."}, function(Value)
+    if game.Lighting and game.Lighting:FindFirstChild("Spook") then
+        game.Lighting.Spook.Value = Value
+    end
+end)
+
+-- Better Water
+local betterWaterToggle = false
+local originalMaterials = {}
+Section2Water:CreateToggle("Better Water", {Toggled=false, Description="Changes Water Texture, If You Dislike Untoggle To Revert."}, function(Value)
+    betterWaterToggle = Value
+    
+    if betterWaterToggle then
+        for _, part in next, workspace:GetDescendants() do
+            if part:IsA("Part") and part.Name == "Water" then
+                originalMaterials[part] = part.Material
+                part.Material = Enum.Material.Glacier
+            end
+        end
+    else
+        for part, material in next, originalMaterials do
+            if part and part.Parent then
+                part.Material = material
+            end
+        end
+        originalMaterials = {}
+    end
+end)
+
+-- Freeze Water
+local solidWaterToggle = false
+Section2Water:CreateToggle("Freeze Water", {Toggled=false, Description="Walk On Water, You Can Walk On It And Drive On It Only For You."}, function(Value)
+    solidWaterToggle = Value
+    
+    for _, part in next, workspace:GetDescendants() do
+        if part:IsA("Part") and part.Name == "Water" then
+            part.CanCollide = solidWaterToggle
+        end
+    end
+end)
+
+-- Temp Remove Water
+local tempRemoveWaterToggle = false
+local originalTransparency = {}
+Section2Water:CreateToggle("Temp Remove Water", {Toggled=false, Description="Temporarily Removes Water, Untoggle To Revert."}, function(Value)
+    tempRemoveWaterToggle = Value
+    
+    if tempRemoveWaterToggle then
+        for _, part in next, workspace:GetDescendants() do
+            if part:IsA("Part") and part.Name == "Water" then
+                originalTransparency[part] = part.Transparency
+                part.Transparency = 1
+            end
+        end
+    else
+        for part, transparency in next, originalTransparency do
+            if part and part.Parent then
+                part.Transparency = transparency
+            end
+        end
+        originalTransparency = {}
+    end
+end)
+
+-- Player Tab
+local Page3 = windowz:CreatePage("Player")
+local Section3 = Page3:CreateSection("Player Features")
+
+local UserInputService = game:GetService("UserInputService")
+
+-- WalkSpeed Slider
+local walkSpeedValue = 16
+Section3:CreateSlider("WalkSpeed", {Min = 16, Max = 500, DefaultValue = 16}, function(Value)
+    walkSpeedValue = Value
+    if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walkSpeedValue
+    end
+end)
+
+-- Constant Loop for WalkSpeed
+spawn(function()
+    while true do
+        if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walkSpeedValue
+        end
+        task.wait(0)
+    end
+end)
+
+-- Sprint Speed Slider
+local sprintSpeedValue = 16
+Section3:CreateSlider("SprintSpeed", {Min = 16, Max = 500, DefaultValue = 16}, function(Value)
+    sprintSpeedValue = Value
+end)
+
+-- Constant Loop for SprintSpeed
+spawn(function()
+    while true do
+        if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
+            if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = sprintSpeedValue
+            else
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walkSpeedValue
+            end
+        end
+        task.wait(0)
+    end
+end)
+
+-- JumpPower Slider
+local jumpPowerValue = 50
+Section3:CreateSlider("JumpPower", {Min = 16, Max = 500, DefaultValue = 50}, function(Value)
+    jumpPowerValue = Value
+    if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = jumpPowerValue
+    end
+end)
+
+-- Constant Loop for JumpPower
+spawn(function()
+    while true do
+        if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = jumpPowerValue
+        end
+        task.wait(0)
+    end
+end)
