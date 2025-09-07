@@ -1,0 +1,1242 @@
+local FlyingEnabled = false
+local maxspeed = 250
+local Player = game:service'Players'.LocalPlayer;
+local Humanoid = Player.Character.Humanoid
+
+function BetterFly()
+repeat wait() until Player and Player.Character and Player.Character:findFirstChild("Head") and Player.Character:findFirstChild("Humanoid")
+local mouse = Player:GetMouse()
+repeat wait() until mouse
+local plr = Player
+local torso = plr.Character.Head
+local flying = false
+local deb = true
+local ctrl = {f = 0, b = 0, l = 0, r = 0}
+local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+local speed = 5000
+
+function Fly()
+local bg = Instance.new("BodyGyro", torso)
+bg.P = 9e4
+bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+bg.cframe = torso.CFrame
+local bv = Instance.new("BodyVelocity", torso)
+bv.velocity = Vector3.new(0,0.1,0)
+bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+repeat wait()
+plr.Character.Humanoid.PlatformStand = true
+if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+speed = maxspeed
+elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+    speed = 0
+end
+if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+bv.velocity = ((Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - Workspace.CurrentCamera.CoordinateFrame.p))*speed
+lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+bv.velocity = ((Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*0.2,0).p) - Workspace.CurrentCamera.CoordinateFrame.p))*speed
+else
+bv.velocity = Vector3.new(0,0,0)
+end
+bg.cframe = Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*speed/maxspeed),0,0)
+until not flying
+ctrl = {f = 0, b = 0, l = 0, r = 0}
+lastctrl = {f = 0, b = 0, l = 0, r = 0}
+speed = 0
+bg:Destroy()
+bv:Destroy()
+plr.Character.Humanoid.PlatformStand = false
+end
+mouse.KeyDown:connect(function(key)
+if key:lower() == "q" and FlyingEnabled == true then
+if flying then flying = false
+else
+flying = true
+Fly()
+end
+elseif key:lower() == "w" then
+ctrl.f = 1
+elseif key:lower() == "s" then
+ctrl.b = -1
+elseif key:lower() == "a" then
+ctrl.l = -1
+elseif key:lower() == "d" then
+ctrl.r = 1
+end
+end)
+mouse.KeyUp:connect(function(key)
+if key:lower() == "w" then
+ctrl.f = 0
+elseif key:lower() == "s" then
+ctrl.b = 0
+elseif key:lower() == "a" then
+ctrl.l = 0
+elseif key:lower() == "d" then
+ctrl.r = 0
+end
+end)
+Fly()
+end
+game:service'Players'.LocalPlayer.CharacterAdded:Connect(BetterFly)
+BetterFly()
+
+for i,v in pairs(game.CoreGui:GetDescendants()) do
+if v.Name == "IHateSchool Unsecured" then
+v:Destroy()
+end
+end
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Interject%20Ui%20Lib"))()
+local venyx = library.new("IHateSchool Unsecured", 5013109572)
+
+local credits = venyx:Page("Credits", 6035145364)
+local Scriptcreds = credits:Section("Credits")
+
+Scriptcreds:Button(
+"Script Owner: IHateSchool",
+function()
+venyx:Notify("Owner:", "ihateschool")
+end
+)
+
+Scriptcreds:Button(
+"Script Dev: Cazed",
+function()
+venyx:Notify("Script Dev:", "dazed.and_confused")
+end
+)
+
+
+Scriptcreds:Button(
+"Credits: Denosaur For The Venyx UI Lib",
+function()
+venyx:Notify("UI Lib:", "Denosaur")
+end
+)
+
+Scriptcreds:Button(
+"Join Discord (Copys Link)",
+function()
+    local Module = loadstring(game:HttpGet("https://raw.githubusercontent.com/666TranZit666/Interject/main/Discord%20Invite"))()
+    Module.Prompt({
+    invite = "https://discord.gg/cUUF94rnvw",
+    name = "IBM Remastered",
+    })
+setclipboard("https://discord.gg/cUUF94rnvw")
+end
+)
+
+Scriptcreds:Keybind("Toggle UI", 
+Enum.KeyCode.LeftShift, 
+function()
+venyx:toggle()
+end)
+
+local Local = venyx:Page("Local", 5012544693)
+local Players = Local:Section("Humanoid")
+
+Players:Slider(
+"Walk Speed", 
+16, 
+16, 
+500, 
+function(value)
+getgenv().WalkSpeedValue = (value); --set your desired walkspeed here
+game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+end)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+end
+)
+
+Players:Slider(
+"Jump Power", 
+45, 
+16, 
+500, 
+function(value)
+getgenv().JumpPowerValue = (value); --set your desired walkspeed here
+game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = getgenv().JumpPowerValue;
+end)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = getgenv().JumpPowerValue;
+end
+)
+
+Players:Toggle(
+"Infinite Jump",
+false,
+function(Value)
+local InfiniteJumpEnabled = Value
+game:GetService("UserInputService").JumpRequest:connect(function()
+if InfiniteJumpEnabled then
+game.Players.LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+end
+end)
+end
+)
+
+Players:Slider(
+"Fly Speed", 
+25, 
+25, 
+500, 
+function(value)
+maxspeed = value
+end
+)
+
+Players:Toggle(
+"Flight [Keybind Q]",
+false,
+function(value)
+FlyingEnabled = value
+end)
+
+
+Players:Slider(
+"FOV", 
+16, 
+70, 
+170, 
+function(value)
+game.Workspace.Camera.FieldOfView = value
+end
+)
+
+Players:Button(
+"ReSet FOV",
+function()
+game.Workspace.Camera.FieldOfView = 70
+end
+)
+
+Players:Button(
+"Anti AFK",
+function()
+game.Players.LocalPlayer.Idled:connect(function()
+vu:Button2Down(Vector2.new(0,0),game.workspace.CurrentCamera.CFrame)
+wait(1)
+vu:Button2Up(Vector2.new(0,0),game.workspace.CurrentCamera.CFrame)
+end)   
+end
+)
+
+local ReSet = Local:Section("ReSet Tools")
+
+ReSet:Button(
+"Rejoin Server",
+function()
+local ts = game:GetService("TeleportService")
+local p = game.Players.LocalPlayer
+ts:Teleport(game.PlaceId, p)
+end
+)
+
+ReSet:Button(
+"Server Hop",
+function()
+local module = loadstring(game:HttpGet"https://raw.githubusercontent.com/LeoKholYt/roblox/main/lk_serverhop.lua")()
+module:Teleport(game.PlaceId)
+end
+)
+
+ReSet:Button(
+"Safe Suicide",
+function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-114.82, -399, 409.19)
+end
+)
+
+local MiscTool = Local:Section("Misc Tools")
+
+MiscTool:Button(
+"Inf Camera Zoom",
+function()
+    game.Players.LocalPlayer.CameraMaxZoomDistance = math.huge
+end
+)
+
+MiscTool:Toggle(
+"FlashLight",
+false,
+function(value)
+if value == false then game.Players.LocalPlayer.Character.HumanoidRootPart.PointLight:Destroy() return end
+local PL = Instance.new("PointLight", game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"))
+PL.Range = 100
+PL.Brightness = 1
+PL.Shadows = false
+end
+)
+
+local Base = venyx:Page("Base Tools", 6034898104)
+local BPTools = Base:Section("Blue Print Tools")
+
+BPTools:Dropdown(
+"Pick Wood",
+{"Fir", "Birch", "Walnut", "Generic", "Oak", "Pine", "Palm", "Cherry", "Koa", "Volcano", "GreenSwampy", "GoldSwampy", "GenericSpecial", "SnowGlow", "Frost", "CaveCrawler", "LoneCave", "Spooky", "SpookyNeon"},
+function(bool)
+Wood = bool
+end
+)
+
+
+BPTools:Button(
+"Fill Bp Tool",
+function()
+venyx:Notify("Warrning!", "Game May Lag While Using")
+local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+tool.RequiresHandle = false
+--tool.RobloxLocked = true
+tool.Name = "Click in bp to fill"
+tool.ToolTip = "Filling clicked bp"
+tool.Equipped:connect(function(Mouse)
+Mouse.Button1Down:connect(function()
+if Mouse.Target.Parent:FindFirstChild("Type") and Mouse.Target.Parent:FindFirstChild("ItemName") then
+local FILL = game:GetService("ReplicatedStorage").PlaceStructure.ClientPlacedStructure;
+FILL:FireServer(Mouse.Target.Parent.ItemName.Value, Mouse.Target.Parent.PrimaryPart.CFrame, game:GetService'Players'.LocalPlayer, Wood, Mouse.Target.Parent, true)
+end
+end)
+end)
+end)
+
+BPTools:Button(
+"Restore BP",
+function()
+venyx:Notify("Warrning!", "Game May Lag While Using")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local mouse = LocalPlayer:GetMouse()
+local BPR = Instance.new("Tool", LocalPlayer.Backpack)
+BPR.Name = "Restore BluePrints"
+BPR.CanBeDropped = true
+BPR.RequiresHandle = false
+
+function createnotification(title, text)
+game:GetService("StarterGui"):SetCore("SendNotification", {
+Title = title;
+Text = text;
+Duration = 1;
+})
+end
+
+BPR.Activated:Connect(function()
+createnotification("BP Restore", "You are Restoring: "..mouse.Target.Parent.ItemName.Value)
+RestoreCF = mouse.Target.Parent.MainCFrame.Value
+RestoreN = mouse.Target.Parent.ItemName.Value
+Restore = mouse.Target.Parent
+local PlaceR = game.ReplicatedStorage.Interaction.DestroyStructure
+PlaceR:FireServer(Restore)
+game.ReplicatedStorage.PlaceStructure.ClientPlacedBlueprint:FireServer(mouse.Target.Parent.ItemName.Value, RestoreCF, LocalPlayer)
+end)
+end
+)
+
+local BaseCopy = Base:Section("Copy Bases")
+
+BaseCopy:Button(
+"Base Copy Info",
+function()
+venyx:Notify("Info", "Base Copy Will Only Copy BluePrints. All Saves Bases Will Be Found at\nWorkspace/IBM/Bases")
+end)
+
+if not isfolder("IBM") then
+    makefolder("IBM")
+end
+
+if not isfolder("IBM/Bases") then
+makefolder("IBM/Bases")
+end
+
+BaseCopy:Textbox(
+"Base File Name",
+"Type here!",
+function(value)
+IBM = value
+end
+)
+
+BaseCopy:Button(
+"Copy Base", 
+function()
+--Config
+-- if You Set Less Then It Will Get More Time And Will Not Glitch the Wood
+-- (QuantityWood/Number + Number2)
+local Number = 280
+-- Add Seconds to Spawn The Wood:
+local Number2 = 1
+
+--Script:
+
+local ScreenGui = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local Frame = Instance.new("Frame")
+local Close = Instance.new("TextButton")
+local Label = Instance.new("TextLabel")
+local Convert = Instance.new("TextButton")
+local NPS = Instance.new("TextButton")
+local PlrsF = Instance.new("Frame")
+local P1 = Instance.new("TextButton")
+local P5 = Instance.new("TextButton")
+local P6 = Instance.new("TextButton")
+local P4 = Instance.new("TextButton")
+local P2 = Instance.new("TextButton")
+local P3 = Instance.new("TextButton")
+ 
+ScreenGui.Parent = game.CoreGui
+
+Main.Name = "Main"
+Main.Parent = ScreenGui
+Main.BackgroundColor3 = Color3.new(0, 0.00784314, 0.615686)
+Main.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+Main.BorderSizePixel = 0
+Main.Position = UDim2.new(0.282840252, 0, 0.329238325, 0)
+Main.Size = UDim2.new(0, 366, 0, 85)
+Main.Active = true
+Main.Draggable = true
+
+Frame.Parent = Main
+Frame.BackgroundColor3 = Color3.new(0.0666667, 0.909804, 1)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0, 0, -7.62939453e-05, 0)
+Frame.Size = UDim2.new(0, 366, 0, 28)
+
+Close.Name = "Close"
+Close.Parent = Frame
+Close.BackgroundColor3 = Color3.new(1, 0, 0)
+Close.BorderSizePixel = 0
+Close.Position = UDim2.new(0.874316931, 0, 0, 0)
+Close.Size = UDim2.new(0, 46, 0, 28)
+Close.Font = Enum.Font.SourceSans
+Close.Text = "X"
+Close.TextColor3 = Color3.new(0, 0, 0)
+Close.TextSize = 14
+
+Label.Name = "Label"
+Label.Parent = Frame
+Label.BackgroundColor3 = Color3.new(1, 1, 1)
+Label.BackgroundTransparency = 1
+Label.BorderSizePixel = 0
+Label.Position = UDim2.new(0, 0, -0.0150375366, 0)
+Label.Size = UDim2.new(0, 320, 0, 28)
+Label.Font = Enum.Font.Code
+Label.Text = "Remade By Cazed"
+Label.TextColor3 = Color3.new(0, 0, 0)
+Label.TextScaled = true
+Label.TextSize = 14
+Label.TextWrapped = true
+
+Convert.Name = "Convert"
+Convert.Parent = Main
+Convert.BackgroundColor3 = Color3.new(0.0980392, 0.686275, 0.862745)
+Convert.BorderSizePixel = 0
+Convert.Position = UDim2.new(0.0519125685, 0, 0.522497416, 0)
+Convert.Size = UDim2.new(0, 148, 0, 30)
+Convert.Font = Enum.Font.SciFi
+Convert.Text = "Copy To ClipBoard"
+Convert.TextColor3 = Color3.new(0, 0, 0)
+Convert.TextScaled = true
+Convert.TextSize = 14
+Convert.TextWrapped = true
+
+NPS.Name = "NPS"
+NPS.Parent = Main
+NPS.BackgroundColor3 = Color3.new(0.0980392, 0.686275, 0.862745)
+NPS.BorderSizePixel = 0
+NPS.Position = UDim2.new(0.490580916, 0, 0.522497356, 0)
+NPS.Size = UDim2.new(0, 172, 0, 30)
+NPS.Font = Enum.Font.SciFi
+NPS.Text = "No Player Selected"
+NPS.TextColor3 = Color3.new(0, 0, 0)
+NPS.TextScaled = true
+NPS.TextSize = 14
+NPS.TextWrapped = true
+
+PlrsF.Name = "PlrsF"
+PlrsF.Parent = NPS
+PlrsF.BackgroundColor3 = Color3.new(1, 1, 1)
+PlrsF.BorderSizePixel = 0
+PlrsF.Position = UDim2.new(0.00203243527, 0, 1.33209789, 0)
+PlrsF.Size = UDim2.new(0, 106, 0, 24)
+PlrsF.Visible = false
+
+P1.Name = "P1"
+P1.Parent = PlrsF
+P1.BackgroundColor3 = Color3.new(0.0980392, 0.686275, 0.862745)
+P1.BorderSizePixel = 0
+P1.Position = UDim2.new(-0.00329791382, 0, -0.0134124756, 0)
+P1.Size = UDim2.new(0, 171, 0, 26)
+P1.Font = Enum.Font.Fantasy
+P1.Text = "No Player"
+P1.TextColor3 = Color3.new(0, 0, 0)
+P1.TextScaled = true
+P1.TextSize = 14
+P1.TextWrapped = true
+
+P5.Name = "P5"
+P5.Parent = PlrsF
+P5.BackgroundColor3 = Color3.new(0.0980392, 0.686275, 0.862745)
+P5.BorderSizePixel = 0
+P5.Position = UDim2.new(-0.00329791382, 0, 4.18133163, 0)
+P5.Size = UDim2.new(0, 171, 0, 26)
+P5.Font = Enum.Font.Fantasy
+P5.Text = "No Player"
+P5.TextColor3 = Color3.new(0, 0, 0)
+P5.TextScaled = true
+P5.TextSize = 14
+P5.TextWrapped = true
+
+P6.Name = "P6"
+P6.Parent = PlrsF
+P6.BackgroundColor3 = Color3.new(0.0980392, 0.686275, 0.862745)
+P6.BorderSizePixel = 0
+P6.Position = UDim2.new(-0.00329791382, 0, 5.23001766, 0)
+P6.Size = UDim2.new(0, 171, 0, 26)
+P6.Font = Enum.Font.Fantasy
+P6.Text = "No Player"
+P6.TextColor3 = Color3.new(0, 0, 0)
+P6.TextScaled = true
+P6.TextSize = 14
+P6.TextWrapped = true
+
+P4.Name = "P4"
+P4.Parent = PlrsF
+P4.BackgroundColor3 = Color3.new(0.0980392, 0.686275, 0.862745)
+P4.BorderSizePixel = 0
+P4.Position = UDim2.new(-0.00329791382, 0, 3.13264585, 0)
+P4.Size = UDim2.new(0, 171, 0, 26)
+P4.Font = Enum.Font.Fantasy
+P4.Text = "No Player"
+P4.TextColor3 = Color3.new(0, 0, 0)
+P4.TextScaled = true
+P4.TextSize = 14
+P4.TextWrapped = true
+
+P2.Name = "P2"
+P2.Parent = PlrsF
+P2.BackgroundColor3 = Color3.new(0.0980392, 0.686275, 0.862745)
+P2.BorderSizePixel = 0
+P2.Position = UDim2.new(-0.00329791382, 0, 1.03527319, 0)
+P2.Size = UDim2.new(0, 171, 0, 26)
+P2.Font = Enum.Font.Fantasy
+P2.Text = "No Player"
+P2.TextColor3 = Color3.new(0, 0, 0)
+P2.TextScaled = true
+P2.TextSize = 14
+P2.TextWrapped = true
+
+P3.Name = "P3"
+P3.Parent = PlrsF
+P3.BackgroundColor3 = Color3.new(0.0980392, 0.686275, 0.862745)
+P3.BorderSizePixel = 0
+P3.Position = UDim2.new(-0.00329791382, 0, 2.08395791, 0)
+P3.Size = UDim2.new(0, 171, 0, 26)
+P3.Font = Enum.Font.Fantasy
+P3.Text = "No Player"
+P3.TextColor3 = Color3.new(0, 0, 0)
+P3.TextScaled = true
+P3.TextSize = 14
+P3.TextWrapped = true
+
+local buttons = { P1, P2, P3, P4, P5, P6 }
+
+for i,v in pairs(game.Players:GetChildren()) do
+    buttons[i].Text = v.Name
+end
+
+game.Players.PlayerAdded:connect(function()
+    for i,v in pairs(game.Players:GetChildren()) do
+        if v == nil then
+            buttons[i].Text = "No Player"
+            else
+            buttons[i].Text = v.Name
+        end
+    end
+end)
+game.Players.PlayerRemoving:connect(function()
+    for i,v in pairs(game.Players:GetChildren()) do
+        if v == nil then
+            buttons[i].Text = "No Player"
+            else
+            buttons[i].Text = v.Name
+        end
+    end
+end)
+
+Close.MouseButton1Down:connect(function()
+Main.Visible = false
+end)
+
+NPS.MouseButton1Down:connect(function()
+PlrsF.Visible = true
+end)
+
+P1.MouseButton1Down:connect(function()
+PlrsF.Visible = false
+NPS.Text = P1.Text
+end)
+
+P2.MouseButton1Down:connect(function()
+PlrsF.Visible = false
+NPS.Text = P2.Text
+end)
+
+P3.MouseButton1Down:connect(function()
+PlrsF.Visible = false
+NPS.Text = P3.Text
+end)
+
+P4.MouseButton1Down:connect(function()
+PlrsF.Visible = false
+NPS.Text = P4.Text
+end)
+
+P5.MouseButton1Down:connect(function()
+PlrsF.Visible = false
+NPS.Text = P5.Text
+end)
+
+P6.MouseButton1Down:connect(function()
+PlrsF.Visible = false
+NPS.Text = P6.Text
+end)
+
+local Bef = [[
+    local PlayerName = "LocalPlayer"
+    local Vec = Vector3.new
+    local Ang = CFrame.Angles
+    local Plr = game.Players.LocalPlayer
+    local Remote = game.ReplicatedStorage.PlaceStructure.ClientPlacedStructure
+    local Build
+    
+    local Tag
+    for i,v in pairs(Workspace.Properties:GetChildren()) do
+    if v.Owner.Value == game.Players[PlayerName] then
+    Tag = v.OriginSquare.CFrame
+    end
+    end
+    
+    
+    function SetBp(WT, Count)
+    Build = WT
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Wood Type";
+        Text = WT;
+        Duration = "300";
+        Icon = "rbxassetid://7635712200";
+    })
+    
+    end
+    
+    game.Workspace.PlayerModels.ChildAdded:connect(function(v)
+        LagCheck = 0.7
+        for i = 1, 7 do wait(0.1)
+            pcall(function()
+                if v:WaitForChild("Owner", 5) and v:WaitForChild("ItemName", 5) then
+                    Remote:FireServer(v.ItemName.Value, v.PrimaryPart.CFrame, game.Players.LocalPlayer, Build, v, true)
+                end
+            end)
+        end
+    end)
+    
+    
+    function Sbp(A_1, A_2, A_3)
+    game.ReplicatedStorage.PlaceStructure.ClientPlacedBlueprint:FireServer(A_1, A_2, A_3)
+    task.wait(.2)
+    if (math.random(1,20) == 1) then
+    game:GetService("RunService").RenderStepped:wait()
+    end
+    end        
+
+]]
+
+local Space = [[
+
+]]
+
+
+local MaxL = 0
+local MaxS = 135
+local Copy1
+local Copy2
+local X
+local Y
+local Z
+local XXX
+local YYY
+local ZZZ
+Convert.MouseButton1Down:connect(function()
+
+local WoodType = { "Fir" ,"Birch", "Cherry", "Walnut", "Generic", "Oak", "Pine", "Palm", "Koa", "Volcano", "GreenSwampy", "GoldSwampy", "GenericSpecial", "SnowGlow", "Frost", "CaveCrawler", "LoneCave", "Spooky", "SpookyNeon", "Nil" }
+
+local Fir = ""
+local Birch = ""
+local Cherry = ""
+local Walnut = ""
+local Generic = ""
+local Oak = ""
+local Pine = ""
+local Palm = ""
+local Koa = ""
+local Volcano = ""
+local GreenSwampy = ""
+local GoldSwampy = ""
+local GenericSpecial = ""
+local SnowGlow = ""
+local Frost = ""
+local CaveCrawler = ""
+local LoneCave = ""
+local Spooky = ""
+local SpookyNeon = ""
+local Nil = ""
+local tag = ""
+
+local FirP = 0
+local BirchP = 0
+local CherryP = 0
+local WalnutP = 0
+local GenericP = 0
+local OakP = 0
+local PineP = 0
+local PalmP = 0
+local KoaP = 0
+local VolcanoP = 0
+local GreenSwampyP = 0
+local GoldSwampyP = 0
+local GenericSpecialP = 0
+local SnowGlowP = 0
+local FrostP = 0
+local CaveCrawlerP = 0
+local LoneCaveP = 0
+local SpookyP = 0
+local SpookyNeonP = 0
+local NilP = 0
+
+local FirC = 0
+local BirchC = 0
+local CherryC = 0
+local WalnutC = 0
+local GenericC = 0
+local OakC = 0
+local PineC = 0
+local PalmC = 0
+local KoaC = 0
+local VolcanoC = 0
+local GreenSwampyC = 0
+local GoldSwampyC = 0
+local GenericSpecialC = 0
+local SnowGlowC = 0
+local FrostC = 0
+local CaveCrawlerC = 0
+local LoneCaveC = 0
+local SpookyC = 0
+local SpookyNeonC = 0
+local NilC = 0
+
+local FirCC = 0
+local BirchCC = 0
+local CherryCC = 0
+local WalnutCC = 0
+local GenericCC = 0
+local OakCC = 0
+local PineCC = 0
+local PalmCC = 0
+local KoaCC = 0
+local VolcanoCC = 0
+local GreenSwampyCC = 0
+local GoldSwampyCC = 0
+local GenericSpecialCC = 0
+local SnowGlowCC = 0
+local FrostCC = 0
+local CaveCrawlerCC = 0
+local LoneCaveCC = 0
+local SpookyCC = 0
+local SpookyNeonCC = 0
+local NilCC = 0
+
+if NPS.Text ~= "No Player Selected" and NPS.Text ~= "No Player" then
+Label.Text = "Copying"
+wait()
+for i, v in pairs(game.Workspace.Properties:GetChildren()) do
+if v.Owner.Value == game.Players[NPS.Text] then
+X = v.OriginSquare.Position.X
+Y = v.OriginSquare.Position.Y
+Z = v.OriginSquare.Position.Z
+end
+end
+
+
+local Cframe
+for i, v in pairs(game.Workspace.PlayerModels:GetChildren()) do
+if v:FindFirstChild("Owner") and v.Owner.Value ~= nil and v.Owner.Value == game.Players[NPS.Text] then
+if v:FindFirstChild("BuildDependentWood") then
+if v:FindFirstChild("MainCFrame") then
+if v.BlueprintWoodClass then
+Cframe = v.MainCFrame.Value
+local x, y, z = Cframe:ToEulerAnglesXYZ()
+
+if Cframe.X > X then
+XXX = (Vector3.new(Cframe.X) - Vector3.new(X)).magnitude
+XXX = -XXX
+else
+XXX = (Vector3.new(Cframe.X) - Vector3.new(X)).magnitude
+end
+if Cframe.Y > Y then
+YYY = (Vector3.new(Cframe.Y) - Vector3.new(Y)).magnitude
+YYY = -YYY
+end
+if Cframe.Z > Z then
+ZZZ = (Vector3.new(Cframe.Z) - Vector3.new(Z)).magnitude
+ZZZ = -ZZZ
+else
+ZZZ = (Vector3.new(Cframe.Z) - Vector3.new(Z)).magnitude
+end
+if v.BlueprintWoodClass.Value == "Fir" then
+FirC = FirC + 1
+FirCC = FirCC + 1
+FirP = 1
+Fir = Fir.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Birch" then
+BirchC = BirchC + 1
+BirchCC = BirchCC + 1
+BirchP = 1
+Birch = Birch.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Cherry" then
+CherryC = CherryC + 1
+CherryCC = CherryCC + 1
+CherryP = 1
+Cherry = Cherry.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Walnut" then
+WalnutC = WalnutC + 1
+WalnutCC = WalnutCC + 1
+WalnutP = 1
+Walnut = Walnut.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Generic" then
+GenericC = GenericC + 1
+GenericCC = GenericCC + 1
+GenericP = 1
+Generic = Generic.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Oak" then
+OakC = OakC + 1
+OakCC = OakCC + 1
+OakP = 1
+Oak = Oak.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Pine" then
+PineC = PineC + 1
+PineCC = PineCC + 1
+PineP = 1
+Pine = Pine.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Palm" then
+PalmC = PalmC + 1
+PalmCC = PalmCC + 1
+PalmP = 1
+Palm = Palm.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Koa" then
+KoaC = KoaC + 1
+KoaCC = KoaCC + 1
+KoaP = 1
+Koa = Koa.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Volcano" then
+VolcanoC = VolcanoC + 1
+VolcanoCC = VolcanoCC + 1
+VolcanoP = 1
+Volcano = Volcano.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "GreenSwampy" then
+GreenSwampyC = GreenSwampyC + 1
+GreenSwampyCC = GreenSwampyCC + 1
+GreenSwampyP = 1
+GreenSwampy = GreenSwampy.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "GoldSwampy" then
+GoldSwampyC = GoldSwampyC + 1
+GoldSwampyCC = GoldSwampyCC + 1
+GoldSwampyP = 1
+GoldSwampy = GoldSwampy.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "GenericSpecial" then
+GenericSpecialC = GenericSpecialC + 1
+GenericSpecialCC = GenericSpecialCC + 1
+GenericSpecialP = 1
+GenericSpecial = GenericSpecial.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "SnowGlow" then
+SnowGlowC = SnowGlowC + 1
+SnowGlowCC = SnowGlowCC + 1
+SnowGlowP = 1
+SnowGlow = SnowGlow.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Frost" then
+FrostC = FrostC + 1
+FrostCC = FrostCC + 1
+FrostP = 1
+Frost = Frost.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "CaveCrawler" then
+CaveCrawlerC = CaveCrawlerC + 1
+CaveCrawlerCC = CaveCrawlerCC + 1
+CaveCrawlerP = 1
+CaveCrawler = CaveCrawler.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "LoneCave" then
+LoneCaveC = LoneCaveC + 1
+LoneCaveCC = LoneCaveCC + 1
+LoneCaveP = 1
+LoneCave = LoneCave.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "Spooky" then
+SpookyC = SpookyC + 1
+SpookyCC = SpookyCC + 1
+SpookyP = 1
+Spooky = Spooky.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BlueprintWoodClass.Value == "SpookyNeon" then
+SpookyNeonC = SpookyNeonC + 1
+SpookyNeonCC = SpookyNeonCC + 1
+SpookyNeonP = 1
+SpookyNeon = SpookyNeon.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+
+if v.BuildDependentWood.Color == Color3.fromRGB(163, 162, 165) then
+NilC = NilC + 1
+NilCC = NilCC + 1
+NilP = 1
+Nil = Nil.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") + Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+end
+else
+Cframe = v.PrimaryPart.CFrame
+local x, y, z = Cframe:ToEulerAnglesXYZ()
+
+if Cframe.X > X then
+XXX = (Vector3.new(Cframe.X) - Vector3.new(X)).magnitude
+XXX = -XXX
+else
+XXX = (Vector3.new(Cframe.X) - Vector3.new(X)).magnitude
+end
+if Cframe.Y > Y then
+YYY = (Vector3.new(Cframe.Y) - Vector3.new(Y)).magnitude
+YYY = -YYY
+end
+if Cframe.Z > Z then
+ZZZ = (Vector3.new(Cframe.Z) - Vector3.new(Z)).magnitude
+ZZZ = -ZZZ
+else
+ZZZ = (Vector3.new(Cframe.Z) - Vector3.new(Z)).magnitude
+end
+
+tag = tag.."Sbp(".."'"..v.ItemName.Value.."',Tag*Ang("..x..", "..y..", "..z..") +  Vec("..-XXX..", "..-YYY..", "..-ZZZ.."), Plr)"..Space
+end
+end
+end
+end
+
+ss = ' '
+q = [["]]
+
+if FirC == 0 then
+FirC = ""
+else
+FirC = "wait("..FirC/Number + Number2..")"
+end
+
+if NilC == 0 then
+NilC = ""
+else
+NilC = "wait("..NilC/Number + Number2..")"
+end
+
+if NilP ~= 0 then
+NilP = "SetBp("..q.."Nil"..q..")"
+else
+NilP = ""
+end
+
+if FirP ~= 0 then
+FirP = "SetBp("..q.."Fir"..q..")"
+else
+FirP = ""
+end
+
+if BirchC == 0 then
+BirchC = ""
+else
+BirchC = "wait("..BirchC/Number + Number2..")"
+end
+
+if BirchP ~= 0 then
+BirchP = "SetBp("..q.."Birch"..q..")"
+else
+BirchP = ""
+end
+
+if CherryC == 0 then
+CherryC = ""
+else
+CherryC = "wait("..CherryC/Number + Number2..")"
+end
+
+if CherryP ~= 0 then
+CherryP = "SetBp("..q.."Cherry"..q..")"
+else
+CherryP = ""
+end
+
+if WalnutC == 0 then
+WalnutC = ""
+else
+WalnutC = "wait("..WalnutC/Number + Number2..")"
+end
+
+if WalnutP ~= 0 then
+WalnutP = "SetBp("..q.."Walnut"..q..")"
+else
+WalnutP = ""
+end
+
+if GenericC == 0 then
+GenericC = ""
+else
+GenericC = "wait("..GenericC/Number + Number2..")"
+end
+
+if GenericP ~= 0 then
+GenericP = "SetBp("..q.."Generic"..q..")"
+else
+GenericP = ""
+end
+
+if OakC == 0 then
+OakC = ""
+else
+OakC = "wait("..OakC/Number + Number2..")"
+end
+
+if OakP ~= 0 then
+OakP = "SetBp("..q.."Oak"..q..")"
+else
+OakP = ""
+end
+
+if PineC == 0 then
+PineC = ""
+else
+PineC = "wait("..PineC/Number + Number2..")"
+end
+
+if PineP ~= 0 then
+PineP = "SetBp("..q.."Pine"..q..")"
+else
+PineP = ""
+end
+
+if PalmC == 0 then
+PalmC = ""
+else
+PalmC = "wait("..PalmC/Number + Number2..")"
+end
+
+if PalmP ~= 0 then
+PalmP = "SetBp("..q.."Palm"..q..")"
+else
+PalmP = ""
+end
+
+if KoaC == 0 then
+KoaC = ""
+else
+KoaC = "wait("..KoaC/Number + Number2..")"
+end
+
+if KoaP ~= 0 then
+KoaP = "SetBp("..q.."Koa"..q..")"
+else
+KoaP = ""
+end
+
+if VolcanoC == 0 then
+VolcanoC = ""
+else
+VolcanoC = "wait("..VolcanoC/Number + Number2..")"
+end
+
+if VolcanoP ~= 0 then
+VolcanoP = "SetBp("..q.."Volcano"..q..")"
+else
+VolcanoP = ""
+end
+
+if GreenSwampyC == 0 then
+GreenSwampyC = ""
+else
+GreenSwampyC = "wait("..GreenSwampyC/Number + Number2..")"
+end
+
+if GreenSwampyP ~= 0 then
+GreenSwampyP = "SetBp("..q.."GreenSwampy"..q..")"
+else
+GreenSwampyP = ""
+end
+
+if GoldSwampyC == 0 then
+GoldSwampyC = ""
+else
+GoldSwampyC = "wait("..GoldSwampyC/Number + Number2..")"
+end
+
+if GoldSwampyP ~= 0 then
+GoldSwampyP = "SetBp("..q.."GoldSwampy"..q..")"
+else
+GoldSwampyP = ""
+end
+
+if GenericSpecialC == 0 then
+GenericSpecialC = ""
+else
+GenericSpecialC = "wait("..GenericSpecialC/Number + Number2..")"
+end
+
+if GenericSpecialP ~= 0 then
+GenericSpecialP = "SetBp("..q.."GenericSpecial"..q..")"
+else
+GenericSpecialP = ""
+end
+
+if SnowGlowC == 0 then
+SnowGlowC = ""
+else
+SnowGlowC = "wait("..SnowGlowC/Number + Number2..")"
+end
+
+if SnowGlowP ~= 0 then
+SnowGlowP = "SetBp("..q.."SnowGlow"..q..")"
+else
+SnowGlowP = ""
+end
+
+if FrostC == 0 then
+FrostC = ""
+else
+FrostC = "wait("..FrostC/Number + Number2..")"
+end
+
+if FrostP ~= 0 then
+FrostP = "SetBp("..q.."Frost"..q..")"
+else
+FrostP = ""
+end
+
+if CaveCrawlerC == 0 then
+CaveCrawlerC = ""
+else
+CaveCrawlerC = "wait("..CaveCrawlerC/Number + Number2..")"
+end
+
+if CaveCrawlerP ~= 0 then
+CaveCrawlerP = "SetBp("..q.."CaveCrawler"..q..")"
+else
+CaveCrawlerP = ""
+end
+
+if LoneCaveC == 0 then
+LoneCaveC = ""
+else
+LoneCaveC = "wait("..LoneCaveC/Number + Number2..")"
+end
+
+if LoneCaveP ~= 0 then
+LoneCaveP = "SetBp("..q.."LoneCave"..q..")"
+else
+LoneCaveP = ""
+end
+
+if SpookyC == 0 then
+SpookyC = ""
+else
+SpookyC = "wait("..SpookyC/Number + Number2..")"
+end
+
+if SpookyP ~= 0 then
+SpookyP = "SetBp("..q.."Spooky"..q..")"
+else
+SpookyP = ""
+end
+
+if SpookyNeonC == 0 then
+SpookyNeonC = ""
+else
+SpookyNeonC = "wait("..SpookyNeonC/Number + Number2..")"
+end
+
+if SpookyNeonP ~= 0 then
+SpookyNeonP = "SetBp("..q.."SpookyNeon"..q..")"
+else
+SpookyNeonP = ""
+end
+
+Check = Fir..FirC..Birch..BirchC..BirchP..Cherry..CherryC..CherryP..Walnut..WalnutC..WalnutP..Generic..GenericC..GenericP..Oak..OakC..OakP..Pine..PineC..PineP..Palm..PalmC..PalmP..Koa..KoaC..KoaP..Volcano..VolcanoC..VolcanoP..GreenSwampy..GreenSwampyC..GreenSwampyP..GoldSwampy..GoldSwampyC..GoldSwampyP..GenericSpecial..GenericSpecialC..GenericSpecialP..SnowGlow..SnowGlowC..SnowGlowP..Frost..FrostC..FrostP..CaveCrawler..CaveCrawlerC..CaveCrawlerP..LoneCave..LoneCaveC..LoneCaveP..Spooky..SpookyC..SpookyP..SpookyNeon..SpookyNeonC..SpookyNeonP..NilC..NilP..tag
+
+if Check == "" then
+Label.Text = "No Blueprint To Copy"
+wait(4)
+Label.Text = "Remade By Cazed"
+else
+if setclipboard then
+writefile("IBM/Bases/"..IBM..".txt", Bef..FirC..FirP..Fir..BirchC..BirchP..Birch..CherryC..CherryP..Cherry..WalnutC..WalnutP..Walnut..GenericC..GenericP..Generic..OakC..OakP..Oak..PineC..PineP..Pine..PalmC..PalmP..Palm..KoaC..KoaP..Koa..VolcanoC..VolcanoP..Volcano..GreenSwampyC..GreenSwampyP..GreenSwampy..GoldSwampyC..GoldSwampyP..GoldSwampy..GenericSpecialC..GenericSpecialP..GenericSpecial..SnowGlowC..SnowGlowP..SnowGlow..FrostC..FrostP..Frost..CaveCrawlerC..CaveCrawlerP..CaveCrawler..LoneCaveC..LoneCaveP..LoneCave..SpookyC..SpookyP..Spooky..SpookyNeonC..SpookyNeonP..SpookyNeon..tag)
+    
+setclipboard(Bef..FirC..FirP..Fir..BirchC..BirchP..Birch..CherryC..CherryP..Cherry..WalnutC..WalnutP..Walnut..GenericC..GenericP..Generic..OakC..OakP..Oak..PineC..PineP..Pine..PalmC..PalmP..Palm..KoaC..KoaP..Koa..VolcanoC..VolcanoP..Volcano..GreenSwampyC..GreenSwampyP..GreenSwampy..GoldSwampyC..GoldSwampyP..GoldSwampy..GenericSpecialC..GenericSpecialP..GenericSpecial..SnowGlowC..SnowGlowP..SnowGlow..FrostC..FrostP..Frost..CaveCrawlerC..CaveCrawlerP..CaveCrawler..LoneCaveC..LoneCaveP..LoneCave..SpookyC..SpookyP..Spooky..SpookyNeonC..SpookyNeonP..SpookyNeon..tag)
+elseif toclipboard then
+toclipboard(Bef..FirC..FirP..Fir..BirchC..BirchP..Birch..CherryC..CherryP..Cherry..WalnutC..WalnutP..Walnut..GenericC..GenericP..Generic..OakC..OakP..Oak..PineC..PineP..Pine..PalmC..PalmP..Palm..KoaC..KoaP..Koa..VolcanoC..VolcanoP..Volcano..GreenSwampyC..GreenSwampyP..GreenSwampy..GoldSwampyC..GoldSwampyP..GoldSwampy..GenericSpecialC..GenericSpecialP..GenericSpecial..SnowGlowC..SnowGlowP..SnowGlow..FrostC..FrostP..Frost..CaveCrawlerC..CaveCrawlerP..CaveCrawler..LoneCaveC..LoneCaveP..LoneCave..SpookyC..SpookyP..Spooky..SpookyNeonC..SpookyNeonP..SpookyNeon..tag)
+elseif syn and syn.write_clipboard then
+syn.write_clipboard(Bef..FirC..FirP..Fir..BirchC..BirchP..Birch..CherryC..CherryP..Cherry..WalnutC..WalnutP..Walnut..GenericC..GenericP..Generic..OakC..OakP..Oak..PineC..PineP..Pine..PalmC..PalmP..Palm..KoaC..KoaP..Koa..VolcanoC..VolcanoP..Volcano..GreenSwampyC..GreenSwampyP..GreenSwampy..GoldSwampyC..GoldSwampyP..GoldSwampy..GenericSpecialC..GenericSpecialP..GenericSpecial..SnowGlowC..SnowGlowP..SnowGlow..FrostC..FrostP..Frost..CaveCrawlerC..CaveCrawlerP..CaveCrawler..LoneCaveC..LoneCaveP..LoneCave..SpookyC..SpookyP..Spooky..SpookyNeonC..SpookyNeonP..SpookyNeon..tag)
+end
+Label.Text = "Copied on Keyboard !"
+wait(4)
+Label.Text = "Remade By Cazed"
+end
+else
+Label.Text = "Select One Player!"
+wait(3)
+Label.Text = "Remade By Cazed"
+end
+end)
+end)
+
+venyx:SelectPage(venyx.pages[1], true)
+
+
+
+
+
+
+
+
+
+
+"The Den", "Lighthouse", "Safari", "Bridge", "Bob's Shack", "EndTimes Cave", "The Swamp", "The Cabin", "Volcano", "Boxed Cars", "Tiaga Peak", "Land Store", "Link's Logic", "Palm Island", "Palm Island 2", "Palm Island 3", "Fine Art Shop", "SnowGlow Biome", "Cave", "Shrine Of Sight", "Fancy Furnishings", "Docks", "Strange Man", "Wood Dropoff", "Snow Biome", "Wood RUs", "Green Box", "Spawn", "Cherry Meadow", "Bird Cave",
