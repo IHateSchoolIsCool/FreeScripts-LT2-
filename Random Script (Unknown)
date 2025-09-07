@@ -1,0 +1,2047 @@
+--Ui Start Up
+for i,v in pairs(game.CoreGui:GetDescendants()) do
+    if v.Name == "FluxLib" then
+        v:Destroy()
+    end
+end
+
+--Ui Vars
+local UiSettings, UiVar = {
+    WalkSpeed = 16,
+    JumpPower = 50,
+    HipHeight = 0,
+    Gravity = 196,
+    FOV = 70,
+    InfZoom = false,
+    Light = false,
+    isFlying = false,
+    Noclip = false,
+    KeyTP = 'G',
+    FastCheckout = false,
+    FixCashierRange = false,
+    HardDragger = false,
+    FlyKey = 'F',
+    WaterWalk = false,
+    WaterFloat = true,
+    AlwaysDay = false,
+    AlwaysNight = false,
+    NoFog  = false,
+    NoShadow = true,
+    FlySpeed = 200,
+    CarSpeed = 1,
+    CarPitch = 1,
+    AntiAFK = false,
+    SelectedTreeTypeSize = 'Largest',
+    Brightness = 1,
+    GlobalShadows = true,
+    RejoinExecute = false,
+    SellPlankAfterMilling = false,
+    HumanoidDamge = true,
+},{
+    --GetServices
+HttpService = game:GetService('HttpService'),
+RunService = game:GetService('RunService'),
+VirtualInputManager = game:GetService("VirtualInputManager"),
+VirtualUser = game:GetService("VirtualUser"),
+TeleportService = game:GetService("TeleportService"),
+
+--Game Directory
+Lighting = game.Lighting,
+Properties = Workspace.Properties:GetChildren(),
+Stores = game.Workspace.Stores,
+PlayerModels = game.Workspace.PlayerModels,
+
+--Replicated Storage Files
+ReplicatedStorage = game:GetService('ReplicatedStorage'),
+ClientItemInfo = game:GetService('ReplicatedStorage').ClientItemInfo,
+NPCDialog = game:GetService('ReplicatedStorage').NPCDialog,
+Interaction = game:GetService('ReplicatedStorage').Interaction,
+TestPing = game:GetService('ReplicatedStorage').TestPing,
+PropertyPurchasing = game:GetService("ReplicatedStorage").PropertyPurchasing,
+PlaceStructure = game:GetService("ReplicatedStorage").PlaceStructure,
+
+
+--Usefull Shit
+SendUserNotice = game.ReplicatedStorage.Notices.SendUserNotice,
+LimitedItems = os.date("%B") == "October" or os.date("%B") == "November" or os.date("%B") == "December",
+SpecialTreesMonths = os.date("%B") == "October" or os.date("%B") == "December",
+
+--Random Shit
+Mouse = game.Players.LocalPlayer:GetMouse(),
+PlayerList = {},
+PlayerToView = nil,
+ItemList = {'Axe1','Axe2','Axe3','BagOfSand','BasicHatchet','Bed1','Bed2','Button0','CanOfWorms','ChopSaw','ClockSwitch','ConveyorFunnel','ConveyorSupports','ConveyorSwitch','Dishwasher','Dynamite','FireworkLauncher','FloorLamp1','GateAND','GateNOT','GateOR','GateXOR','GlassDoor1','GlassPane1','GlassPane2','GlassPane3','GlassPane4','Hatch','IcicleWireAmber','IcicleWireBlue','IcicleWireCandy','IcicleWireGreen','IcicleWireHalloween','IcicleWireRed','Lamp1','Laser','LaserReceiver','Lever0','LightBulb','LogSweeper','NeonWireBlue','NeonWireCyan','NeonWireGreen','NeonWireOrange','NeonWireRed','NeonWireViolet','NeonWireWhite','NeonWireYellow','Painting1','Painting2','Painting3','Painting4','Painting5','Painting6','Painting7','Painting8','Painting9','Pickup1','PressurePlate','Refridgerator','Sawmill','Sawmill2','Sawmill3','Sawmill4','Sawmill4L','Seat_Armchair','Seat_Couch','Seat_Loveseat','SignalDelay','SignalSustain','SilverAxe','SmallTrailer','Stove','StraightConveyor','StraightSwitchConveyorLeft','StraightSwitchConveyorRight','StraightConveyorLeft','StraightConveyorRight','TightTurnConveyor','TightTurnConveyorSupports','TiltConveyor','Toilet','Trailer2','UtilityTruck','UtilityTruck2','WallLight1','WallLight2','Wire','WoodChecker','WorkLight'},
+TreeList = {'Generic', 'GoldSwampy', 'CaveCrawler', 'Cherry', 'Frost', 'Volcano', 'Oak', 'Walnut', 'Birch', 'SnowGlow', 'Fir', 'Pine', 'GreenSwampy', 'Koa', 'Palm', 'LoneCave'},
+ItemAmount = 1,
+isBuying = false,
+abortAutobuy = false,
+ItemToBuy = "BasicHatchet",
+ShopIDS = {["WoodRUs"] = 7,["FurnitureStore"] = 8,["FineArt"] = 11,["CarStore"] = 9,["LogicStore"] = 12,["ShackShop"] = 10},
+PlayerTP = nil,
+GameWayPoints = {["Wood R Us"] = CFrame.new(262.66, 3.2, 57.12),["SpawnPoint"] = CFrame.new(184.37, 3, 50.16),["Land Store"] = CFrame.new(252.28, 3.2, -98.19),["Link's Logic"] = CFrame.new(4609.02, 7, -781.6),["Fancy Furnishings"] = CFrame.new(491.68, 3.2, -1721.17),["Boxed Cars"] = CFrame.new(509.21, 3.2, -1465.14),["Fine Arts Shop"] = CFrame.new(5209.53, -166.12, 724.85),["Bob's Shack"] = CFrame.new(257.04, 8.4, -2540.82),["SnowGlow Tree"] = CFrame.new(-1019.08, -7.98, -941.5),["Cave"] = CFrame.new(3636.76, -166.28, 423.41),["Volcano"] = CFrame.new(-1586.74, 623, 1138.11),["Swamp"] = CFrame.new(-1242.78, 148, -572.43),["Palm Island"] = CFrame.new(2523.72, -8.41, -3.93),["tropics"] = CFrame.new(4599.83, 3, 77.6),["snow"] = CFrame.new(919.26, 59.8, 1214.07),["ice"] = CFrame.new(1633.51, 400.76, 3273.45),["Birch"] = CFrame.new(-1265.91, 295, 949.11),["plains"] = CFrame.new(110.33, 3.2, -1184.3),["cherry"] = CFrame.new(217.99, 59.8, 1111.38),["Dock"] = CFrame.new(1095.76, -1.2, -186.78),["Bridge"] = CFrame.new(111.41, 11, -759.79),["Shrine Of Sight"] = CFrame.new(-1584.64, 195.4, 900.61),["The Den"] = CFrame.new(328.52, 45.8, 1940.3),["Volcano Win"] = CFrame.new(-1667, 358, 1475.39),["Ski Lodge"] = CFrame.new(1244, 59.8, 2293.36),["Stranger"] = CFrame.new(1071.17, 16.8, 1137.46),["Bird"] = CFrame.new(4821.34, 21.84, -959.49),['Light House'] = CFrame.new(1464.80, 355.24, 3257.19),['EndTimes'] = CFrame.new(-43.2999992, -212.900101, -1334.40002)},
+NamePoints = {"Wood R Us","SpawnPoint","Land Store","Link's Logic","Fancy Furnishings","Boxed Cars","Fine Arts Shop","Bob's Shack","SnowGlow Tree","Cave","Volcano","Swamp","Palm Island","tropics","snow","ice","Birch","plains","cherry","Dock","Bridge","Shrine Of Sight","The Den","Volcano Win","Ski Lodge","Stranger","Bird",'Light House','EndTimes'},
+sortx = 5,
+sorty = 5,
+sortz = 5,
+part = nil,
+RRSort = 0,
+sortstate = 1,
+box = nil,
+Items = {},
+SaveNum = 1,
+TreeToGet = "Generic",
+TreeAmount = 1,
+TreeSize = "Large",
+AbortGetTree = false,
+isCuttingTree = false,
+SlotNumber = 1,
+ModdingWood = false,
+ClickSell = false,
+UnitCutter = false,
+PlankReAdded = nil,
+ClickedPart = nil,
+UnitCutterClick = nil,
+isDuping = false,
+ModWoodSawmill = nil,
+toolStats = {["BasicHatchet"] = {Damage = 0.2},["Axe1"] = {Damage = 0.55},["Axe2"] = {Damage = 0.93},["Axe3"] = {Damage = 1.45},["AxeAlphaTesters"] = {Damage = 1.45},["Rukiryaxe"] = {Damage = 1.68},["AxeBetaTesters"] = {Damage = 1.5},["FireAxe"] = {Damage = 0.4},["SilverAxe"] = {Damage = 1.6},["SwampAxe"] = {Damage = 0.8},["AxeChicken"] = {Damage = 0.75},["CandyCaneAxe"] = {Damage = -1},["Beesaxe"] = {Damage = 1.4},["AxeAmber"] = {Damage = 3.73},["GingerbreadAxe"] = {Damage = 1.2},["ManyAxe"] = {Damage = 10.2},["AxeTwitter"] = {Damage = 1.55},["RustyAxe"] = {Damage = 0.55},["CaveAxe"] = {Damage = 0.4},["CandyCornAxe"] = {Damage = 1.75},["EndTimesAxe"] = {Damage = 1.58},["IceAxe"] = {Damage = 0.36},["AxePie"] = {Damage = 0.85},["BluesteelAxe"] = {Damage = 2.8},["MintAxe"] = {Damage = 1}},
+Cooldown = { ["BasicHatchet"] = 0.65, ["EndTimesAxe"] = 0.4, ["CandyCornAxe"] = 0.6, ["IceAxe"] = 0.4, ["CaveAxe"] = 0.4, ["RustyAxe"] = 0.4, ["AxeTwitter"] = 0.4, ["ManyAxe"] = 1.9, ["GingerbreadAxe"] = 0.5, ["AxeAmber"] = 1, ["Beesaxe"] = 0.5, ['Axe1'] = 0.55, ['Axe2'] = 0.93, ['Axe3'] = 1.45, ["CandyCaneAxe"] = 0.7, ["AxeChicken"] = 0.3, ["AxeSwamp"] = 0.55, ["SilverAxe"] = 0.48, ["FireAxe"] = 0.55, ["AxeBetaTesters"] = 0.54, ["Rukiryaxe"] = 0.4, ["AxeAlphaTesters"] = 0.5, ["BluesteelAxe"] = 0.8, }
+}
+getgenv().spawnf = function(func,...) return coroutine.wrap(func)(...) end
+local Players = game.Players
+local Player = Players.LocalPlayer
+
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+    table.insert(UiVar.PlayerList,v.Name)
+end
+
+if UiVar.SpecialTreesMonths then
+    if os.date("%B") == "October" then
+     table.insert(UiVar.TreeList, 'Spooky')
+     table.insert(UiVar.TreeList, 'SpookyNeon')
+    elseif os.date("%B") == "December" then
+     table.insert(UiVar.TreeList, 'BlueSpruce')
+    end
+ end
+
+--Ui Saving
+
+if not isfile('Lua.Lynx') then
+    writefile('Lua.Lynx', UiVar.HttpService:JSONEncode(UiSettings))
+end
+
+local isIntact = pcall(function()
+    UiVar.HttpService:JSONDecode(readfile('Lua.Lynx'))
+end)
+
+if not isIntact then
+    delfile('Lua.Lynx')
+    writefile('Lua.Lynx', UiVar.HttpService:JSONEncode(UiSettings))
+    UiVar.SendUserNotice:Fire("Setting corrupted, File reverted")
+end
+
+local DefaultSettings = UiSettings
+UiSettings = UiVar.HttpService:JSONDecode(readfile('Lua.Lynx'))
+
+for Index, Value in next, DefaultSettings do 
+    if UiSettings[Index] == nil then 
+        UiSettings[Index] = Value 
+        writefile('Lua.Lynx', UiVar.HttpService:JSONEncode(UiSettings))
+    end
+end
+
+function SaveFiles()
+    writefile('Lua.Lynx', UiVar.HttpService:JSONEncode(UiSettings))
+end
+
+--Ui Functions
+function Notify(titletxt, text, time)
+    local GUI = Instance.new("ScreenGui")
+    local Main = Instance.new("Frame", GUI)
+    local title = Instance.new("TextLabel", Main)
+    local message = Instance.new("TextLabel", Main)
+    local corner = Instance.new("UICorner", Main)
+    local shadowholder = Instance.new("Frame", Main)
+    local ambientShadow = Instance.new("ImageLabel", shadowholder)
+    local penumbraShadow = Instance.new("ImageLabel", shadowholder)
+    local umbraShadow = Instance.new("ImageLabel", shadowholder)
+    local ambientShadowBetter = Instance.new("ImageLabel", shadowholder)
+    local penumbraShadowBetter = Instance.new("ImageLabel", shadowholder)
+    local umbraShadowBetter = Instance.new("ImageLabel", shadowholder)
+    GUI.Name = "NotificationOof"
+    GUI.Parent = game.CoreGui
+    Main.Name = "MainFrame"
+    Main.BackgroundColor3 = Color3.fromRGB(100,100,100)
+    Main.BorderSizePixel = 0
+    Main.Position = UDim2.new(1, 0, 0.872, 0)
+    Main.Size = UDim2.new(0, 195, 0, 62)
+
+    title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    title.BackgroundTransparency = 0.9
+    title.Size = UDim2.new(1, 0, 0, 25)
+    title.Font = Enum.Font.GothamSemibold
+    title.Text = titletxt
+    title.TextColor3 = Color3.fromRGB(245, 245, 245)
+    title.TextSize = 15
+    
+    message.BackgroundColor3 = Color3.new(0, 0, 0)
+    message.BackgroundTransparency = 1
+    message.Position = UDim2.new(0, 0, 0, 27)
+    message.Size = UDim2.new(1, 0, 1, -30)
+    message.Font = Enum.Font.GothamSemibold
+    message.Text = text
+    message.TextColor3 = Color3.new(1, 1, 1)
+    message.TextSize = 14
+    message.TextScaled = false
+    
+    shadowholder.Name = "shadowHolder"
+    shadowholder.BorderSizePixel = 1
+    shadowholder.BackgroundTransparency = 1
+    shadowholder.Position = UDim2.new(-0.031, 0, -0.097, 0)
+    shadowholder.Size = UDim2.new(1.062, 0, 1.194, 0)
+    
+    umbraShadow.Name = "umbraShadow"
+    umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    umbraShadow.BackgroundTransparency = 1.000
+    umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    umbraShadow.Size = UDim2.new(1, 4, 1, 4)
+    umbraShadow.ZIndex = 0
+    umbraShadow.Image = "rbxassetid://1316045217"
+    umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    umbraShadow.ImageTransparency = 0.860
+    umbraShadow.ScaleType = Enum.ScaleType.Slice
+    umbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    penumbraShadow.Name = "penumbraShadow"
+    penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    penumbraShadow.BackgroundTransparency = 1.000
+    penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    penumbraShadow.Size = UDim2.new(1, 4, 1, 4)
+    penumbraShadow.ZIndex = 0
+    penumbraShadow.Image = "rbxassetid://1316045217"
+    penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    penumbraShadow.ImageTransparency = 0.880
+    penumbraShadow.ScaleType = Enum.ScaleType.Slice
+    penumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    ambientShadow.Name = "ambientShadow"
+    ambientShadow.Parent = shadowHolder
+    ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    ambientShadow.BackgroundColor3 = Color3.fromRGB(102, 101, 103)
+    ambientShadow.BackgroundTransparency = 1.000
+    ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    ambientShadow.Size = UDim2.new(1, 4, 1, 4)
+    ambientShadow.ZIndex = 0
+    ambientShadow.Image = "rbxassetid://1316045217"
+    ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    ambientShadow.ImageTransparency = 0.880
+    ambientShadow.ScaleType = Enum.ScaleType.Slice
+    ambientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    umbraShadowBetter.Name = "umbraShadow"
+    umbraShadowBetter.AnchorPoint = Vector2.new(0.5, 0.5)
+    umbraShadowBetter.BackgroundTransparency = 1.000
+    umbraShadowBetter.Position = UDim2.new(0.5, 0, 0.5, 2)
+    umbraShadowBetter.Size = UDim2.new(1, 4, 1, 4)
+    umbraShadowBetter.ZIndex = 0
+    umbraShadowBetter.Image = "rbxassetid://1316045217"
+    umbraShadowBetter.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    umbraShadowBetter.ImageTransparency = 0.860
+    umbraShadowBetter.ScaleType = Enum.ScaleType.Slice
+    umbraShadowBetter.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    penumbraShadowBetter.Name = "penumbraShadow"
+    penumbraShadowBetter.AnchorPoint = Vector2.new(0.5, 0.5)
+    penumbraShadowBetter.BackgroundTransparency = 1.000
+    penumbraShadowBetter.Position = UDim2.new(0.5, 0, 0.5, 2)
+    penumbraShadowBetter.Size = UDim2.new(1, 4, 1, 4)
+    penumbraShadowBetter.ZIndex = 0
+    penumbraShadowBetter.Image = "rbxassetid://1316045217"
+    penumbraShadowBetter.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    penumbraShadowBetter.ImageTransparency = 0.880
+    penumbraShadowBetter.ScaleType = Enum.ScaleType.Slice
+    penumbraShadowBetter.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    ambientShadowBetter.Name = "ambientShadow"
+    ambientShadowBetter.Parent = shadowHolder
+    ambientShadowBetter.AnchorPoint = Vector2.new(0.5, 0.5)
+    ambientShadowBetter.BackgroundColor3 = Color3.fromRGB(102, 101, 103)
+    ambientShadowBetter.BackgroundTransparency = 1.000
+    ambientShadowBetter.Position = UDim2.new(0.5, 0, 0.5, 2)
+    ambientShadowBetter.Size = UDim2.new(1, 4, 1, 4)
+    ambientShadowBetter.ZIndex = 0
+    ambientShadowBetter.Image = "rbxassetid://1316045217"
+    ambientShadowBetter.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    ambientShadowBetter.ImageTransparency = 0.880
+    ambientShadowBetter.ScaleType = Enum.ScaleType.Slice
+    ambientShadowBetter.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    corner.CornerRadius = UDim.new(0, 4)
+
+    wait(0.1)
+    Main:TweenPosition(UDim2.new(0.830, 0, 0.872, 0), "Out", "Sine", 0.5)
+    wait(time)
+    Main:TweenPosition(UDim2.new(1, 0, 0.872, 0), "Out", "Sine", 0.5)
+    wait(0.6)
+    GUI:Destroy()
+end
+
+function Flight()
+    local MaxSpeed, WeldOne, WeldTwo = 9e9
+
+    repeat task.wait() until Player.Character:FindFirstChild('Head')
+    local Steer, BackSteer = {Forward = 0, Back = 0, Left = 0, Right = 0}, {Forward = 0, Back = 0, Left = 0, Right = 0}
+    Player.Character.Humanoid.PlatformStand = (not Player.Character.Humanoid.SeatPart and true) or false
+
+    if Player.Character.Humanoid.SeatPart then
+        Car = Player.Character.Humanoid.SeatPart
+        WeldOne = Instance.new('Weld', Player.Character.Humanoid.SeatPart)
+        WeldTwo = Instance.new('Weld', Player.Character.HumanoidRootPart)
+        WeldOne.Part0 = Player.Character.HumanoidRootPart
+        WeldOne.Part1 = Player.Character.Humanoid.SeatPart
+        WeldTwo.Part0 = Player.Character.HumanoidRootPart
+        WeldTwo.Part1 = Player.Character.Humanoid.SeatPart
+    end
+
+    function Fly()
+        local Gyro = Instance.new('BodyGyro', Player.Character.HumanoidRootPart)
+        Gyro.P = 9e4
+        Gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        Gyro.CFrame = Player.Character.HumanoidRootPart.CFrame
+        local Velocity = Instance.new('BodyVelocity', Player.Character.HumanoidRootPart)
+        Velocity.Velocity = Vector3.new(0, 0, 0)
+        Velocity.maxForce = Vector3.new(9e9, 9e9, 9e9)
+
+        repeat task.wait()
+                local FlySpeed, SteerSpeed = UiSettings.FlySpeed, 50
+                if Steer.Left + Steer.Right ~= 0 or Steer.Forward + Steer.Back ~= 0 then
+                    SteerSpeed = UiSettings.FlySpeed
+                    if SteerSpeed > MaxSpeed then
+                        SteerSpeed = MaxSpeed
+                    end
+
+                elseif not (Steer.Left + Steer.Right ~= 0 or Steer.Forward + Steer.Back ~= 0) and speed ~= 0 then
+                    SteerSpeed = SteerSpeed - 50
+                    if SteerSpeed < 0 then
+                        FlySpeed = 0
+                    end
+                end
+
+                if (Steer.Left + Steer.Right) ~= 0 or (Steer.Forward + Steer.Back) ~= 0 then
+                    Velocity.Velocity = ((game.workspace.CurrentCamera.CoordinateFrame.lookVector * (Steer.Forward + Steer.Back)) + ((game.workspace.CurrentCamera.CoordinateFrame * CFrame.new(Steer.Left + Steer.Right, (Steer.Forward + Steer.Back) * .2, 0).p) - game.workspace.CurrentCamera.CoordinateFrame.p)) * SteerSpeed
+                    BackSteer = {Forward = Steer.Forward, Back = Steer.Back, Left = Steer.Left, Right = Steer.Right}
+                elseif (Steer.Left + Steer.Right == 0 or Steer.Forward + Steer.Back == 0) and SteerSpeed ~= 0 then
+                    Velocity.Velocity =((game.workspace.CurrentCamera.CoordinateFrame.lookVector * (BackSteer.Forward + BackSteer.Back)) + ((game.workspace.CurrentCamera.CoordinateFrame * CFrame.new(BackSteer.Left + BackSteer.Right, (BackSteer.Forwardorward + BackSteer.Back) * .2, 0).p) - game.workspace.CurrentCamera.CoordinateFrame.p)) * SteerSpeed
+                else
+                    Velocity.Velocity = Vector3.new(0, 0, 0)
+                end
+                Gyro.CFrame = game.workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((Steer.Forward + Steer.Back) * 50 * SteerSpeed / MaxSpeed), 0, 0)
+        until not UiSettings.isFlying
+
+        Gyro:Destroy()
+        Velocity:Destroy()
+
+        if WeldOne and WeldTwo then
+            WeldOne:Destroy()
+            WeldTwo:Destroy()
+            Teleport(CFrame.new(Car.CFrame.p))
+        end
+        Player.Character.Humanoid.PlatformStand = false
+    end
+
+    UiVar.Mouse.KeyDown:Connect(
+        function(Key)
+            if Key:lower() == 'w' then
+                isWDown = true
+                Steer.Forward = 1
+            elseif Key:lower() == 'a' then
+                isADown = true
+                Steer.Left = -1
+            elseif Key:lower() == 's' then
+                isSDown = true
+                Steer.Back = -1
+            elseif Key:lower() == 'd' then
+                isSDown = true
+                Steer.Right = 1
+            end
+        end
+    )
+    UiVar.Mouse.KeyUp:Connect(
+        function(Key)
+            if Key:lower() == 'w' then
+                isWDown = false
+                Steer.Forward = 0
+            elseif Key:lower() == 'a' then
+                isADown = false
+                Steer.Left = 0
+            elseif Key:lower() == 's' then
+                isSDown = false
+                Steer.Back = 0
+            elseif Key:lower() == 'd' then
+                isDDown = false
+                Steer.Right = 0
+            end
+        end
+    )
+    Fly()
+end
+
+function Teleport(cf)
+    repeat wait()until Player.Character:FindFirstChild('HumanoidRootPart')
+    if Player.Character.Humanoid.Sit then 
+        Player.Character.Humanoid.SeatPart.Parent:SetPrimaryPartCFrame(cf*CFrame.Angles(math.rad(Player.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.X), math.rad(Player.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.Y), math.rad(Player.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.Z)))
+    elseif not Player.Character.Humanoid.Sit then 
+        Player.Character:SetPrimaryPartCFrame(cf)
+    end
+end
+
+function ItemTp(Item,Pos)
+    for i = 1,40 do
+        UiVar.Interaction.ClientIsDragging:FireServer(Item)
+        Item:PivotTo(Pos)
+        task.wait()
+    end
+end
+
+function Light()
+    if Player.Character.Head:FindFirstChild('PointLight') then
+        return Player.Character.Head.PointLight:Destroy()
+    end
+    if not UiSettings.Light then
+        return
+    end
+
+    local Light = Instance.new('PointLight', Player.Character.Head)
+    Light.Range, Light.Brightness = 150, 1.7
+end
+
+function GrabShopItems()
+    
+    local LimitedItemList = {}
+    
+    for _, store in ipairs(UiVar.Stores:GetChildren()) do
+        if store.Name == "ShopItems" then
+            for _, item in ipairs(store:GetChildren()) do
+                if item:FindFirstChild("Type") and item.Type.Value ~= "Blueprint" and item:FindFirstChild("BoxItemName") then
+                    local itemName = item.BoxItemName.Value
+
+                    -- Check if the item is not already in the list
+                    if not table.find(UiVar.ItemList, itemName) then
+                        if not table.find(LimitedItemList, itemName) then
+                        table.insert(LimitedItemList, itemName)
+                        task.wait(0.01)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- Sort the ItemList after the loop is complete
+    table.sort(UiVar.ItemList)
+
+    return LimitedItemList
+end
+
+function ItemPath(Item)
+    for i,v in next, UiVar.Stores:GetChildren() do
+        if v.Name == "ShopItems" then
+            for i,v in next, v:GetChildren() do
+                if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                    if v:FindFirstChild("BoxItemName") and tostring(v.BoxItemName.Value) == Item then
+                        return v.Parent
+                    end
+                end
+            end
+        end
+    end
+end
+       
+function GetCounter(Item)
+    ClosestCounter = nil
+    for i,v in next, UiVar.Stores:GetChildren() do
+        if v.Name:lower() ~= "shopitems" then
+            for i,v in next, v:GetChildren() do
+                if v.Name:lower() == "counter" then
+                    if (Item.CFrame.p - v.CFrame.p).Magnitude <= 200 then
+                        ClosestCounter = v
+                    end
+                end
+            end
+        end
+    end
+    return ClosestCounter
+end
+
+function getPrice(item,quantity)
+    local money = Player.leaderstats.Money.Value 
+    for _,v in next, UiVar.ClientItemInfo:GetDescendants()do 
+        if tostring(v) == item then 
+            local newValue = v.Price.Value*quantity
+            if money >= newValue then 
+                return true
+            end
+        end
+    end
+    return false
+end
+
+function Pay(ID)
+    spawn(function()
+        UiVar.NPCDialog.PlayerChatted:InvokeServer({["ID"] = ID,["Character"] = "name",["Name"] = "name",["Dialog"] = 'Dialog'}, "ConfirmPurchase")
+    end)
+end
+
+function UpdateNames()
+    for i,v in next, UiVar.Stores:GetChildren() do
+        if v.Name == "ShopItems" then
+            v.ChildAdded:Connect(function(v)
+            v.Name = v:WaitForChild("BoxItemName").Value
+        end)
+
+        for i,v in next, v:GetChildren() do
+            if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                if v:FindFirstChild("BoxItemName") then
+                    v.Name = v.BoxItemName.Value
+                end
+            end
+        end
+    end
+    end
+end
+UpdateNames()
+
+function AutoBuyItem(item, quantity, AutoOpen)
+    if UiVar.isBuying then 
+        Notify('Error','Already Buying!',4)
+        return false
+    end
+    if UiVar.isDuping then
+        return Notify('Error','You Can Not Use This Feature While Duping',4)
+    end
+    
+    if UiVar.isCuttingTree then 
+        return Notify('Error','You Can Not Use This Feature While Getting A Tree',4)
+    end
+
+    local oldpos = Player.Character.HumanoidRootPart.CFrame
+    UiVar.isBuying = true
+    local Path = ItemPath(item)
+    local Item = Path:WaitForChild(item)
+    local Counter = GetCounter(Item.Main)
+    local price = getPrice(tostring(item), quantity)
+
+    print(quantity)
+
+    for i = 1, tonumber(quantity) do
+        print(i)
+        if UiVar.abortAutobuy then
+            UiVar.abortAutobuy = false
+            UiVar.isBuying = false
+            Teleport(CFrame.new(oldpos.p))
+            Notify('Notice','Aborted Autobuy!',4)
+            return false
+        end
+
+        local itemToBuy = Item
+        if not itemToBuy then
+            local start = tick()
+            repeat UiVar.RunService.Heartbeat:wait() until Item or tick() - start >= 60
+            local newItem = Item
+            if newItem then
+                itemToBuy = newItem
+            end
+        end
+
+        if not itemToBuy then
+            UiVar.isBuying = false
+            Teleport(CFrame.new(oldpos.p))
+            Notify('Error','Item Not Found!',4)
+            return false
+        end
+
+        if i == 1 then
+            pcall(function()
+                Player.Character.HumanoidRootPart.CFrame = CFrame.new(itemToBuy.Main.CFrame.p + Vector3.new(5, 0, 5))
+                wait(0.05)
+            end)
+        end
+
+        for j = 1, 5 do
+            UiVar.TestPing:InvokeServer()
+        end
+
+        spawnf(function()
+            for k = 1, 30 do
+                UiVar.Interaction.ClientIsDragging:FireServer(itemToBuy)
+                itemToBuy.Main.CFrame = Counter.CFrame + Vector3.new(0, 0.1, 0)
+            end
+        end)
+
+        spawnf(function()
+            repeat
+                Pay(UiVar.ShopIDS[Counter.Parent.Name])
+                task.wait()
+            until Item.Parent == UiVar.PlayerModels
+        end)
+
+        task.wait(1)
+        spawnf(function()
+            for l = 1, 40 do
+                UiVar.Interaction.ClientIsDragging:FireServer(itemToBuy)
+                itemToBuy:SetPrimaryPartCFrame(CFrame.new(oldpos.p + Vector3.new(4, 0, 4)))
+            end
+            spawn(function()
+                --Player.Character.HumanoidRootPart.CFrame = oldpos
+                itemToBuy:SetPrimaryPartCFrame(CFrame.new(oldpos.p + Vector3.new(4, 0, 4)))
+                if AutoOpen then
+                    task.wait(1)
+                    UiVar.Interaction.ClientInteracted:FireServer(itemToBuy, "Open box")
+                end
+            end)
+        end)
+    end
+
+    Teleport(CFrame.new(oldpos.p))
+    UiVar.isBuying = false
+    return true
+end
+
+function TpBypass(Cords)
+    local Clone = Player.Character.Torso:Clone()
+    Clone.Name = "HumanoidRootPart"
+    Clone.Transparency = 1
+    Clone.Parent = Player.Character
+    Player.Character.HumanoidRootPart.CFrame = Cords
+    Clone.CFrame = Cords
+end
+
+function isnetworkowner(part)
+    return part.ReceiveAge == 0
+end
+
+function ItemSorter()
+    if math.floor(game:GetService('Stats').PerformanceStats.Ping:GetValue()) >= 500 then
+        UiVar.SendUserNotice:Fire('Server ping is high, Stacker may not work as wanted')
+    end
+function fixnames()
+    for i,v in pairs(UiVar.PlayerModels:GetChildren()) do
+        if v.Name == "Model" and v:FindFirstChild("ItemName") then
+            v.Name = v.ItemName.Value
+        elseif v:FindFirstChild("PurchasedBoxItemName") then
+            v.Name = v.PurchasedBoxItemName.Value
+        end
+    end
+end
+fixnames()
+    
+selectPart = UiVar.Mouse.Button1Down:connect(function()
+local itemname = false
+local SelectedItem = nil
+SortSelection = Instance.new("SelectionBox")
+if not UiVar.Mouse.Target then return end
+    if UiVar.sortstate == 1 and tostring(UiVar.Mouse.Target) == "Square" then return end
+        if UiVar.sortstate == 1 and tostring(UiVar.Mouse.Target) ~= "Square" then
+            if UiVar.Mouse.Target.Parent:FindFirstChild("ItemName") then
+                itemname = true
+                SelectedItem = UiVar.Mouse.Target.Parent.ItemName.Value
+            else
+                SelectedItem = UiVar.Mouse.Target.Parent.PurchasedBoxItemName.Value
+            end
+            UiVar.part = UiVar.Mouse.Target
+
+            SortSelection.Color3 = Color3.fromRGB(100,100,100) SortSelection.Parent = UiVar.Mouse.Target SortSelection.Adornee = SortSelection.Parent
+
+            for i, v in next, UiVar.PlayerModels:GetChildren() do
+                if v:FindFirstChild("PurchasedBoxItemName") and v.PurchasedBoxItemName.Value == SelectedItem and itemname == false then
+                    if v:FindFirstChild("Owner") and v.Owner.Value == Player then
+                    table.insert(UiVar.Items, v)
+                    end
+                elseif v:FindFirstChild("ItemName") and v.ItemName.Value == SelectedItem and itemname == true then 
+                    if v:FindFirstChild("Owner") and v.Owner.Value == Player then
+                    table.insert(UiVar.Items, v)
+                    end
+                end
+            end
+
+            UiVar.sortstate = 2
+    
+            task.wait(.5)
+            SortSelection:Destroy()
+    
+            UiVar.box = Instance.new("Part", game.Workspace)
+            UiVar.box.Size = Vector3.new(((UiVar.part.Size.x + 0.1)*UiVar.sortx),UiVar.part.Size.y*UiVar.sorty,((UiVar.part.Size.z+ 0.1)*UiVar.sortz)) 
+            UiVar.box.Color = Color3.fromRGB(100,100,100) 
+            UiVar.box.Transparency = 0.3 
+            UiVar.box.CanCollide = false 
+            UiVar.box.Anchored = true
+            UiVar.box.Material = "ForceField"
+            UiVar.Mouse.TargetFilter = UiVar.box
+
+            while UiVar.box do
+                if UiVar.sortstate ~= 3 and UiVar.Mouse.Target and UiVar.Mouse.Target.Parent then
+                    local Mouseclick = UiVar.Mouse.Hit
+                    UiVar.box.Position = CFrame.new(UiVar.Mouse.Hit.X+((UiVar.sortx/2)*UiVar.part.Size.x), UiVar.Mouse.Hit.Y +((UiVar.sorty/2)*UiVar.part.Size.y + 0.01) , UiVar.Mouse.Hit.z+((UiVar.sortz/2)*UiVar.part.Size.z)) * Vector3.new(0,0.0,0) 
+                    wait()
+                end
+                wait()
+            end
+
+    elseif UiVar.sortstate == 2 then
+    
+        sorttertime = tick()
+     
+        UiVar.sortstate = 3
+    
+        local Boxcframe = UiVar.box.CFrame - Vector3.new(UiVar.box.Size.X/2, UiVar.box.Size.Y/2, UiVar.box.Size.Z/2)
+        for i,v in next, UiVar.Items do
+            if not v.PrimaryPart then
+                v.PrimaryPart = v:FindFirstChild("Main")
+            end
+
+            local itemPos = Boxcframe + Vector3.new((v.Main.Size.X/2) + 0.1, v.Main.Size.Y - 1, (v.Main.Size.Z/2) + 0.1)
+
+            Player.Character.HumanoidRootPart.CFrame = CFrame.new(v.Main.Position + Vector3.new(0, 0, v.Main.Size.Z + 3),v.Main.Position + Vector3.new(1, 0, 0))
+            if not v:FindFirstChild("ItemName") then
+                if not v:FindFirstChild("PurchasedBoxItemName") then
+                    return
+                end
+            end            
+                wait(0.00001)
+
+                local itemNameOrPurchasedBoxItemName = nil
+    
+                if v:FindFirstChild("ItemName") then
+                    itemNameOrPurchasedBoxItemName = v.ItemName.Value
+                elseif v:FindFirstChild("PurchasedBoxItemName") then
+                    itemNameOrPurchasedBoxItemName = v.PurchasedBoxItemName.Value
+                end
+
+                repeat task.wait() UiVar.Interaction.ClientIsDragging:FireServer(v) until v.Main:FindFirstChild("SelectionBox")
+            
+                Player.Character.HumanoidRootPart.CFrame = CFrame.new(v.Main.Position + Vector3.new(0, 0, v.Main.Size.Z + 3),v.Main.Position + Vector3.new(1, 0, 0))
+                for i = 1,4,1 do
+                    wait(0.01)
+                    Player.Character.HumanoidRootPart.CFrame = CFrame.new(v.Main.Position + Vector3.new(0, 0, v.Main.Size.Z + 3))
+                    UiVar.Interaction.ClientIsDragging:FireServer(v)
+                    v:PivotTo(itemPos)
+                    UiVar.Interaction.ClientIsDragging:FireServer(v)
+                    wait(0.01)
+                    Player.Character.HumanoidRootPart.CFrame = CFrame.new(v.Main.Position + Vector3.new(0, 0, v.Main.Size.Z + 3))
+                    UiVar.Interaction.ClientIsDragging:FireServer(v)
+                    v:PivotTo(itemPos)
+                    UiVar.Interaction.ClientIsDragging:FireServer(v)
+                end
+
+                UiVar.PlaceStructure.ClientPlacedStructure:FireServer(itemNameOrPurchasedBoxItemName, itemPos, v.Owner.Value, nil, v, true)
+            task.wait()
+    
+            UiVar.RRSort = UiVar.RRSort + 1
+     
+            Boxcframe = Boxcframe + Vector3.new(v.Main.Size.X + 0, 0, 0)
+            if math.floor(UiVar.RRSort/UiVar.sortx) == UiVar.RRSort/UiVar.sortx then
+                Boxcframe = Boxcframe - Vector3.new((v.Main.Size.X + 0) * UiVar.sortx, 0, -v.Main.Size.Z - 0)
+            end
+            if math.floor(UiVar.RRSort/(UiVar.sortz * UiVar.sortx)) == UiVar.RRSort/(UiVar.sortz * UiVar.sortx) then
+                Boxcframe = Boxcframe - Vector3.new(0, -v.Main.Size.Y - 0, (v.Main.Size.Z + 0) * UiVar.sortz)
+            end
+        end
+
+    end
+    Notify(string.format("Sorter", "Sorter took %s", 4), tick() - sorttertime)
+    task.wait()
+    selectPart:Disconnect()
+    UiVar.box:Destroy()
+    fixnames()
+    UiVar.sortstate = 1
+    UiVar.Items = {}
+    end)
+
+end
+
+function CheckProperty()
+    for i = 1, #UiVar.Properties do
+        local Property = UiVar.Properties[i]
+        if tostring(Property.Owner.Value):match(tostring(Player)) then
+            return Property
+        end
+    end
+    return false
+end
+                
+function FindUnclaimedLand()
+    local Max, NearestProperty = 9e9
+    for i = 1, #UiVar.Properties do
+        local Property = UiVar.Properties[i]
+        if Property.Owner.Value == nil and (Property.OriginSquare.CFrame.p - Player.Character.Head.CFrame.p).Magnitude < Max then
+            NearestProperty = Property
+            Max = (Property.OriginSquare.CFrame.p - Player.Character.Head.CFrame.p).Magnitude
+        end
+    end
+    return NearestProperty
+end
+                
+function FreeLand()
+    if CheckProperty() then return UiVar.SendUserNotice:Fire('You already have a Property!') end
+
+    local Property = FindUnclaimedLand()
+    if not Property then 
+        repeat task.wait()
+        Property = FindUnclaimedLand()
+        until Property 
+    end
+                
+    UiVar.PropertyPurchasing.ClientPurchasedProperty:FireServer(Property, Property.OriginSquare.CFrame.p)
+                
+    UiVar.SendUserNotice:Fire('Free Land Acquired.')
+    Teleport(CFrame.new(Property.OriginSquare.CFrame.p) + Vector3.new(0, 5, 0))
+                
+    return Property
+end
+                
+function MaxLand()
+    if not CheckProperty() then
+        Property = FindUnclaimedLand()
+        UiVar.PropertyPurchasing.ClientPurchasedProperty:FireServer(Property, Property.OriginSquare.CFrame.p)
+        repeat task.wait() until CheckProperty()
+    end
+                
+    if not Property then
+        Property = CheckProperty()
+    end
+                
+    local OriginSquare = Property.OriginSquare
+    local Squares = #Property:GetChildren()
+                
+    if Squares >= 25 then
+        return game.ReplicatedStorage.Notices.SendUserNotice:Fire('Already Max-Landed.')
+    end
+                
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 40, OriginSquare.Position.Y, OriginSquare.Position.Z))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 40, OriginSquare.Position.Y, OriginSquare.Position.Z))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X, OriginSquare.Position.Y, OriginSquare.Position.Z + 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X, OriginSquare.Position.Y, OriginSquare.Position.Z - 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 40, OriginSquare.Position.Y, OriginSquare.Position.Z + 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 40, OriginSquare.Position.Y, OriginSquare.Position.Z - 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 40, OriginSquare.Position.Y, OriginSquare.Position.Z + 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 40, OriginSquare.Position.Y, OriginSquare.Position.Z - 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 80, OriginSquare.Position.Y, OriginSquare.Position.Z))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 80, OriginSquare.Position.Y, OriginSquare.Position.Z))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X, OriginSquare.Position.Y, OriginSquare.Position.Z + 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X, OriginSquare.Position.Y, OriginSquare.Position.Z - 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 80, OriginSquare.Position.Y, OriginSquare.Position.Z + 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 80, OriginSquare.Position.Y, OriginSquare.Position.Z - 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 80, OriginSquare.Position.Y, OriginSquare.Position.Z + 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 80, OriginSquare.Position.Y, OriginSquare.Position.Z - 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 40, OriginSquare.Position.Y, OriginSquare.Position.Z + 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 40, OriginSquare.Position.Y, OriginSquare.Position.Z + 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 80, OriginSquare.Position.Y, OriginSquare.Position.Z + 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 80, OriginSquare.Position.Y, OriginSquare.Position.Z - 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 80, OriginSquare.Position.Y, OriginSquare.Position.Z + 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 80, OriginSquare.Position.Y, OriginSquare.Position.Z - 40))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X + 40, OriginSquare.Position.Y, OriginSquare.Position.Z - 80))
+    UiVar.PropertyPurchasing.ClientExpandedProperty:FireServer(Property, CFrame.new(OriginSquare.Position.X - 40, OriginSquare.Position.Y, OriginSquare.Position.Z - 80))
+                
+    repeat task.wait() until #Property:GetChildren() == 25 
+    UiVar.SendUserNotice:Fire('Max Land Granted')
+end
+
+function GetBestAxe()
+    local bestTool = nil
+    local highestDamage = 0 
+
+    for _, tool in pairs(Player.Backpack:GetChildren()) do
+
+        if tool:IsA("Tool") and tool.Name ~= "BlueprintTool" and UiVar.toolStats[tool.ToolName.Value] then
+            local currentDamage = UiVar.toolStats[tool.ToolName.Value].Damage 
+
+			if UiVar.TreeToGet == 'LoneCave' and tool.ToolName.Value == 'EndTimesAxe' then 
+				return tool
+			end
+			
+			if UiVar.TreeToGet == 'Volcano' and tool.ToolName.Value == 'ManyAxe' then 
+				return tool
+			end
+			
+			if UiVar.TreeToGet == 'CaveCrawler' and tool.ToolName.Value == 'CaveAxe' then 
+				return tool
+			end
+			
+			if UiVar.TreeToGet == 'Frost' and tool.ToolName.Value == 'IceAxe' then 
+				return tool
+			end
+			
+			if UiVar.TreeToGet == 'GoldSwampy' and tool.ToolName.Value == 'AxeSwamp' then 
+				return tool
+			end
+			
+			if UiVar.TreeToGet == 'BlueSpruce' and tool.ToolName.Value == 'BlueSteelAxe' then 
+				return tool
+			end
+			
+			if UiVar.TreeToGet == 'Cherry' and tool.ToolName.Value == 'PieAxe' then 
+				return tool
+			end
+			
+			if UiVar.TreeToGet == 'Koa' or UiVar.TreeToGet == 'Walnut' and tool.ToolName.Value == 'GingerbreadAxe' then 
+				return tool
+			end
+            
+            if currentDamage > highestDamage then
+                highestDamage = currentDamage
+                bestTool = tool
+            end
+        end
+    end
+    
+    return bestTool
+end
+
+function GetAllTreeTypes(Type)
+    AvailableTrees = {}
+    for i,v in next, Workspace:GetChildren() do
+        if v.Name == "TreeRegion" then
+            for i,v in next, v:GetChildren() do
+                if v:FindFirstChild("Owner") then
+                    if v:FindFirstChild("TreeClass") and v.TreeClass.Value == Type and v.Owner.Value == nil or v.Owner.Value == Player then
+                        table.insert(AvailableTrees,v)
+                    end
+                end
+            end
+        end
+    end
+
+    return AvailableTrees
+end
+
+function FindTree(Type, size)
+    local selectedTree = nil
+    local countCondition
+    local compare
+    
+    if size == "Large" then
+        countCondition = 0
+        compare = function(count, bestCount) return count > bestCount end
+    elseif size == "Small" then
+        countCondition = math.huge
+        compare = function(count, bestCount) return count < bestCount end
+    else
+        return false
+    end
+    
+    for _, treeType in next, GetAllTreeTypes(Type) do
+        local count = 0
+        for _, child in next, treeType:GetChildren() do
+            if child.Name == "WoodSection" then
+                count = count + 1
+            end
+        end
+        
+        if compare(count, countCondition) then
+            selectedTree = treeType
+            countCondition = count
+        end
+    end
+    
+    if selectedTree then
+        return selectedTree
+    end
+    
+    return false
+end
+
+function AttemptChop(Tree)
+    local Axe = GetBestAxe()
+
+    if not Axe then return end
+
+    if not Tree or not Tree.Parent then return end
+
+    local Hitpoint, CutEvent, Cooldown = UiVar.toolStats[Axe.ToolName.Value].Damage, Tree.Parent:FindFirstChild('CutEvent') or Tree:FindFirstChild('CutEvent'), UiVar.Cooldown[Axe.ToolName.Value]
+
+    UiVar.Interaction.RemoteProxy:FireServer(CutEvent, {
+    ['tool'] = Axe,
+    ['faceVector'] = Vector3.new(1, 0, 0),
+    ['height'] = .3,
+    ['sectionId'] = 1,
+    ['hitPoints'] = Hitpoint,
+    ['cooldown'] = Cooldown,
+    ['cuttingClass'] = 'Axe'
+    })
+end
+
+function GetTree()
+    if UiVar.isCuttingTree then return end
+
+    if UiVar.isDuping then return end
+
+    if UiVar.isBuying then return end
+
+    local Axe = GetBestAxe()
+    local OldPos = Player.Character.HumanoidRootPart.CFrame
+
+    if not Axe then
+        return game.ReplicatedStorage.Notices.SendUserNotice:Fire(string.format('You Need An %s Axe To Use This Feature!', (UiVar.TreeToGet == 'LoneCave' and 'EndTimes') or ''))
+    end
+
+    UiVar.AbortGetTree = false
+    local Tree = FindTree(UiVar.TreeToGet, UiVar.TreeSize)
+
+    if not Tree then 
+        return game.ReplicatedStorage.Notices.SendUserNotice:Fire(string.format('There Are No %s Trees In This Server At The Moment!', UiVar.TreeToGet))
+    end
+
+    local TPSection 
+    for i,v in pairs(Tree:GetChildren()) do
+        if v:FindFirstChild("ID") and v.ID.Value == 1 then
+            TPSection = Tree
+        end
+    end
+
+    UiVar.isCuttingTree = true
+    Teleport(TPSection.WoodSection.CFrame)
+
+    task.wait(1)
+    local TreeCutDown = false
+
+    TreeAdded = Workspace.LogModels.ChildAdded:Connect(function(v)
+        task.wait()
+        if v:WaitForChild"Owner" and v.Owner.Value == Player then
+            v.PrimaryPart = v:WaitForChild('WoodSection', 10)
+            for i = 1, (UiVar.SelectedTreeType == 'LoneCave' and 140) or 15 do
+                UiVar.Interaction.ClientIsDragging:FireServer(v)
+                v:PivotTo(OldPos)
+                UiVar.TestPing:InvokeServer()
+                task.wait()
+            end
+            TreeCutDown = true
+        end
+    end)
+
+    repeat task.wait()
+        if UiVar.AbortGetTree then Teleport(OldPos) TreeAdded:Disconnect() UiVar.isCuttingTree = false break end
+        AttemptChop(Tree)
+    until TreeCutDown == true
+    task.wait(1)
+    Player.Character.HumanoidRootPart.CFrame = OldPos
+    UiVar.isCuttingTree = false
+    TreeAdded:Disconnect() 
+end
+
+function GetLoadedSlotInfo()
+    local Data = game.ReplicatedStorage.LoadSaveRequests.GetMetaData:InvokeServer(Player)
+        if Data[Player.CurrentSaveSlot.Value].SaveMeta[#Data[Player.CurrentSaveSlot.Value].SaveMeta] then
+            return Data[Player.CurrentSaveSlot.Value].SaveMeta[#Data[Player.CurrentSaveSlot.Value].SaveMeta].NumKeys
+        end
+end
+
+function DupeAxe()
+    Player.Character.Humanoid:UnequipTools()
+    local Axes, Slot = Player.Backpack:GetChildren(), Player.CurrentSaveSlot.Value
+    local AxeNum = 0
+
+    if UiVar.isDuping then
+        return Notify("Error", "Your already duping", 4)
+    end
+
+    if Slot <= 0 then 
+        return game.ReplicatedStorage.Notices.SendUserNotice:Fire('You Must Have A Slot Loaded For This Feature To Work.')
+    end
+
+    if not game.ReplicatedStorage.LoadSaveRequests.ClientMayLoad:InvokeServer(Player) then
+        return Notify('Error','Can not reload',4)
+    end
+
+    for i, v in pairs(Axes) do
+        if v:IsA("Tool") and v.Name ~= "BlueprintTool" then
+            AxeNum += 1
+        end
+    end
+
+    if AxeNum == 0 then
+        return game.ReplicatedStorage.Notices.SendUserNotice:Fire('This Feature Requires Your Axes To Be In Your Backpack.')
+    end
+
+    local WaitTime = 0
+
+    if tonumber(GetLoadedSlotInfo()) == 1 then
+        WaitTime = 4
+    elseif tonumber(GetLoadedSlotInfo()) == 2 then
+        WaitTime = 2
+    elseif tonumber(GetLoadedSlotInfo()) == 3 then
+        WaitTime = 2
+    elseif tonumber(GetLoadedSlotInfo()) == 4 then
+        WaitTime = 2
+    elseif tonumber(GetLoadedSlotInfo()) == 5 then
+        WaitTime = 1
+    elseif tonumber(GetLoadedSlotInfo()) == 6 then
+        WaitTime = 1
+    elseif tonumber(GetLoadedSlotInfo()) == 7 then
+        WaitTime = 1
+    elseif tonumber(GetLoadedSlotInfo()) >= 8 then
+        WaitTime = 0
+    end
+
+    local DupeReload = game:GetService('RunService').Stepped:Connect(function()
+
+        repeat wait() until Player.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible == true
+
+        game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,game)
+        task.wait(.4)
+        game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,game)
+        end)
+
+    Player.Character.HumanoidRootPart.CFrame = CFrame.new(-114.82, -399, 409.19)
+    wait(WaitTime)
+    game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(1, Player)
+
+    DupeReload:Disconnect()
+
+end
+
+function ModSawmil()
+    if not Player.PlayerBlueprints.Blueprints:FindFirstChild("Floor2") then
+        Notify('Error','You do not own the Floor2 blueprint',4)
+        return
+    end
+
+    local ModSawmill = nil
+    local SelectedSawmill = false
+
+    SawmillConnection = UiVar.Mouse.Button1Down:Connect(function()
+    local Clicked = UiVar.Mouse.Target.Parent
+    if Clicked:FindFirstChild("Settings") and Clicked.Settings:FindFirstChild("DimZ") or Clicked.Parent:FindFirstChild("Settings") and Clicked.Parent.Settings:FindFirstChild("DimZ") then
+        ModSawmill = Clicked.Parent
+        Notify('Lynx','Sawmill selected',4)
+        SelectedSawmill = true
+    else
+        Notify('Error','Not a Sawmill',4)
+    end
+    end)
+
+    repeat wait() until SelectedSawmill == true
+    SawmillConnection:Disconnect()
+
+    local Conveyor, Conveyors = nil, ModSawmill.Conveyor.Model:GetChildren()
+    for i = (ModSawmill.ItemName.Value:match("Sawmill4L") and #Conveyors - 1) or #Conveyors, #Conveyors do
+        Conveyor = Conveyors[i]
+        break
+    end
+
+    local Offset = .4
+
+    local Orientation = ModSawmill.Main.Orientation.Y
+
+    for i = 1, 4 do
+        Offset = Offset + 0.2
+
+        UiVar.PlaceStructure.ClientPlacedBlueprint:FireServer(
+            'Floor2', 
+            CFrame.new(Conveyor.CFrame.p + Vector3.new((Orientation == 0 and -Offset) or (Orientation == 180 and Offset) or 0, 1.5, (Orientation == -90 and -Offset) or (Orientation == 90 and Offset))) * CFrame.Angles(math.rad(((Orientation == 180 or Orientation == 0) and 90) or 45), 
+            math.rad(((Orientation == 180 or Orientation == 0) and 0) or 90), 
+            math.rad(((Orientation == 180 or Orientation == 0) and 90) or 45)), 
+            Player)
+
+        Wait(1.5)
+    end
+    Notify('Lynx','Done',4)
+end
+
+function SelectSawmill(Type)
+    UiVar.SendUserNotice:Fire("Select A Sawmill To "..Type)
+    UiVar.Mouse.Button1Down:Connect(function()
+    local Target = UiVar.Mouse.Target
+    if not Target then return end
+        Target = Target.Parent
+        local Sawmill = Target:FindFirstChild('Settings') and Target.Settings:FindFirstChild('DimZ') or Target.Parent:FindFirstChild('Settings') and Target.Parent.Settings:FindFirstChild('DimZ')
+    
+        if Sawmill then 
+            UiVar.ModWoodSawmill = Sawmill.Parent.Parent
+            UiVar.SendUserNotice:Fire('Sawmill Selected.')
+        end
+    end)
+end
+
+function SelectTree(Type)
+    UiVar.SendUserNotice:Fire("Select A Tree "..Type)
+    UiVar.Mouse.Button1Down:Connect(function()     
+        local Target = UiVar.Mouse.Target      
+        if not Target then            
+            return          
+        end   
+        Target = Target.Parent
+        local Tree = (Target:FindFirstChild('WoodSection') and tostring(Target.Parent):match((Type == 'To Mod' and 'LogModels') or 'TreeRegion') and ((tostring(Target.Owner.Value):match(tostring(Player))) or tostring(Target.Owner.Value):match('nil')) and Target)       
+        if Tree then            
+            ModWoodTree = (Type == 'To Mod' and ModWoodTree) or Tree
+            TreeToDismember = (Type ~= 'To Mod' and Tree)
+            UiVar.SendUserNotice:Fire('Tree Selected.')          
+        end   
+    end)
+end
+
+function GetLava()
+    local Lava = game.Workspace['Region_Volcano']:GetChildren()  
+    for i = 1, #Lava do       
+        local Lava = Lava[i]     
+        if Lava:FindFirstChild('Lava') and Lava.Lava.CFrame == CFrame.new(-1675.2002, 255.002533, 1284.19983, 0.866007268, 0, 0.500031412, 0, 1, 0, -0.500031412, 0, 0.866007268) then          
+            return Lava          
+        end      
+    end  
+end
+local LavaPart = GetLava()
+
+function ModWood(BruteForce)
+    if UiVar.ModdingWood then return UiVar.SendUserNotice:Fire('You\'re Already Using This Feature.') end
+
+    if not GetBestAxe() then return UiVar.SendUserNotice:Fire('You Need An Axe To Use This Feature') end
+
+    local OldPosition = Player.Character.HumanoidRootPart.CFrame
+    if not BruteForce then 
+        SelectSawmill('Mod Wood')
+        repeat task.wait() until UiVar.ModWoodSawmill and not Player.PlayerGui.NoticeGUI.Notice.Visible
+        SelectTree("To Mod")
+        repeat task.wait() until ModWoodTree
+    end
+
+    UiVar.ModdingWood = true
+    local Object = ModWoodTree
+    local WoodSections, SmallestWoodSection, Size, MainSection = Object:GetDescendants(), nil, 9e9
+
+    for i = 1, #WoodSections do 
+        local WoodSection = WoodSections[i]
+        if (ModWoodTree.TreeClass.Value == 'Pine' or ModWoodTree.TreeClass.Value == 'Fir') then 
+            if tostring(WoodSection):match('WoodSection') and WoodSection.Size.X <= Size and WoodSection.Size.X >= .5 then 
+                Size = WoodSection.Size.X
+                SmallestWoodSection = WoodSection
+            end
+        elseif not (ModWoodTree.TreeClass.Value == 'Pine' or ModWoodTree.TreeClass.Value == 'Fir') and tostring(WoodSection):match('WoodSection') and WoodSection.ID.Value >= 3 and WoodSection:FindFirstChild('ParentID') then  
+            Size = WoodSection.Size.X
+            SmallestWoodSection = WoodSection
+        end
+    end
+
+    if not SmallestWoodSection then 
+        UiVar.ModWoodSawmill, ModWoodTree = (AutofarmTrees and UiVar.ModWoodSawmill) or nil, nil
+        return UiVar.SendUserNotice:Fire('This Tree Is Not Moddable.')
+    end
+
+    for i = 1, #WoodSections do 
+        local WoodSection = WoodSections[i]
+        if tostring(WoodSection):match('WoodSection') and WoodSection.ID.Value == SmallestWoodSection.ParentID.Value and WoodSection.Parent == SmallestWoodSection.Parent then
+            SellPointPiece = WoodSection
+        end
+    end
+
+    for i = 1, #WoodSections do 
+        local WoodSection = WoodSections[i]
+        if tostring(WoodSection):match('WoodSection') and WoodSection.ID.Value == 1 then
+            MainSection = WoodSection
+        end
+    end
+
+    local OldFly = UiSettings.isFlying
+    if not OldFly then
+        UiSettings.isFlying = true
+    end
+
+    Object.PrimaryPart = SellPointPiece
+    if (Player.Character.Head.CFrame.p - MainSection.CFrame.p).Magnitude >= 5 then 
+        repeat task.wait()
+        Teleport(CFrame.new(MainSection.CFrame.p + Vector3.new(0, 5, 0)))
+        until (Player.Character.Head.CFrame.p - MainSection.CFrame.p).Magnitude <= 10
+    end
+
+    repeat task.wait()
+        UiVar.Interaction.ClientIsDragging:FireServer(Object)
+    until Object.Owner.Value == Player
+
+    UiSettings.isFlying = true
+    Teleport(MainSection.CFrame)
+
+    repeat task.wait()
+        for i = 1, 25 do 
+        UiVar.Interaction.ClientIsDragging:FireServer(Object)
+        Object:PivotTo(CFrame.new(-1425, 489, 1244))
+        Object.PrimaryPart.Velocity = Vector3.new()
+        Object.PrimaryPart.RotVelocity = Vector3.new()
+        task.wait()
+        end
+
+    firetouchinterest(SellPointPiece, LavaPart.Lava, 0)
+    firetouchinterest(SellPointPiece, LavaPart.Lava, 1)
+    until SellPointPiece:FindFirstChild('LavaFire')
+
+    for i,v in pairs (Object:GetChildren()) do
+        if v:FindFirstChild('LavaFire') then
+            v:FindFirstChild('LavaFire'):Destroy()
+        end
+    end
+
+    for i = 1, 25 do 
+        UiVar.Interaction.ClientIsDragging:FireServer(Object)
+        Object:PivotTo(CFrame.new(-1055, 291, -458))
+        task.wait()
+    end
+
+    Teleport(CFrame.new(-1055, 291, -458))
+    local SellPieceSold
+
+    SellPointPiece.AncestryChanged:Connect(function()
+    SellPieceSold = true
+    end)
+
+    repeat task.wait()
+        for i = 1, 25 do       
+        task.wait()
+        SellPointPiece.CFrame = CFrame.new(315, 0, 85)
+        UiVar.Interaction.ClientIsDragging:FireServer(Object)
+        end
+
+    until SellPieceSold
+
+    repeat task.wait() until SellPieceSold
+        Teleport(SmallestWoodSection.CFrame)
+        for i = 1, #WoodSections do 
+            local WoodSection = WoodSections[i]
+            if tostring(WoodSection):match('WoodSection') and WoodSection ~= SmallestWoodSection then 
+                Object.PrimaryPart = WoodSection
+            end
+        end
+
+    repeat task.wait()
+        UiVar.Interaction.ClientIsDragging:FireServer(Object)
+    until Object.Owner.Value == Player
+
+    for i = 1, 25 do
+        if not UiVar.ModWoodSawmill:IsDescendantOf(UiVar.PlayerModels) then
+            break
+        end          
+        task.wait()
+        SmallestWoodSection.CFrame = UiVar.ModWoodSawmill.Particles.CFrame + Vector3.new(0, .5, 0)
+        UiVar.Interaction.ClientIsDragging:FireServer(Object)
+    end
+
+    if not UiVar.ModWoodSawmill:IsDescendantOf(UiVar.PlayerModels) then
+        return UiVar.SendUserNotice:Fire('Mod Wood Failed \n\n Did You Reload?')
+    end
+
+    Teleport(CFrame.new(Object.PrimaryPart.CFrame.p + Vector3.new(0, 5, 4)))
+    WoodModded = Workspace.LogModels.ChildAdded:Connect(function(Tree)
+    local Owner = Tree:WaitForChild('Owner', 10)
+
+    if Owner.Value == Player then
+    end
+
+    end)
+    
+    local PlankAdded = false
+
+    Workspace.LogModels.ChildAdded:Connect(function(Plank)
+    local Owner = Plank:WaitForChild('Owner', 10)
+        if Plank.Owner.Value == Player then
+            if Plank.Name:sub(1, 6) == "Loose_" then
+            PlankAdded = true
+            UiVar.ModdingWood = false
+            end
+        end
+    end)
+
+    local Threshold = 0
+    
+    repeat task.wait()
+        Teleport(CFrame.new(Object.WoodSection.CFrame.p + Vector3.new(0, 0, 5)))
+        AttemptChop(Object)
+        for i = 1, 40 do     
+            task.wait()
+            SmallestWoodSection.CFrame = UiVar.ModWoodSawmill.Particles.CFrame
+            UiVar.Interaction.ClientIsDragging:FireServer(Object)
+            if (SmallestWoodSection.CFrame.p - UiVar.ModWoodSawmill.Particles.CFrame.p).Magnitude <= 10 then
+                Threshold += 1
+                if Threshold >= 45 then
+                    break
+                end
+            end
+        end
+    until PlankAdded == true
+
+    UiVar.ModWoodSawmill, ModWoodTree = (AutofarmTrees and UiVar.ModWoodSawmill) or nil, nil
+    UiSettings.isFlying = OldFly
+    Teleport(OldPosition)
+    UiVar.ModdingWood = false
+    task.wait(.5)
+end
+
+function ClickToSell()
+    local WoodToSell
+    WoodToSell = UiVar.Mouse.Button1Down:Connect(function()
+        if UiVar.ClickSell then
+            local Clicked = UiVar.Mouse.Target.Parent
+            if Clicked.Owner.Value == Player then
+              if Clicked:FindFirstChild("TreeClass") and Clicked.Name:sub(1,6) == "Loose_" or Clicked.Name == "Plank" then
+                    Player.Character.HumanoidRootPart.CFrame = CFrame.new(Clicked:FindFirstChild("WoodSection").CFrame.p)
+                    for i = 1,30 do
+                        UiVar.Interaction.ClientIsDragging:FireServer(Clicked)
+                        Clicked:PivotTo(CFrame.new(Vector3.new(314.78, 0.3, 84.26))*CFrame.Angles(math.rad(90), 0, -100))
+                        task.wait()
+                    end
+                end
+            end
+        else
+        WoodToSell:Disconnect()
+        end
+    end)
+end
+
+function ChopTree(CutEventRemote, ID, Height,Tree)
+    local Axe = GetBestAxe()
+    UiVar.Interaction.RemoteProxy:FireServer(
+        CutEventRemote, 
+        {["tool"] = Axe, 
+        ["faceVector"] = Vector3.new(1, 0, 0), 
+        ["height"] = Height, 
+        ["sectionId"] = ID, 
+        ["hitPoints"] = UiVar.toolStats[Axe.ToolName.Value].Damage, 
+        ["cooldown"] = UiVar.Cooldown[Axe.ToolName.Value], 
+        ["cuttingClass"] = "Axe"})
+end
+
+function OneUnitCutter(Value)
+    if not Value then UiVar.PlankReAdded:Disconnect() UiVar.UnitCutterClick:Disconnect() return end
+
+    UiVar.PlankReAdded = UiVar.PlayerModels.ChildAdded:Connect(function(v)
+            if v:WaitForChild("TreeClass") and v:WaitForChild("WoodSection") then
+                UiVar.ClickedPart = v
+                task.wait()
+            end
+        end)
+
+        UiVar.UnitCutterClick =  UiVar.Mouse.Button1Down:Connect(function()
+            UiVar.ClickedPart = UiVar.Mouse.Target.Parent
+        if Player.Character:FindFirstChild"Tool" then
+            Player.Character.Humanoid:UnequipTools()
+        end
+
+        if not Player.Backpack:FindFirstChild"Tool" then
+            return Notify("Error!", "You need an axe to use this feature", 5)
+        end
+
+        if UiVar.ClickedPart:FindFirstChild"TreeClass" and UiVar.ClickedPart.TreeClass.Value ~= "Sign" then
+            if UiVar.ClickedPart.TreeClass.Value == "LoneCave" and GetAxeInfo("Tool","LoneCave").ToolName.Value ~= "EndTimesAxe" then
+                return Notify("Error!", "You need an EndTimes Axe to cut this wood", 5)
+            end
+
+            Teleport(CFrame.new(UiVar.ClickedPart:FindFirstChild"WoodSection".CFrame.p) + Vector3.new(5,1,0))
+            repeat 
+            if not UiVar.UnitCutter then 
+                UiVar.UnitCutterClick = nil
+                UiVar.ClickedPart = nil
+                break 
+            end
+
+            ChopTree(UiVar.ClickedPart:WaitForChild"CutEvent",1,1,UiVar.ClickedPart.TreeClass.Value)
+            if UiVar.ClickedPart.Parent:FindFirstChild("Cut") then
+                Teleport(UiVar.ClickedPart:FindFirstChild("Cut").CFrame + Vector3.new(0,3,-3))
+            end
+            task.wait()
+            until UiVar.ClickedPart:FindFirstChild"WoodSection".Size.X <= 1.88 and UiVar.ClickedPart:FindFirstChild"WoodSection".Size.Y <= 1.88 and UiVar.ClickedPart:FindFirstChild"WoodSection".Size.Z <= 1.88
+        end
+    end)
+end
+
+--RunService/ChildAdded/Removed
+local filesave = UiVar.RunService.Stepped:Connect(function()
+    SaveFiles()
+end)
+
+local humanoidstuff = UiVar.RunService.Stepped:Connect(function()
+    Player.Character.Humanoid.WalkSpeed = UiSettings.WalkSpeed
+    Player.Character.Humanoid.JumpPower = UiSettings.JumpPower
+    
+    if UiSettings.isFlying then
+        Flight()
+    end
+
+    if UiSettings.InfZoom then
+        Player.CameraMaxZoomDistance = math.huge
+    else
+        Player.CameraMaxZoomDistance = 100
+    end
+
+    if UiSettings.Noclip then
+        local BaseParts = Player.Character:GetChildren()
+            for i = 1, #BaseParts do 
+                local Part = BaseParts[i]
+                if Part.Name == "Head" or Part.Name == "HumanoidRootPart" then
+                    Part.CanCollide = false
+                end
+            end
+        else
+        local BaseParts = Player.Character:GetChildren()
+            for i = 1, #BaseParts do 
+                local Part = BaseParts[i]
+                if Part.Name == "Head" or Part.Name == "HumanoidRootPart" then
+                    Part.CanCollide = true
+                end
+            end
+        end
+
+            if UiSettings.AntiAFK then
+                Player.Idled:connect(function()
+                UiVar.VirtualUser:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+                wait(1)
+                UiVar.VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+            end)
+            else
+                return
+            end
+end)
+
+local Reset = Player.CharacterAdded:Connect(function()
+    repeat task.wait() 
+    until Player.Character:FindFirstChild('Humanoid')
+    if UiSettings.Light then
+        Light()
+    end
+    
+    if UiSettings.isFlying then
+        Flight()
+    end
+end)
+
+local Worldshit = UiVar.RunService.Stepped:Connect(function()
+    UiVar.Lighting.TimeOfDay = (UiSettings.AlwaysDay and '12:00:00') or (UiSettings.AlwaysNight and '2:00:00') or UiVar.Lighting.TimeOfDay
+    UiVar.Lighting.GlobalShadows = UiSettings.GlobalShadows
+    UiVar.Lighting.FogEnd = (UiSettings.NoFog and 1000000) or UiVar.Lighting.FogEnd
+    UiVar.Lighting.GlobalShadows = UiSettings.NoShadow
+end)
+
+game.CoreGui.ChildRemoved:Connect(function(Child)
+        
+    if tostring(Child):match('FluxLib') then
+        UiSettings.isFlying = false
+
+        filesave:Disconnect()
+        humanoidstuff:Disconnect()
+        Reset:Disconnect()
+        Worldshit:Disconnect()
+
+            game.workspace.CurrentCamera.FieldOfView = 70
+            Player.CameraMaxZoomDistance = 100
+            Player.Character.Humanoid.JumpPower = 50
+
+            if Player.Character.Head:FindFirstChild('PointLight') then
+                return Player.Character.Head.PointLight:Destroy()
+            end
+    end
+end)
+
+
+
+--Hooking methods
+--local Args = {...}
+--local Hook = nil
+--
+--Hook = hookmetamethod(game, '__namecall', function(...)
+--    local NewArgs = {...}
+--        local Method = getnamecallmethod()
+--        if Method == 'FireServer' and tostring(...) == 'DamageHumanoid' and not UiSettings.HumanoidDamge then
+--            return
+--        end
+--
+--        setnamecallmethod(Method)
+--    return Hook(unpack(NewArgs))
+--end)
+
+
+--Ui Elements
+local Lynx = loadstring(game:HttpGet"https://raw.githubusercontent.com/LuaLynx/Lynx/main/FluxUi")()
+
+local win = Lynx:Window("LynxHub", game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, Color3.fromRGB(100,100,100), Enum.KeyCode.LeftControl)
+
+local Credits = win:Tab("Credits", "http://www.roblox.com/asset/?id=6023426915")
+
+Credits:Label("Script Dev: lua.lynx")
+
+Credits:Line()
+
+Credits:Button("Join the discord", "Copy the discord server invite", function()
+    setclipboard('https://discord.gg/nyZNgCPC3c')
+end)
+
+Credits:Line()
+
+Credits:Label("Left control to minimize ui")
+
+local PlayerTab = win:Tab("Local Player", "http://www.roblox.com/asset/?id=6023426915")
+
+PlayerTab:Label("Humanoid")
+
+PlayerTab:Slider("Walk-Speed", "Change your humanoid walk-speed", 16, 500, tonumber(UiSettings.WalkSpeed), function(value)
+    UiSettings.WalkSpeed = value
+end)
+
+PlayerTab:Slider("Jump-Power", "Change your humanoid jump-power", 50, 500, UiSettings.JumpPower, function(value)
+    UiSettings.JumpPower = value
+end)
+
+PlayerTab:Slider("Fly-Speed", "Change how fast you fly", 20, 500, UiSettings.FlySpeed, function(value)
+    UiSettings.FlySpeed = value
+end)
+
+PlayerTab:Toggle("Fly", "Enable fly", UiSettings.isFlying, function(value)
+    UiSettings.isFlying = value
+end)
+
+PlayerTab:Toggle("No-Clip", "Pass through any wall", UiSettings.Noclip, function(value)
+    UiSettings.Noclip = value
+end)
+
+PlayerTab:Toggle("Invis", "hide your self Server-Side", false, function(value)
+    if value then
+        OldPos = Player.Character.HumanoidRootPart.CFrame
+        Teleport(Player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5000, 0))
+        task.wait(1)
+        TpBypass(OldPos)
+        task.wait(1)
+    else
+        Player.Character.Head:Destroy()
+    end
+end)
+
+--PlayerTab:Toggle("Humanoid-Damage", "Toggle humanoid damage (Doesnt prevent damage from endtimes)", UiSettings.HumanoidDamge, function(value)
+--    UiSettings.HumanoidDamge = value
+--end)
+
+PlayerTab:Toggle("Anti-AFK", "Stops the game from kicking the localplayer", UiSettings.AntiAFK, function(value)
+    UiSettings.AntiAFK = value
+end)
+
+PlayerTab:Toggle("Flashlight", "A light to see in the dark", UiSettings.Light, function(value)
+    UiSettings.Light = value
+    Light()
+end)
+
+PlayerTab:Line()
+
+PlayerTab:Label("Camera Mods")
+
+PlayerTab:Toggle("Infinite-Zoom", "Change the camera zoom", UiSettings.InfZoom, function(value)
+    UiSettings.InfZoom = value
+end)
+
+local FOVSlider = PlayerTab:Slider("Field-Of-View", "Change Your Camera FOV", 20, 120, UiSettings.FOV, function(value)
+    UiSettings.FOV = value
+end)
+
+PlayerTab:Button("Field-Of-View Reset", "reset the FOV", function()
+    FOVSlider:Change(70)
+end)
+
+local SpectatePlayer = PlayerTab:Dropdown("Select a player to view", UiVar.PlayerList, function(value)
+    UiVar.PlayerToView = value
+end)
+
+PlayerTab:Button("Start Spectating Player", "reset the FOV", function()
+    game.Workspace.Camera.CameraSubject = game.Players[UiVar.PlayerToView].Character.Head
+end)
+
+PlayerTab:Button("Stop Spectating Player", "reset the FOV", function()
+    game.Workspace.Camera.CameraSubject = Player.Character.Humanoid
+end)
+
+PlayerTab:Line()
+
+PlayerTab:Label("Game Options")
+
+PlayerTab:Button("Safe Death", "Respawn without loosing your axes", function()
+    Player.Character.HumanoidRootPart.CFrame = CFrame.new(-114.82, -399, 409.19)
+end)
+
+PlayerTab:Button("Rejoin Server", "Rejoin the current server", function()
+    UiVar.TeleportService:Teleport(game.PlaceId, Player)
+end)
+
+PlayerTab:Button("Quit Game", "leaves the game", function()
+    Game:shutdown()
+end)
+
+
+local WorldTab = win:Tab("World", "http://www.roblox.com/asset/?id=6022668888")
+
+WorldTab:Label("Game Settings")
+
+WorldTab:Toggle("Always Day", "Make the world always day", UiSettings.AlwaysDay, function(value)
+    UiSettings.AlwaysDay = value
+end)
+
+WorldTab:Toggle("Always Night", "Make the world always night", UiSettings.AlwaysNight, function(value)
+    UiSettings.AlwaysNight = value
+end)
+
+WorldTab:Toggle("Fog", "Toggle fog on or off", UiSettings.NoFog, function(value)
+    UiSettings.NoFog = value
+end)
+
+WorldTab:Toggle("Shadow", "Toggle shadows on or off", UiSettings.NoShadow, function(value)
+    UiSettings.NoShadow = value
+end)
+
+WorldTab:Line()
+
+WorldTab:Label("Player Teleport")
+
+PlayerTeleport = WorldTab:Dropdown("Select a player", UiVar.PlayerList, function(value)
+    UiVar.PlayerTP = value
+end)
+
+WorldTab:Button("Teleport to player", "teleport to selected player", function()
+    Teleport(game.Players[UiVar.PlayerTP].Character.HumanoidRootPart.CFrame)
+end)
+
+WorldTab:Button("Teleport to Base", "teleport to selected players Base", function()
+    for i, v in pairs(game.Workspace.Properties:GetChildren()) do
+        if v.Owner.Value == game.Players[UiVar.PlayerTP] then
+        Teleport(CFrame.new(v.OriginSquare.CFrame.x, v.OriginSquare.CFrame.y +3.5, v.OriginSquare.CFrame.z))
+        end
+    end
+end)
+
+WorldTab:Label("World Teleport")
+
+WorldTab:Dropdown("Select a Place", UiVar.NamePoints, function(value)
+    if value ~= "EndTimes" then
+    Teleport(UiVar.GameWayPoints[value])
+    else
+        TpBypass(UiVar.GameWayPoints[value])
+        Teleport(UiVar.GameWayPoints[value])
+    end
+end)
+
+WorldTab:Line()
+
+local BaseTab = win:Tab("Base", "http://www.roblox.com/asset/?id=6022668888")
+
+BaseTab:Label("Base Options")
+
+BaseTab:Button("Free Land", "Get land for free", function()
+    FreeLand()
+end)
+
+BaseTab:Button("Max Land", "Get All for free", function()
+    MaxLand()
+end)
+
+BaseTab:Line()
+
+BaseTab:Label("Save Options")
+
+BaseTab:Slider("Slot Number", "Select the slot number", 1, 6, 1, function(value)
+    UiVar.SlotNumber = value
+end)
+
+BaseTab:Button("Load Save", "Loads your save", function()
+    local Reload = UiVar.RunService.Stepped:Connect(function()
+        repeat wait() until Player.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible == true
+
+        game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,game)
+        task.wait(.4)
+        game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,game)
+        end)
+
+    game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(UiVar.SlotNumber, Player)
+
+    Reload:Disconnect()
+end)
+
+BaseTab:Button("Unload Save", "Unloads your save", function()
+        if not game.ReplicatedStorage.LoadSaveRequests.ClientMayLoad:InvokeServer(Player) then
+            game.ReplicatedStorage.Notices.SendUserNotice:Fire('Waiting For Load Timeout. Please Wait...')
+            repeat 
+                Wait(1)
+            until game.ReplicatedStorage.LoadSaveRequests.ClientMayLoad:InvokeServer(Player)
+        end
+
+    local Reload = UiVar.RunService.Stepped:Connect(function()
+        repeat wait() until Player.PlayerGui.PropertyPurchasingGUI.SelectPurchase.Visible == true
+
+        game:GetService("VirtualInputManager"):SendKeyEvent(true,"B",false,game)
+        end)
+
+    game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(1, Player)
+
+    Reload:Disconnect()
+end)
+
+BaseTab:Line()
+
+BaseTab:Label("Item Sorter")
+
+BaseTab:Slider("X", "Select X", 1, 50, 1, function(Value)
+    UiVar.sortx = Value
+end)
+
+BaseTab:Slider("Y", "Select Y", 1, 50, 1, function(Value)
+    UiVar.sorty = Value
+end)
+
+BaseTab:Slider("Z", "Select Z", 1, 50, 1, function(Value)
+    UiVar.sortz = Value
+end)
+
+BaseTab:Button("Start Sorter", "Sorts items in a box nicer then most", function()
+    ItemSorter()
+end)
+
+local TreeTab = win:Tab("Tree", "http://www.roblox.com/asset/?id=6022668888")
+
+TreeTab:Label("Get Tree")
+
+TreeTab:Dropdown("Select Tree Type", UiVar.TreeList, function(value)
+UiVar.TreeToGet = value
+end)
+
+TreeTab:Slider("Amount", "How many trees to cut", 1, 10, 1, function(Value)
+    UiVar.TreeAmount = Value
+end)
+
+TreeTab:Dropdown("Select Size", {'Large', 'Small'}, function(value)
+    UiVar.TreeSize = value
+end)
+
+TreeTab:Button("Start", "Starts Cutting Trees", function()
+    for i = 1, UiVar.TreeAmount do
+        GetTree()
+    end
+end)
+
+TreeTab:Button("Stop", "Starts Cutting Trees", function()
+    UiVar.AbortGetTree = true
+end)
+
+if UiVar.SpecialTreesMonths then
+    if os.date("%B") == "October" then
+
+TreeTab:Line()
+
+TreeTab:Button("Find Spooky Trees", "Server hops until you find a spooky tree", function()
+    getgenv().Config = "Spooky"
+    loadstring(game:HttpGet"https://raw.githubusercontent.com/LuaLynx/Lynx/refs/heads/main/TreeFinder")()
+end)
+
+
+TreeTab:Button("Find Spooky Neon Trees", "Server hops until you find a spooky neon tree", function()
+    getgenv().Config = "SpookyNeon"
+    loadstring(game:HttpGet"https://raw.githubusercontent.com/LuaLynx/Lynx/refs/heads/main/TreeFinder")()
+end)
+
+
+    elseif os.date("%B") == "December" then
+
+TreeTab:Line()
+     
+TreeTab:Button("Find Bluespruce Trees", "Server hops until you find a Bluespruce tree", function()
+    getgenv().Config = "BlueSpruce"
+    loadstring(game:HttpGet"https://raw.githubusercontent.com/LuaLynx/Lynx/refs/heads/main/TreeFinder")()
+end)
+
+    end
+ end
+
+
+TreeTab:Line()
+
+TreeTab:Label("Wood Options")
+
+TreeTab:Button("Mod Wood", "Turns the tree into a long plank", function()
+    ModWood()
+end)
+
+TreeTab:Button("Mod Sawmill", "Makes the sawmill work faster", function()
+    ModSawmil()
+end)
+
+TreeTab:Toggle("Click To Sell", "Click to sell any plank or log", UiVar.ClickSell, function(value)
+    UiVar.ClickSell = value
+    ClickToSell()
+end)
+
+TreeTab:Toggle("1x1 cutter", "turns any plank into a perfect 1x1", false, function(Value)
+    UiVar.UnitCutter = Value
+    OneUnitCutter(Value)
+end)
+
+local AutoBuyTab = win:Tab("Auto Buy", "http://www.roblox.com/asset/?id=6022668888")
+
+AutoBuyTab:Label("Auto Buy")
+
+AutoBuyTab:Dropdown("Select Item", UiVar.ItemList, function(value)
+    UiVar.ItemToBuy = value
+end)
+
+AutoBuyTab:Slider("Item Amount", "Select How Many Items", 1, 50, 1, function(Value)
+UiVar.ItemAmount = Value
+end)
+
+AutoBuyTab:Button("Start AutoBuy", "Auto Buys Items", function()
+    AutoBuyItem(UiVar.ItemToBuy,UiVar.ItemAmount, false)
+end)
+
+AutoBuyTab:Button("Stop AutoBuy", "Stops Auto Buy", function()
+    UiVar.abortAutobuy = true
+end)
+
+AutoBuyTab:Button("Get Ruki Axe", "Gets all items and claims the Ruki Axe", function()
+    local OldPos = Player.Character.HumanoidRootPart.CFrame
+    StartTick = tick()
+    for i = 1, UiVar.ItemAmount do
+        AutoBuyItem("BagOfSand", 1, true)
+        AutoBuyItem("LightBulb", 1, true)
+        AutoBuyItem("CanOfWorms", 1, true)
+    end
+    wait(1)
+
+    for i = 1, UiVar.ItemAmount do
+        task.wait()
+        local BagOfSand
+        local Bulb
+        local CanOfWorms
+        for i, v in pairs(UiVar.PlayerModels:GetChildren()) do
+            if v:FindFirstChild("Owner") and v.Owner.Value ~= nil and v.Owner.Value == Player then
+                if v:FindFirstChild("ItemName") and v.ItemName.Value == "BagOfSand" then
+                    BagOfSand = v 
+                elseif v:FindFirstChild("ItemName") and v.ItemName.Value == "LightBulb" then
+                        Bulb = v 
+                    elseif v:FindFirstChild("ItemName") and v.ItemName.Value == "CanOfWorms" then
+                            CanOfWorms = v
+                        end
+                    end
+                end
+
+                task.wait(2)
+
+                if not BagOfSand then
+                    for i, v in pairs(UiVar.PlayerModels:GetChildren()) do
+                        if v:FindFirstChild("Owner") and v.Owner.Value ~= nil and v.Owner.Value == Player then
+                            if v:FindFirstChild("ItemName") and v.ItemName.Value == "BagOfSand" then
+                                BagOfSand = v
+                            end
+                        end
+                    end
+                end
+
+                if not Bulb then
+                    for i, v in pairs(UiVar.PlayerModels:GetChildren()) do
+                        if v:FindFirstChild("Owner") and v.Owner.Value ~= nil and v.Owner.Value == Player then
+                            if v:FindFirstChild("ItemName") and v.ItemName.Value == "LightBulb" then
+                                Bulb = v
+                            end
+                        end
+                    end
+                end
+
+                if not CanOfWorms then
+                    for i, v in pairs(UiVar.PlayerModels:GetChildren()) do
+                        if v:FindFirstChild("Owner") and v.Owner.Value ~= nil and v.Owner.Value == Player then
+                            if v:FindFirstChild("ItemName") and v.ItemName.Value == "CanOfWorms" then
+                                CanOfWorms = v
+                            end
+                        end
+                    end
+                end
+        
+        Teleport(BagOfSand.Main.CFrame + Vector3.new(5,0,5))
+        ItemTp(BagOfSand,CFrame.new(319,43,1914))
+        task.wait(1)
+        Teleport(Bulb.Main.CFrame + Vector3.new(5,0,5))
+        ItemTp(Bulb,CFrame.new(322.308, 43.2842, 1916.4))
+        task.wait(1)
+        Teleport(CanOfWorms.Main.CFrame + Vector3.new(5,0,5))
+        ItemTp(CanOfWorms,CFrame.new(317,43,1918))
+        task.wait(1)
+    
+        Teleport(CFrame.new(328.52, 45.8, 1940.3))
+    
+        task.wait(1)
+        for i, v in pairs(UiVar.PlayerModels:GetChildren()) do
+            if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                if v:WaitForChild"ToolName" and v.ToolName.Value == "Rukiryaxe" or v.ToolName.Value == "EndTimesAxe" then
+                    Teleport(v:WaitForChild("Main").CFrame)
+                    repeat
+                        UiVar.Interaction.ClientIsDragging:FireServer(v)
+                        UiVar.Interaction.ClientInteracted:FireServer(v,"Pick up tool")
+                        task.wait()
+                    until Player.Character:FindFirstChild"Tool"
+                    Player.Character.Humanoid:UnequipTools()
+                end
+            end
+        end
+    end
+        Teleport(OldPos)
+    Notify("Auto Buy", "Auto Buy Took "..string.format('%.1fs', tick() - StartTick), 5)
+end)
+
+if UiVar.LimitedItems then
+    AutoBuyTab:Line()
+
+    AutoBuyTab:Label("Limited Time Item Auto Buy")
+
+    AutoBuyTab:Dropdown("Select Item", GrabShopItems(), function(value)
+        UiVar.ItemToBuy = value
+    end)
+    
+    AutoBuyTab:Slider("Item Amount", "Select How Many Items", 1, 50, 1, function(Value)
+    UiVar.ItemAmount = Value
+    end)
+    
+    AutoBuyTab:Button("Start AutoBuy", "Auto Buys Items", function()
+        --for i = 1, UiVar.ItemAmount do
+        AutoBuyItem(UiVar.ItemToBuy, UiVar.ItemAmount, false)
+        --end
+    end)
+    
+    AutoBuyTab:Button("Stop AutoBuy", "Stops Auto Buy", function()
+        UiVar.abortAutobuy = true
+    end)
+
+end
+
+local DupeTab = win:Tab("Dupe", "http://www.roblox.com/asset/?id=6022668888")
+
+DupeTab:Button("Dupe Invetory", "Takes your inventory and dupes it", function()
+    DupeAxe()
+end)
+    
+
+
+
+
+Players.ChildAdded:Connect(function(player)
+    local name = player.Name
+    table.insert(UiVar.PlayerList,name)
+    SpectatePlayer:Clear()
+    PlayerTeleport:Clear()
+    for index,value in pairs(UiVar.PlayerList) do
+
+        SpectatePlayer:Add(value)
+        PlayerTeleport:Add(value)
+
+    end
+end)
+    
+Players.ChildRemoved:Connect(function(player)
+    local name = player.Name
+    for i,v in pairs(UiVar.PlayerList)do
+        if v == name then  
+            table.remove(UiVar.PlayerList,i)
+
+            SpectatePlayer:Clear()
+            PlayerTeleport:Clear()
+
+            for index,value in pairs(UiVar.PlayerList) do
+
+                SpectatePlayer:Add(value)
+                PlayerTeleport:Add(value)
+
+            end
+        end
+    end
+end)
