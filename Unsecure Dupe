@@ -1,0 +1,33 @@
+
+--~Note: Dont Load On Top Of The Red Base~---
+
+local LoadTime = 7 -- time it takes for your base to load
+
+local Slot = 3 --- Slot you want to dupe
+
+---~DonateBaseByTehSilent~---
+
+local ItemsLoading = game:GetService"Workspace".PlayerModels.ChildAdded:Connect(function(v)
+    local owner = v:WaitForChild"Owner".Value
+    if owner == game:GetService"Players".LocalPlayer then
+       task.wait(LoadTime - 2)
+       game:Shutdown()
+    end
+end)
+
+function FindEmptyPlot()
+    for i,v in next, game:GetService"Workspace".Properties:GetChildren() do
+        if v:FindFirstChild"Owner" and v.Owner.Value == nil then
+            return v
+        end
+    end
+end
+
+task.spawn(function()
+    game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(Slot, game:GetService"Players".LocalPlayer)
+end)
+local FreePlot = FindEmptyPlot()
+game:GetService"Workspace".Effects:WaitForChild"StructureModel"
+FreePlot.OriginSquare.Color = Color3.fromRGB(225, 0, 0)
+game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(FreePlot,FreePlot.OriginSquare.CFrame)
+print("FreeLand")
