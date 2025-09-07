@@ -1,0 +1,2637 @@
+local function detectGameName()
+    local MarketplaceService = game:GetService("MarketplaceService")
+    local success, productInfo = pcall(MarketplaceService.GetProductInfo, MarketplaceService, game.PlaceId)
+    
+    if success then
+        return productInfo.Name
+    else
+        return "UnknownGame"
+    end
+end
+
+local detectedGameName = detectGameName()
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local function checkGameID(allowedGameIDs)
+    local gameID = game.PlaceId
+    for _, id in pairs(allowedGameIDs) do
+        if gameID == id then
+            return true
+        end
+    end
+    return false
+end
+
+
+game:GetObjects("rbxassetid://120231466809114")[1].Parent=game.Workspace
+
+
+
+local Window = Rayfield:CreateWindow({
+    Name = "Odyssey | " .. detectedGameName,
+    Icon = 18368530595,
+    LoadingTitle = "Odyssey | " .. detectedGameName,
+    LoadingSubtitle = "by IHateSchool",
+    Theme = {
+        TextColor = Color3.fromRGB(220, 220, 220),
+        Background = Color3.fromRGB(15, 15, 15),
+        Topbar = Color3.fromRGB(15, 15, 15),
+        Shadow = Color3.fromRGB(5, 5, 5),
+        NotificationBackground = Color3.fromRGB(15, 15, 15),
+        NotificationActionsBackground = Color3.fromRGB(139, 0, 0),
+        TabBackground = Color3.fromRGB(15, 15, 15),
+        TabStroke = Color3.fromRGB(35, 35, 35),
+        TabBackgroundSelected = Color3.fromRGB(139, 0, 0),
+        TabTextColor = Color3.fromRGB(220, 220, 220),
+        SelectedTabTextColor = Color3.fromRGB(255, 255, 255),
+        ElementBackground = Color3.fromRGB(15, 15, 15),
+        ElementBackgroundHover = Color3.fromRGB(25, 25, 25),
+        SecondaryElementBackground = Color3.fromRGB(10, 10, 10),
+        ElementStroke = Color3.fromRGB(25, 25, 25),
+        SecondaryElementStroke = Color3.fromRGB(20, 20, 20),
+        SliderBackground = Color3.fromRGB(139, 0, 0),
+        SliderProgress = Color3.fromRGB(139, 0, 0),
+        SliderStroke = Color3.fromRGB(165, 20, 20),
+        ToggleBackground = Color3.fromRGB(10, 10, 10),
+        ToggleEnabled = Color3.fromRGB(139, 0, 0),
+        ToggleDisabled = Color3.fromRGB(80, 80, 80),
+        ToggleEnabledStroke = Color3.fromRGB(165, 20, 20),
+        ToggleDisabledStroke = Color3.fromRGB(100, 100, 100),
+        ToggleEnabledOuterStroke = Color3.fromRGB(80, 80, 80),
+        ToggleDisabledOuterStroke = Color3.fromRGB(50, 50, 50),
+        DropdownSelected = Color3.fromRGB(25, 25, 25),
+        DropdownUnselected = Color3.fromRGB(15, 15, 15),
+        InputBackground = Color3.fromRGB(10, 10, 10),
+        InputStroke = Color3.fromRGB(35, 35, 35),
+        PlaceholderColor = Color3.fromRGB(220, 220, 220)
+    },
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+    ConfigurationSaving = {
+        Enabled = false,
+        FolderName = "Odyssey",
+        FileName = "Odyssey | " .. detectedGameName
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = "Odyssey | " .. detectedGameName,
+        Subtitle = "Key System",
+        Note = "No method of obtaining the key is provided",
+        FileName = "Key",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"IHSNoKey"}
+    }
+})
+
+
+-- Game Holders
+
+-- Wood R Us Notes
+
+
+-- ODYssey Sign
+
+-- ODYSSEY Update Sign
+
+--Map Stuff
+-- Sign Reconfiguired ("Credits to Blood Gui")
+
+--- Open 24h Sign
+game:GetService("Workspace").Stores.WoodRUs.Parts.OPEN24HOURS.SurfaceGui.TextLabel.Text = "ODYSSEY"
+
+-- Bullitin Board
+game:GetService("Workspace").Stores.WoodRUs.Parts.BULLETINBULLETIN.SurfaceGui.TextLabel.Text = "ODYSSEY V1"
+
+-- Premium Selection
+game:GetService("Workspace").Stores.WoodRUs.Parts.PREMIUMSELECTION.SurfaceGui.TextLabel.Text = "Odyssey | " .. detectedGameName
+
+-- Sell Wood Sign
+game:GetService("Workspace").Stores.WoodRUs.Parts.SELLWOOD.SurfaceGui.TextLabel.Text = "IHS WaZ Here"
+
+-- Wood Drop Off sign
+game:GetService("Workspace").Stores.WoodRUs.Parts.WOODDROPOFF.SurfaceGui.TextLabel.Text = "ButterHub = Scam"
+
+-- TV Sign
+game:GetObjects("rbxassetid://120231466809114")[1].Parent=game.Workspace
+
+
+-- LT2 Ui Colors
+
+
+-- Character Holders
+
+-- GodMode
+
+
+-- INF Jump 
+
+function InfiniteJump(Val)
+    if not Val then IJ:Disconnect() return end
+    IJ = game:GetService("UserInputService").JumpRequest:Connect(function()
+        game.Players.LocalPlayer.Character:FindFirstChildOfClass"Humanoid":ChangeState("Jumping")
+    end)
+end
+
+-- Fly
+local Mouse =  game.Players.LocalPlayer:GetMouse()
+IsClientFlying = false
+FlySpeed = 200
+FlyBind = 'Q'
+
+function Teleport(CF)
+
+    repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart')
+
+    xpcall(function()
+
+        game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent:PivotTo(CF * CFrame.Angles(math.rad(game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.X), math.rad(game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.Y), math.rad(game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.PrimaryPart.Orientation.Z)))
+        
+    end,
+
+    function()
+
+        game.Players.LocalPlayer.Character:PivotTo(CF)
+        
+    end)
+    
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.RotVelocity = Vector3.new()
+
+end
+
+
+function BetterFly()
+
+    local MaxSpeed, WeldOne, WeldTwo = 9e9
+
+    repeat task.wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild('Head')
+
+    local Steer, BackSteer = {Forward = 0, Back = 0, Left = 0, Right = 0}, {Forward = 0, Back = 0, Left = 0, Right = 0}
+
+    game.Players.LocalPlayer.Character.Humanoid.PlatformStand = (not game.Players.LocalPlayer.Character.Humanoid.SeatPart and true) or false
+    
+    if game.Players.LocalPlayer.Character.Humanoid.SeatPart then
+
+        Car = game.Players.LocalPlayer.Character.Humanoid.SeatPart
+        WeldOne = Instance.new('Weld', game.Players.LocalPlayer.Character.Humanoid.SeatPart)
+        WeldTwo = Instance.new('Weld', game.Players.LocalPlayer.Character.HumanoidRootPart)
+        WeldOne.Part0 = game.Players.LocalPlayer.Character.HumanoidRootPart
+        WeldOne.Part1 = game.Players.LocalPlayer.Character.Humanoid.SeatPart
+        WeldTwo.Part0 = game.Players.LocalPlayer.Character.HumanoidRootPart
+        WeldTwo.Part1 = game.Players.LocalPlayer.Character.Humanoid.SeatPart
+
+    end
+
+    function Fly()
+
+        local Gyro = Instance.new('BodyGyro', game.Players.LocalPlayer.Character.HumanoidRootPart)
+        Gyro.P = 9e4
+        Gyro.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        Gyro.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        local Velocity = Instance.new('BodyVelocity', game.Players.LocalPlayer.Character.HumanoidRootPart)
+        Velocity.Velocity = Vector3.new(0, 0, 0)
+        Velocity.maxForce = Vector3.new(9e9, 9e9, 9e9)
+
+        repeat task.wait()
+
+            if not (workspace:FindFirstChild('Dragger')) then 
+
+                local FlySpeed, SteerSpeed = FlySpeed, 50
+
+                if Steer.Left + Steer.Right ~= 0 or Steer.Forward + Steer.Back ~= 0 then
+
+                    SteerSpeed = FlySpeed
+
+                    if SteerSpeed > MaxSpeed then
+
+                        SteerSpeed = MaxSpeed
+
+                    end
+
+                elseif not (Steer.Left + Steer.Right ~= 0 or Steer.Forward + Steer.Back ~= 0) and speed ~= 0 then
+
+                    SteerSpeed = SteerSpeed - 50
+
+                    if SteerSpeed < 0 then
+
+                        FlySpeed = 0
+                        
+                    end
+
+                end
+
+                if (Steer.Left + Steer.Right) ~= 0 or (Steer.Forward + Steer.Back) ~= 0 then
+
+                    Velocity.Velocity = ((game.workspace.CurrentCamera.CoordinateFrame.lookVector * (Steer.Forward + Steer.Back)) + ((game.workspace.CurrentCamera.CoordinateFrame * CFrame.new(Steer.Left + Steer.Right, (Steer.Forward + Steer.Back) * .2, 0).p) - game.workspace.CurrentCamera.CoordinateFrame.p)) * SteerSpeed
+                    BackSteer = {Forward = Steer.Forward, Back = Steer.Back, Left = Steer.Left, Right = Steer.Right}
+
+                elseif (Steer.Left + Steer.Right == 0 or Steer.Forward + Steer.Back == 0) and SteerSpeed ~= 0 then
+                    
+                    Velocity.Velocity =((game.workspace.CurrentCamera.CoordinateFrame.lookVector * (BackSteer.Forward + BackSteer.Back)) + ((game.workspace.CurrentCamera.CoordinateFrame * CFrame.new(BackSteer.Left + BackSteer.Right, (BackSteer.Forwardorward + BackSteer.Back) * .2, 0).p) - game.workspace.CurrentCamera.CoordinateFrame.p)) * SteerSpeed
+                
+                else
+                    
+                    Velocity.Velocity = Vector3.new(0, 0, 0)
+                
+                end
+
+                Gyro.CFrame = game.workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((Steer.Forward + Steer.Back) * 50 * SteerSpeed / MaxSpeed), 0, 0)
+
+            end
+        
+        until not IsClientFlying
+
+        Gyro:Destroy()
+
+        Velocity:Destroy()
+
+        if WeldOne and WeldTwo then
+
+            WeldOne:Destroy()
+            WeldTwo:Destroy()
+            Teleport(CFrame.new(Car.CFrame.p))
+
+        end
+
+        game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+
+    end
+
+    Mouse.KeyDown:Connect(
+        function(Key)
+            if Key:lower() == 'w' then
+                isWDown = true
+                Steer.Forward = 1
+            elseif Key:lower() == 'a' then
+                isADown = true
+                Steer.Left = -1
+            elseif Key:lower() == 's' then
+                isSDown = true
+                Steer.Back = -1
+            elseif Key:lower() == 'd' then
+                isSDown = true
+                Steer.Right = 1
+            end
+        end
+    )
+    Mouse.KeyUp:Connect(
+        function(Key)
+            if Key:lower() == 'w' then
+                isWDown = false
+                Steer.Forward = 0
+            elseif Key:lower() == 'a' then
+                isADown = false
+                Steer.Left = 0
+            elseif Key:lower() == 's' then
+                isSDown = false
+                Steer.Back = 0
+            elseif Key:lower() == 'd' then
+                isDDown = false
+                Steer.Right = 0
+            end
+        end
+    )
+    Fly()
+end
+
+-- No clip
+local Clipping
+
+function NoClip(NoClipVal)
+    if NoClipVal then
+        Clipping = game:GetService("RunService").Stepped:Connect(function()
+            for _, v in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if v:IsA("BasePart") then
+                    v.CanCollide = false
+                end
+            end
+        end)
+    else
+        if Clipping then
+            Clipping:Disconnect()
+            Clipping = nil
+        end
+        
+        for _, v in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:IsA("BasePart") then
+                v.CanCollide = true
+            end
+        end
+    end
+end
+
+
+-- Character Misc Tab 
+-- Btools
+
+function BTools()
+    local Players = game:GetService("Players").LocalPlayer
+    local mouse = Players:GetMouse()
+    local editedparts = editedparts or {}
+    local parentfix = parentfix or {}
+    local positionfix = positionfix or {}
+
+    local deletetool = Instance.new("Tool")
+    local undotool = Instance.new("Tool")
+
+    deletetool.Name = "Delete"
+    undotool.Name = "Undo"
+    deletetool.CanBeDropped = true
+    undotool.CanBeDropped = true
+    deletetool.RequiresHandle = false
+    undotool.RequiresHandle = false
+
+    deletetool.Activated:Connect(function()
+        if mouse.Target then
+            table.insert(editedparts, mouse.Target)
+            table.insert(parentfix, mouse.Target.Parent)
+            table.insert(positionfix, mouse.Target.CFrame)
+            mouse.Target.Parent = nil
+        end
+    end)
+
+    undotool.Activated:Connect(function()
+        if #editedparts > 0 then
+            local lastPart = table.remove(editedparts)
+            lastPart.Parent = table.remove(parentfix)
+            lastPart.CFrame = table.remove(positionfix)
+        end
+    end)
+
+    deletetool.Parent = Players.Backpack
+    undotool.Parent = Players.Backpack
+end
+
+
+
+-- Hard Dragger
+
+function Dragger()
+    game.Workspace.ChildAdded:Connect(function(a)
+        if a.Name == "Dragger" then
+            a.BrickColor = deepBlueColor
+            local bg = a:WaitForChild("BodyGyro")
+            local bp = a:WaitForChild("BodyPosition")
+            repeat
+                if CustomDragger then
+                    task.wait()
+                    bp.P = 120000
+                    bp.D = 1000
+                    bp.maxForce = Vector3.new(math.huge, math.huge, math.huge)
+                    bg.maxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                else
+                    wait()
+                    bp.P = 10000
+                    bp.D = 800
+                    bp.maxForce = Vector3.new(17000, 17000, 17000)
+                    bg.maxTorque = Vector3.new(200, 200, 200)
+                end
+            until not a
+        end
+    end)
+end
+
+-- Safe Death
+
+
+-- World Locals
+
+-- Always Day / Night
+game.Lighting.Changed:Connect(function()
+    if AlwaysDay then
+        if AlwaysNight then return end
+        game.Lighting.TimeOfDay = "12:00:00"
+        game.Lighting.SunPos.Value = 1
+
+        game:GetService("Lighting").Ambient = Color3.new(1, 1, 1)
+        game:GetService("Lighting").ColorShift_Bottom = Color3.new(1, 1, 1)
+        game:GetService("Lighting").ColorShift_Top = Color3.new(1, 1, 1)
+    end
+    if AlwaysNight then
+        if AlwaysDay then return end
+        game.Lighting.TimeOfDay = "00:00:00"
+        game.Lighting.SunPos.Value = -1
+    end
+    if NoFog then
+        game.Lighting.FogEnd = 100000
+    end
+end)
+
+
+function WaterWalk(WaterWalking)
+    for _, waterPart in pairs(game:GetService("Workspace").Water:GetChildren()) do
+		if waterPart.Name == "Water" then
+			waterPart.CanCollide = WaterWalking
+		end
+	end
+end
+
+function BridgeDown(Bridge)
+    local bridge = game:GetService("Workspace").Bridge.VerticalLiftBridge.Lift
+
+	for _, part in pairs(bridge:GetChildren()) do
+    	if not Bridge then
+        	part.CFrame = part.CFrame + Vector3.new(0, 26, 0)
+    	else
+        	part.CFrame = part.CFrame - Vector3.new(0, 26, 0)
+    	end
+	end
+end
+
+function RemoveWater(Val)
+    local waterFolder = game:GetService("Workspace").Water
+
+	for _, waterPart in pairs(waterFolder:GetChildren()) do
+    	if waterPart.Name == "Water" then
+        	waterPart.Transparency = Val and 1 or 0
+    	end
+	end
+
+end
+
+
+function BetterG()
+    local light = game.Lighting
+	light:ClearAllChildren()
+	local color = Instance.new("ColorCorrectionEffect", light)
+	color.Enabled = true
+	color.Contrast = 0.15
+	color.Brightness = 0.1
+	color.Saturation = 0.25
+	color.TintColor = Color3.fromRGB(255, 222, 211)
+	local sun = Instance.new("SunRaysEffect", light)
+	sun.Enabled = true
+	sun.Intensity = 0.2
+	sun.Spread = 1
+	local bloom = Instance.new("BloomEffect", light)
+	bloom.Enabled = true
+	bloom.Intensity = 1
+	bloom.Size = 32
+	bloom.Threshold = 1
+	local blur = Instance.new("BlurEffect", light)
+	blur.Enabled = true
+	blur.Size = 3
+	light.Ambient = Color3.fromRGB(0, 0, 0)
+	light.ColorShift_Bottom = Color3.fromRGB(0, 0, 0)
+	light.ColorShift_Top = Color3.fromRGB(0, 0, 0)
+	light.ExposureCompensation = 0
+	light.GlobalShadows = true
+	light.OutdoorAmbient = Color3.fromRGB(112, 117, 128)
+	light.Outlines = false
+end
+
+--Map Mod
+function ForrestMapMod()
+    local lighting = game:GetService("Lighting")
+	if value then
+    	local sky = lighting:FindFirstChild("Sky")
+    	if sky then
+        	sky:Destroy()
+    	end
+	else
+    	local sky = Instance.new("Sky", lighting)
+    	sky.MoonTextureId = "rbxasset://sky/moon.jpg"
+    	sky.SkyboxBk = "rbxassetid://610708481"
+    	sky.SkyboxDn = "rbxassetid://610707179"
+    	sky.SkyboxFt = "rbxassetid://610708680"
+    	sky.SkyboxLf = "rbxassetid://610707072"
+    	sky.SkyboxRt = "rbxassetid://610707325"
+    	sky.SkyboxUp = "rbxassetid://610708803"
+    	sky.SunTextureId = "rbxasset://sky/sun.jpg"
+	end
+end
+
+
+
+
+-- Auto Buy
+
+
+function CheckForItem(ItemType)
+    for i,v in pairs(game:GetService("Workspace").Stores:GetChildren()) do
+        if v.Name == "ShopItems" then
+            for i,v in pairs(v:GetChildren()) do
+                if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                    if v:FindFirstChild("BoxItemName") and tostring(v.BoxItemName.Value) == ItemType then
+                        return true
+                    end
+                end
+            end
+        end
+    end
+    return false
+end
+
+function GetPrice(Item,Amount)
+    local Price = 0
+    for i,v in next, game:GetService("ReplicatedStorage").ClientItemInfo:GetDescendants() do
+        if v.Name == Item and v:FindFirstChild("Price") then
+            Price = Price + v.Price.Value * Amount
+        end
+    end
+    return Price
+end
+
+function GrabShopItems()
+    local ItemList = {}
+    for i,v in next,game:GetService("Workspace").Stores:GetChildren() do
+        if v.Name == "ShopItems" then
+            for i,v in next,v:GetChildren() do
+                if v:FindFirstChild("Type") and v.Type.Value ~= "Blueprint" and v:FindFirstChild("BoxItemName") then
+                    if not table.find(ItemList,v.BoxItemName.Value.." - $"..GetPrice(v.BoxItemName.Value,1)) then
+                        table.insert(ItemList,v.BoxItemName.Value.." - $"..GetPrice(v.BoxItemName.Value,1))
+                        task.wait(0.01)
+                    end
+                end
+            end
+        end
+        table.sort(ItemList)
+    end
+    return ItemList
+end
+
+function UpdateNames()
+    for i,v in next, game:GetService("Workspace").Stores:GetChildren() do
+        if v.Name == "ShopItems" then
+            v.ChildAdded:Connect(function(v)
+                v.Name = v:WaitForChild("BoxItemName").Value
+            end)
+            for i,v in next, v:GetChildren() do
+                if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                    if v:FindFirstChild("BoxItemName") then
+                        v.Name = v.BoxItemName.Value
+                    end
+                end
+            end
+        end
+    end
+end
+UpdateNames()
+
+function ItemPath(Item)
+    for i,v in next, game:GetService("Workspace").Stores:GetChildren() do
+        if v.Name == "ShopItems" then
+            for i,v in next, v:GetChildren() do
+                if v:FindFirstChild("Owner") and v.Owner.Value == nil then
+                    if v:FindFirstChild("BoxItemName") and tostring(v.BoxItemName.Value) == Item then
+                        return v.Parent
+                    end
+                end
+            end
+        end
+    end
+end
+
+function GetCounter(Item)
+    ClosestCounter = nil
+    for i,v in next, game:GetService("Workspace").Stores:GetChildren() do
+        if v.Name:lower() ~= "shopitems" then
+            for i,v in next, v:GetChildren() do
+                if v.Name:lower() == "counter" then
+                    if (Item.CFrame.p - v.CFrame.p).Magnitude <= 200 then
+                        ClosestCounter = v
+                    end
+                end
+            end
+        end
+    end
+    return ClosestCounter
+end
+
+function Pay(ID)
+    spawn(function()
+        game:GetService("ReplicatedStorage").NPCDialog.PlayerChatted:InvokeServer({["ID"] = ID,["Character"] = "name",["Name"] = "name",["Dialog"] = 'Dialog'}, "ConfirmPurchase");
+    end)
+end
+local ItemBought
+function AutoBuy(Item,Amount,op,bpop)
+   buytime = tick()
+   if Item == nil then notifications:message{Title = "Butter",Description = "No item selected",Icon = 6023426926} return end
+   if game.Players.LocalPlayer.leaderstats.Money.Value < GetPrice(Item,Amount) then return notifications:message{Title = "Butter",Description = "No money",Icon = 6023426926} end
+   AbortAutoBuy = false
+   local OldPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+   local Path = ItemPath(Item)
+
+   for i = 1,Amount do
+
+       if AbortAutoBuy then break end
+
+       local Item = Path:WaitForChild(Item)
+
+       local Counter = GetCounter(Item.Main)
+
+       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Item.Main.CFrame + Vector3.new(5,0,5)
+
+       repeat game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(Item) task.wait() until Item.Owner.Value ~= nil
+
+       if Item.Owner.Value ~= game.Players.LocalPlayer then break end
+
+       repeat game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(Item) task.wait() until isnetworkowner(Item.Main)
+
+       game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(Item)
+       pcall(function()
+       Item.Main.CFrame = Counter.CFrame + Vector3.new(0,Item.Main.Size.Y,0.5,0)
+       end)
+       task.wait(GetPing())
+
+       pcall(function()
+       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Counter.CFrame + Vector3.new(5,0,5)
+       end)
+
+       task.wait(GetPing())
+
+       repeat
+           if AbortAutoBuy then break end
+           game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(Item)
+           Pay(ShopIDS[Counter.Parent.Name])
+           task.wait()
+       until Item.Parent ~= "ShopItems"
+
+       pcall(function()
+           repeat game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(Item) task.wait() until isnetworkowner(Item.Main)
+
+           game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(Item)
+           Item.Main.CFrame = OldPos
+           task.wait(GetPing())
+       end)
+
+       if op then
+           game:GetService("ReplicatedStorage").Interaction.ClientInteracted:FireServer(Item,"Open box")
+       end
+
+       if not bpop then
+           ResizeBar(i,Amount)
+       end
+
+       task.wait()
+   end
+
+   if ItemBought then ItemBought:Disconnect() end
+
+   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldPos + Vector3.new(5,1,0)
+   if AbortAutoBuy then
+       notifications:message{Title = "Butter",Description = "Aborted",Icon = 6023426926}
+   else
+       --print("done")
+   end
+   if not bpop then
+   notifications:message{Title = "Butter",Description = "Done in ".. string.format('%.1fs', tick() - buytime),Icon = 6023426926}
+   end
+end
+
+
+
+-- Slot Locals
+-- FreeLand
+function FreeLand()
+	local properties = game:GetService("Workspace").Properties
+	for _, property in pairs(properties:GetChildren()) do
+		if property:FindFirstChild("Owner") and property.Owner.Value == nil then
+			game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(property, property.OriginSquare.Position)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = property.OriginSquare.CFrame + Vector3.new(0, 2, 0)
+			break
+		end
+	end
+	
+end
+
+-- Maxland
+function MaxLand()
+    for s,d in pairs(workspace.Properties:GetChildren()) do
+        if d:FindFirstChild("Owner") and d:FindFirstChild("OriginSquare") and d.Owner.Value == game.Players.LocalPlayer then
+            local PlotPos = d.OriginSquare.Position
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40, PlotPos.Y, PlotPos.Z))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40, PlotPos.Y, PlotPos.Z))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40 , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40 , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40 , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40 , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X , PlotPos.Y, PlotPos.Z - 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z - 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z - 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40 , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40 , PlotPos.Y, PlotPos.Z + 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 80 , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z + 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 80 , PlotPos.Y, PlotPos.Z - 40))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X + 40 , PlotPos.Y, PlotPos.Z - 80))
+            game:GetService("ReplicatedStorage").PropertyPurchasing.ClientExpandedProperty:FireServer(d,CFrame.new(PlotPos.X - 40 , PlotPos.Y, PlotPos.Z - 80))
+        end
+    end
+end
+
+-- Claim land Tool
+function ClaimLandTool()
+    local player = game.Players.LocalPlayer
+	local mouse = player:GetMouse()
+
+	local claimTool = Instance.new("Tool", player.Backpack)
+	claimTool.Name = "Claim Land"
+	claimTool.CanBeDropped = true
+	claimTool.RequiresHandle = false
+
+	claimTool.Activated:Connect(function()
+    	local target = mouse.Target
+    	if target and (target.Name == "OriginSquare" or target.Name == "Square") then
+        	local parent = target.Parent
+        	if parent.Owner.Value == nil then
+            	game:GetService("ReplicatedStorage").PropertyPurchasing.ClientPurchasedProperty:FireServer(parent, target.Position)
+            	player.Character.HumanoidRootPart.CFrame = target.CFrame
+        	end
+    	end
+	end)
+end
+-- Land Art
+local player = game:GetService("Players").LocalPlayer
+local mouse = player:GetMouse()
+
+local function Create(ToMake, Parent, Props)
+    Props = Props or {}
+    local Created = Instance.new(ToMake, Parent)
+    for i, v in pairs(Props) do
+        Created[i] = v
+    end
+    return Created
+end
+
+local function GetPlot(Value)
+    local Value = Value or player
+    for _, v in pairs(workspace.Properties:GetChildren()) do
+        if v:FindFirstChild("Owner") and v.Owner.Value == Value then
+            return v
+        end
+    end
+    return false
+end
+
+local function LandArt(Value)
+    if Value then
+        if not game:GetService("Players").LocalPlayer.OwnsProperty.Value then
+            return Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "You need land to use this!",
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+        end
+    end
+
+    if not Value then
+        LandArtClick:Disconnect()
+        LandArtMove:Disconnect()
+        workspace:FindFirstChild("PlotFolder"):Destroy()
+        return
+    end
+
+    local LandVecs = {
+        Vector3.new(40, 0, 0), Vector3.new(-40, 0, 0),
+        Vector3.new(0, 0, 40), Vector3.new(0, 0, -40),
+        -- ... (other vectors)
+    }
+
+    local Folder = Create("Folder", workspace, {Name = "PlotFolder"})
+    local Selection = Create("SelectionBox", workspace:WaitForChild("PlotFolder", 1), {Name = "Selection"})
+
+    for _, v in pairs(LandVecs) do
+        Create("Part", Folder, {
+            Name = "LandPreview",
+            Transparency = 0.5,
+            CFrame = CFrame.new(GetPlot().OriginSquare.Position + v),
+            Size = GetPlot().OriginSquare.Size,
+            Color = Color3.fromRGB(124, 92, 70),
+            Material = Enum.Material.Concrete,
+            Anchored = true,
+            CanCollide = false,
+        })
+    end
+
+    LandArtMove = mouse.Move:Connect(function()
+        local Target = mouse.Target
+        Selection.Adornee = Target:IsA("Part") and Target.Name == "LandPreview" and Target or nil
+    end)
+
+    LandArtClick = mouse.Button1Down:Connect(function()
+        local Target = mouse.Target
+        if Target:IsA("Part") and Target.Name == "LandPreview" then
+            game.ReplicatedStorage.PropertyPurchasing.ClientExpandedProperty:FireServer(GetPlot(), CFrame.new(Target.CFrame.p))
+            Target:Destroy()
+        end
+    end)
+end
+
+
+-- Sell Land Sign
+function SellSoldSign()
+    local player = game.Players.LocalPlayer
+    local replicatedStorage = game:GetService("ReplicatedStorage")
+    local workspace = game:GetService("Workspace")
+    local startTime = os.time()
+
+    for _, model in ipairs(workspace.PlayerModels:GetChildren()) do
+        local owner = model:FindFirstChild("Owner")
+        local itemName = model:FindFirstChild("ItemName")
+
+        if owner and owner.Value == player and itemName and itemName.Value == "PropertySoldSign" then
+            player.Character.HumanoidRootPart.CFrame = model.Main.CFrame * CFrame.new(0, 0, 2)
+            replicatedStorage.Interaction.ClientInteracted:FireServer(model, "Take down sold sign")
+
+            for i = 1, 30 do
+                replicatedStorage.Interaction.ClientIsDragging:FireServer(model)
+                model.Main.CFrame = CFrame.new(314.54, -0.5, 86.823)
+                task.wait()
+            end
+
+            local endTime = os.time()
+            local timeTaken = endTime - startTime
+            local message = "Sold in " .. timeTaken .. " seconds!"
+            
+            Rayfield:Notify({
+                Title = "Sale Notification",
+                Content = message,
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+        end
+    end
+end
+
+
+-- Teleport
+-- waypoints
+
+
+-- Player / Base Teleport 
+
+function GetPlrs()
+    local Plrs = {}
+    for i, v in next, game.Players:GetPlayers() do
+        table.insert(Plrs, v.Name)
+    end
+    return Plrs
+end
+
+local playerList = GetPlrs()
+
+local plr = game.Players.LocalPlayer
+
+local AllPlayers = {"Select Player"}
+for i,v in next,game.Players:GetPlayers() do
+    if not table.find(AllPlayers,v.Name) then
+        table.insert(AllPlayers,v.Name)
+    end
+end
+
+function TeleportToBase(Plr)
+    for i,v in next, game:GetService("Workspace").Properties:GetChildren() do
+        if v:FindFirstChild("Owner") and tostring(v.Owner.Value) == Plr then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.OriginSquare.CFrame + Vector3.new(0,2,0)
+            break
+        end
+    end
+end
+
+
+function TeleportToPlayer(Plr)
+    for i,v in next, game.Players:GetPlayers() do
+        if tostring(v.Name) == Plr then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.CFrame.p)
+            --print("Teleported")
+            break
+        end
+    end
+end
+
+-- Settings
+-- Discord Importer Locals
+local Slot1Export = "Slot 1"
+local Slot2Export = "Slot 2"
+local Slot3Export = "Slot 3"
+local Slot4Export = "Slot 4"
+local Slot5Export = "Slot 5"
+local Slot6Export = "Slot 6"
+
+--Slot Name Table 
+local BaseName = {}
+
+
+
+
+-- Tab
+local hme = Window:CreateTab("Home", 4483362458) 
+local CHR = Window:CreateTab("Character Tab", 4483362458) 
+local WRD = Window:CreateTab("World Tab", 4483362458) 
+local Slt = Window:CreateTab("Slot", 4483362458) 
+local Abuy = Window:CreateTab("Auto Buy", 4483362458)
+local Troll = Window:CreateTab("Troll", 4483362458) 
+local Dpe = Window:CreateTab("Dupe", 4483362458) 
+local Settings = Window:CreateTab("Settings", 4483362458) 
+
+
+
+-- Home Sections
+
+
+local Section = hme:CreateSection("Home Information")
+local Paragraph = hme:CreateParagraph({Title = "Odyssey | " .. detectedGameName, Content = "Odyseey Is a project brought by IHateSchool & IHateCollege, This script will have so much in the future and based off what the commuity wants in lt2 since so many devs dont listen for 1 to another reason this script will be updated every chance we can and we will add more soon"})
+
+
+
+local Section = hme:CreateSection("Game Information")
+local Paragraph = hme:CreateParagraph({Title = "Game Name", Content = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name})
+local Paragraph = hme:CreateParagraph({Title = "Last Updated", Content = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Updated:sub(1, 10)})
+
+local Paragraph = hme:CreateParagraph({Title = "Ferry Timer", Content = "Coming Soon"})
+local Paragraph = hme:CreateParagraph({Title = "Slot Timer", Content = "Coming Soon"})
+local Paragraph = hme:CreateParagraph({Title = "Money Timer", Content = "Coming Soon"})
+
+
+
+
+
+local Section = hme:CreateSection("Game Status")
+local Paragraph = hme:CreateParagraph({Title = "Game id", Content = game.GameId})
+local Paragraph = hme:CreateParagraph({Title = "Place version", Content = game.PlaceVersion})
+local Paragraph = hme:CreateParagraph({Title = "Job id", Content = game.JobId})
+local RunService = game:GetService("RunService")
+local Paragraph = hme:CreateParagraph({
+    Title = "FPS Display",
+    Content = "Calculating..." -- Initial display
+})
+
+local function updateFPS()
+    local lastTime = tick()
+    local frames = 0
+
+    RunService.RenderStepped:Connect(function()
+        frames = frames + 1
+        local currentTime = tick()
+        if currentTime - lastTime >= 1 then
+            local fps = frames / (currentTime - lastTime)
+            Paragraph:Set({Title = "FPS Display", Content = string.format("%.2f FPS", fps)})
+            frames = 0
+            lastTime = currentTime
+        end
+    end)
+end
+
+updateFPS()
+
+
+local Section = hme:CreateSection("Script Information")
+local Section = hme:CreateSection("Updates")
+
+local Section = hme:CreateSection("Credits")
+local Label = hme:CreateLabel("Scripters: IHateSchool & IHateCollege")
+local Label = hme:CreateLabel("UI Dev: IHateSchool & Sirus")
+
+-- Character Sections
+
+local Section = CHR:CreateSection("Character Section")
+
+
+local Slider = CHR:CreateSlider({
+	Name = "Walkspeed",
+	Range = {16, 300},
+	Increment = 10,
+	Suffix = "Speed",
+	CurrentValue = 16,
+	Flag = "Walkspeed", 
+	Callback = function(value)
+		_G.WS = value;
+        local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+        Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+        Humanoid.WalkSpeed = _G.WS;
+        end)
+        Humanoid.WalkSpeed = _G.WS;
+	end,
+})
+
+
+local Slider = CHR:CreateSlider({
+	Name = "Sprint Speed",
+	Range = {50, 300},
+	Increment = 10,
+	Suffix = "Speed",
+	CurrentValue = 50,
+	Flag = "SprintSpeed", 
+	Callback = function(value)
+        SprintSpeed = value
+	end,
+})
+
+
+
+
+local SprintSpeed = 100
+
+
+
+local Keybind = CHR:CreateKeybind({
+	Name = "Sprint | Hold Left Shift",
+	CurrentKeybind = "LeftShift",
+	HoldToInteract = false,
+	Flag = "SprintKeybind", 
+	Callback = function()
+		local player = game.Players.LocalPlayer
+        local userInputService = game:GetService("UserInputService")
+
+        userInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+            if not gameProcessedEvent and input.KeyCode == Enum.KeyCode.LeftShift then
+                _G.WS = SprintSpeed;
+                local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+                Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                    Humanoid.WalkSpeed = _G.WS;
+                end)
+                Humanoid.WalkSpeed = _G.WS;
+            end
+        end)
+
+        userInputService.InputEnded:Connect(function(input)
+            if input.KeyCode == Enum.KeyCode.LeftShift then
+                _G.WS = 16;
+                local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid;
+                Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                Humanoid.WalkSpeed = _G.WS;
+                end)
+
+                Humanoid.WalkSpeed = _G.WS;
+            end
+        end)
+    end,
+    
+})
+
+
+
+local Slider = CHR:CreateSlider({
+    Name = "Jump Power",
+    Range = {50, 500},
+    Increment =10 ,
+    Suffix = "Jump",
+    CurrentValue = 50,
+    Flag = "JumpPower", 
+    Callback = function(value)
+        _G.JP = value
+        local Humanoid = game:GetService("Players").LocalPlayer.Character.Humanoid
+        Humanoid:GetPropertyChangedSignal("JumpPower"):Connect(function()
+        Humanoid.JumpPower = _G.JP
+        end)
+        Humanoid.JumpPower = _G.JP
+	end,
+})
+
+
+local Toggle = CHR:CreateToggle({
+    Name = "INF Jump",
+    CurrentValue = false,
+    Flag = "INFJump",
+    Callback = function(Value)
+        if Value then
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "Inf Jump Has Been Enable",
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+            
+            InfiniteJump(Value)
+        else
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "Inf Jump Has Been Disable",
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+        end
+    end,
+})
+
+local Slider = CHR:CreateSlider({
+    Name = "Fly Speed",
+    Range = {50, 500},
+    Increment = 1,
+    Suffix = "Flight Speed",
+    CurrentValue = 220,
+    Flag = "FlightSpeed",
+    Callback = function(value)
+        FlySpeed = value
+    end,
+})
+
+
+local Keybind = CHR:CreateKeybind({
+    Name = "Fly",
+    CurrentKeybind = "Q",
+    HoldToInteract = false,
+    Flag = "FlyKeybind",
+    Callback = function()
+        IsClientFlying = not IsClientFlying
+        BetterFly()
+    end,
+})
+
+
+local Toggle = CHR:CreateToggle({
+    Name = "No Clip",
+    CurrentValue = false,
+    Flag = "NoClip", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+        if Value then
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "NoClip Has Been Enable",
+                Duration = 6.5,
+                Image = 13868530595,
+            })
+            NoClip(Value)
+        else
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "NoClip Has Been Disable",
+                Duration = 6.5,
+                Image = 13868530595,
+            })
+            NoClip(Value)
+        end
+    end,
+})
+
+
+
+local Slider = CHR:CreateSlider({
+	Name = "FOV",
+	Range = {10, 140},
+	Increment = 1,
+	Suffix = "FOV",
+	CurrentValue = 70,
+	Flag = "FOV", 
+	Callback = function(value)
+        game.Workspace.Camera.FieldOfView = value
+	end,
+})
+
+local Slider = CHR:CreateSlider({
+    Name = "Hip Height",
+    Range = {0, 100},
+    Increment = 1,
+    Suffix = "Height",
+    CurrentValue = 0,
+    Flag = "Hip Height", 
+    Callback = function(value)
+        local humanoid = game.Players.LocalPlayer.Character.Humanoid
+        humanoid.HipHeight = value
+        
+        humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+            humanoid.HipHeight = value
+        end)
+    end,
+})
+
+
+local Section = CHR:CreateSection("Misc")
+
+local Button = CHR:CreateButton({
+    Name = "Btools",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Btools Been Enable",
+            Duration = 6.5,
+            Image = 13868530595,
+        })
+        if BTools then
+            BTools() 
+        end
+    end,
+})
+
+
+local CustomDragger = false
+local deepBlueColor = BrickColor.new("Deep blue")
+
+local Button = CHR:CreateButton({
+    Name = "Hard Dragger",
+    Callback = function(Value)
+        CustomDragger = Value
+    end,
+    Dragger()
+})
+
+local Button = CHR:CreateButton({
+    Name = "Safe Death",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "You Been Teleported to the Safe Death Spot",
+            Duration = 6.5,
+            Image = 13868530595,
+        })
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, -380, 0)
+    end,
+})
+
+local Toggle = CHR:CreateToggle({
+    Name = "FlashLight",
+    CurrentValue = false,
+    Flag = "Flashlight",
+    Callback = function(Value)
+        if Value then
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "FlashLight On",
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+            game.Players.LocalPlayer.CameraMaxZoomDistance = math.huge
+        else
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "FlashLight Off",
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+            game.Players.LocalPlayer.CameraMaxZoomDistance = 50 -- Reset to default zoom distance
+        end
+    end,
+})
+
+
+
+local Toggle = CHR:CreateToggle({
+    Name = "INF Zoom",
+    CurrentValue = false,
+    Flag = "INFZoom",
+    Callback = function(Value)
+        if Value then
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "Inf Zoom Loaded",
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+            game.Players.LocalPlayer.CameraMaxZoomDistance = math.huge
+        else
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "Inf Zoom Unloaded",
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+            game.Players.LocalPlayer.CameraMaxZoomDistance = 50 -- Reset to default zoom distance
+        end
+    end,
+})
+
+
+local originalPosition
+
+-- Assuming Player is defined globally or passed as a parameter
+local Player = game.Players.LocalPlayer
+
+function GetLavas()
+    local Lava = workspace['Region_Volcano']:GetChildren()
+    for i = 1, #Lava do
+        local Lava = Lava[i]
+        if Lava:FindFirstChild('Lava') and Lava.Lava.CFrame == CFrame.new(-1675.2002, 255.002533, 1284.19983, 0.866007268, 0, 0.500031412, 0, 1, 0, -0.500031412, 0, 0.866007268) then
+            return Lava
+        end
+    end
+    return nil
+end
+
+function AntiBlacklist()
+    local LavaPart = GetLavas()
+    
+    if LavaPart then
+        local character = Player.Character or Player.CharacterAdded:Wait()
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            originalPosition = character.HumanoidRootPart.CFrame
+            character.HumanoidRootPart.CFrame = CFrame.new(-1439.45, 433.4, 1317.61)
+            
+            repeat task.wait(1)
+                firetouchinterest(character.HumanoidRootPart, LavaPart.Lava, 0)
+            until character.HumanoidRootPart:FindFirstChild("LavaFire")
+            
+            local LavaFire = character.HumanoidRootPart:FindFirstChild("LavaFire")
+            if LavaFire then
+                LavaFire:Destroy()
+            end
+            
+            task.wait(1)
+            
+            -- Clone the head only
+            local head = character:FindFirstChild("Head")
+            if head then
+                local headClone = head:Clone()
+                headClone.Parent = workspace
+                headClone.CFrame = originalPosition
+                print("Head cloned and teleported to original position")
+            else
+                warn("Head not found in character")
+            end
+        else
+            warn("HumanoidRootPart not found in original character")
+        end
+    else
+        warn("Lava part not found")
+    end
+end
+
+
+
+
+
+local originalPosition
+
+function GetLava()
+    local Lava = workspace['Region_Volcano']:GetChildren()
+    for i = 1, #Lava do
+        local Lava = Lava[i]
+        if Lava:FindFirstChild('Lava') and Lava.Lava.CFrame == CFrame.new(-1675.2002, 255.002533, 1284.19983, 0.866007268, 0, 0.500031412, 0, 1, 0, -0.500031412, 0, 0.866007268) then
+            return Lava
+        end
+    end
+    return nil
+end
+
+function GodMode()
+    local LavaPart = GetLava()
+    
+    if LavaPart then
+        originalPosition = Player.Character.HumanoidRootPart.CFrame
+        Player.Character.HumanoidRootPart.CFrame = CFrame.new(-1439.45, 433.4, 1317.61)
+
+        repeat task.wait(1)
+            firetouchinterest(Player.Character.HumanoidRootPart, LavaPart.Lava, 0)
+        until Player.Character.HumanoidRootPart:FindFirstChild("LavaFire")
+        
+        Player.Character.HumanoidRootPart.LavaFire:Destroy()
+        
+        task.wait(1)
+        
+        local Clone = Player.Character.Torso:Clone()
+        Clone.Name = "HumanoidRootPart"
+        Clone.Transparency = 1
+        Clone.Parent = Player.Character
+        
+        Clone.CFrame = originalPosition
+        Player.Character.HumanoidRootPart.CFrame = originalPosition
+    else
+        warn("Lava part not found")
+    end
+end
+
+local Toggle = CHR:CreateToggle({
+    Name = "God Mode",
+    CurrentValue = false,
+    Flag = "God Mode", 
+    Callback = function(state)
+        if state then
+            GodMode()
+        end
+    end,
+})
+
+local Toggle = CHR:CreateToggle({
+    Name = "Anti BL",
+    CurrentValue = false,
+    Flag = "AntiBl", 
+    Callback = function(state)
+        if state then
+            AntiBlacklist()
+        end
+    end,
+})
+
+
+
+-- World Section
+
+local Section = WRD:CreateSection("World Options")
+local Toggle = WRD:CreateToggle({
+    Name = "Always Day",
+    CurrentValue = true,
+    Flag = "AlwaysDay", 
+    Callback = function(Value)
+        local message = ""
+        if Value then
+            message = "Always Day Enabled"
+        else
+            message = "Always Day Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        local AlwaysDay = false
+        local daystuff
+
+        if Value == "" then
+            AlwaysDay = true
+        else
+            daystuff = Value
+            AlwaysDay = Value
+        end
+    end,
+})
+
+
+local Slider = WRD:CreateSlider({
+    Name = "Brightness",
+    Range = {0, 6},
+    Increment = 1,
+    Suffix = "Brightness",
+    CurrentValue = 1,
+    Flag = "Brightness",
+    Callback = function(value)
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Brightness set to " .. value,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+        game.Lighting.Brightness = value
+    end,
+})
+
+
+local Toggle = WRD:CreateToggle({
+    Name = "Always Night",
+    CurrentValue = false,
+    Flag = "AlwaysNight", 
+    Callback = function(Value)
+        local message = ""
+        if Value then
+            message = "Always Night Enabled"
+        else
+            message = "Always Night Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        AlwaysNight = Value
+    end,
+})
+
+
+local Toggle = WRD:CreateToggle({
+    Name = "No Fog",
+    CurrentValue = false,
+    Flag = "NoFog",
+    Callback = function(Value)
+        local message = ""
+        if Value then
+            message = "No Fog Enabled"
+        else
+            message = "No Fog Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        local NoFog = false
+        local nofogst
+
+        if Value == "" then
+            NoFog = true
+        else
+            nofogst = Value
+            NoFog = Value
+        end
+    end,
+})
+
+local Toggle = WRD:CreateToggle({
+    Name = "Global Shadows",
+    CurrentValue = false,
+    Flag = "GlobalShadows",
+    Callback = function(Value)
+        local message = ""
+        if Value then
+            message = "Global Shadows Enabled"
+        else
+            message = "Global Shadows Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        game:GetService("Lighting").GlobalShadows = Value
+    end,
+})
+
+local Toggle = WRD:CreateToggle({
+    Name = "Spook Lighting",
+    CurrentValue = false,
+    Flag = "SpookLighting",
+    Callback = function(Value)
+        local message = ""
+        if Value then
+            message = "Spook Lighting Enabled"
+        else
+            message = "Spook Lighting Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        game:GetService("Lighting").Spook.Value = Value
+    end,
+})
+
+local Button = WRD:CreateButton({
+	Name = "Better Graphics",
+	Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Better Graphics Been Enabled",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+		BetterG()
+	end,
+})
+
+local Button = WRD:CreateButton({
+	Name = "Better Water",
+	Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Better Water Has Been Enabled (May Lag)",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+		for _, v in pairs(game.Workspace:GetDescendants()) do
+			if v:IsA("Part") and v.Name == "SeaSand" then
+				v.Size = Vector3.new(2048, 60, 2048)
+			end
+		end
+		
+		for _, v in pairs(game.Workspace:GetDescendants()) do
+			if v:IsA("Part") and v.Name == "Water" then
+				v.Size = Vector3.new(20480, 6, 20080)
+				game.Workspace.Terrain:fillBlock(v.CFrame, v.Size, Enum.Material.Water)
+				v:Destroy()
+			end
+		end
+	end,
+})
+
+local Toggle = WRD:CreateToggle({
+    Name = "Bridge Up / Down",
+    CurrentValue = false,
+    Flag = "BridgeUpDown",
+    Callback = function(Value)
+        local message = ""
+        if Value then
+            message = "Bridge Down Enabled"
+        else
+            message = "Bridge Down Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        BridgeDown(Value)
+    end,
+})
+
+local Toggle = WRD:CreateToggle({
+    Name = "Water Walk",
+    CurrentValue = false,
+    Flag = "WaterWalk",
+    Callback = function(WaterWalking)
+        local message = ""
+        if WaterWalking then
+            message = "Water Walk Enabled"
+        else
+            message = "Water Walk Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        WaterWalk(WaterWalking)
+    end,
+})
+
+local Toggle = WRD:CreateToggle({
+    Name = "Remove Water",
+    CurrentValue = false,
+    Flag = "RemoveWater",
+    Callback = function(Value)
+        local message = ""
+        if Value then
+            message = "Remove Water Enabled"
+        else
+            message = "Remove Water Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        RemoveWater(Value)
+    end,
+})
+
+
+local Section = WRD:CreateSection("World Mods")
+local Button = WRD:CreateButton({
+	Name = "Maze Walls",
+	Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Maze Walls have been Destroyed",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+		for _, v in pairs(game.Workspace.Region_MazeCave.Blockade:GetChildren()) do
+			v:Destroy()
+		end
+	end,
+})
+
+local Button = WRD:CreateButton({
+	Name = "Snow Boulder",
+	Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Snow Boulders Has Been Destroyed",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+		for _, v in pairs(game.Workspace.Region_Snow:FindFirstChild("PartSpawner"):GetChildren()) do
+            v:Destroy()
+        end
+	end,
+})
+
+local Button = WRD:CreateButton({
+    Name = "Volcano Boulders",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Volcano Boulders Has Been Destroyed",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+        while true do
+            for _, v in pairs(game.Workspace.Region_Volcano:FindFirstChild("PartSpawner"):GetChildren()) do
+                v:Destroy()
+            end
+            wait(1) -- Adjust the delay as needed
+        end
+    end,
+})
+
+
+local Button = WRD:CreateButton({
+	Name = "Shrine Door",
+	Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Shrine Door Been Destroyed",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+		game.Workspace.Region_Mountainside.BoulderRegen.Boulder:Destroy()
+        game.Workspace.Region_Mountainside.Door.Door:Destroy() 
+	end,
+})
+
+local Toggle = WRD:CreateToggle({
+    Name = "Spawn Vip Box",
+    CurrentValue = false,
+    Flag = "SpawnVipBox",
+    Callback = function(value)
+        local message = ""
+        if value then 
+            game:GetObjects("rbxassetid://16846983986")[1].Parent = game.Workspace
+            message = "Vip Box Enabled"
+        else
+            game:GetService("Workspace")["VIP!!!!"]:Destroy()
+            message = "Vip Box Disabled"
+        end
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = message,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+    end,
+})
+
+
+local Section = WRD:CreateSection("Teleports")
+
+local TeleportDestination = CFrame.new(172, 2, 74)
+local Button = WRD:CreateButton({
+   Name = "TP to Spawn",
+   Callback = function()
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = TeleportDestination
+   end,
+})
+
+local Button = WRD:CreateButton({
+    Name = "Click to Teleport (CTRL + Click)",
+    Callback = function()
+        local UIS = game:GetService("UserInputService")
+    
+        local Player = game.Players.LocalPlayer
+        local Mouse = Player:GetMouse()
+        
+        
+        function GetCharacter()
+           return game.Players.LocalPlayer.Character
+        end
+        
+        function Teleport(pos)
+           local Char = GetCharacter()
+           if Char then
+               Char:MoveTo(pos)
+           end
+        end
+        
+        
+        UIS.InputBegan:Connect(function(input)
+           if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+               Teleport(Mouse.Hit.p)
+           end
+        end)
+    end,
+ })
+ 
+
+
+local function GetPlrs()
+    local Plrs = {}
+    for i, v in next, game.Players:GetPlayers() do
+        table.insert(Plrs, v.Name)
+    end
+    return Plrs
+end
+
+local function UpdateDropdowns()
+    Dropdown1:Clear()
+    Dropdown1:Add(GetPlrs())
+
+    Dropdown2:Clear()
+    Dropdown2:Add(GetPlrs())
+end
+
+local function TeleportToBase(Plr)
+    for i, v in next, game:GetService("Workspace").Properties:GetChildren() do
+        if v:FindFirstChild("Owner") and tostring(v.Owner.Value) == Plr then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.OriginSquare.CFrame + Vector3.new(0,2,0)
+            break
+        end
+    end
+end
+
+local function TeleportToPlayer(Plr)
+    for i, v in next, game.Players:GetPlayers() do
+        if tostring(v.Name) == Plr then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.CFrame.p)
+            break
+        end
+    end
+end
+
+local function GetPlrs()
+    local Plrs = {}
+    for i, v in next, game.Players:GetPlayers() do
+        table.insert(Plrs, v.Name)
+    end
+    return Plrs
+end
+
+local function TeleportToBase(Plr)
+    for i, v in next, game:GetService("Workspace").Properties:GetChildren() do
+        if v:FindFirstChild("Owner") and tostring(v.Owner.Value) == Plr then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.OriginSquare.CFrame + Vector3.new(0,2,0)
+            break
+        end
+    end
+end
+
+local function TeleportToPlayer(Plr)
+    for i, v in next, game.Players:GetPlayers() do
+        if tostring(v.Name) == Plr then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character.HumanoidRootPart.CFrame.p)
+            break
+        end
+    end
+end
+
+local Dropdown1 = WRD:CreateDropdown({
+    Name = "Select Base Owner",
+    Options = GetPlrs(),
+    CurrentOption = {"Select Player"},
+    MultipleOptions = false,
+    Flag = "Dropdown1",
+    Callback = function(Options)
+        local selectedPlayer = Options[1]
+        TeleportToBase(selectedPlayer)
+    end
+})
+
+local Dropdown2 = WRD:CreateDropdown({
+    Name = "Select Player to Teleport To",
+    Options = GetPlrs(),
+    CurrentOption = {"Select Player"},
+    MultipleOptions = false,
+    Flag = "Dropdown2",
+    Callback = function(Options)
+        local selectedPlayer = Options[1]
+        TeleportToPlayer(selectedPlayer)
+    end
+})
+
+-- Function to update dropdown options each time they are opened
+local function UpdateDropdowns()
+    Dropdown1:Set(GetPlrs())
+    Dropdown2:Set(GetPlrs())
+end
+
+-- Initial update for dropdowns
+UpdateDropdowns()
+
+-- Bind the update function to the opened event (if supported)
+if Dropdown1.OnOpen then
+    Dropdown1.OnOpen:Connect(UpdateDropdowns)
+end
+
+if Dropdown2.OnOpen then
+    Dropdown2.OnOpen:Connect(UpdateDropdowns)
+end
+
+local WaypointsPositions = {
+    ["The Den"] = CFrame.new(323, 49, 1930),
+    ["Lighthouse"] = CFrame.new(1464.8, 356.3, 3257.2),
+    ["Safari"] = CFrame.new(111.853, 11.0005, -998.805),
+    ["Bridge"] = CFrame.new(112.308, 11.0005, -782.358),
+    ["Bob's Shack"] = CFrame.new(260, 8, -2542),
+    ["EndTimes Cave"] = CFrame.new(113, -214, -951),
+    ["The Swamp"] = CFrame.new(-1209, 132, -801),
+    ["The Cabin"] = CFrame.new(1244, 66, 2306),
+    ["Volcano"] = CFrame.new(-1585, 625, 1140),
+    ["Boxed Cars"] = CFrame.new(509, 5.2, -1463),
+    ["Tiaga Peak"] = CFrame.new(1560, 410, 3274),
+    ["Land Store"] = CFrame.new(258, 5, -99),
+    ["Link's Logic"] = CFrame.new(4605, 3, -727),
+    ["Palm Island"] = CFrame.new(2549, -5, -42),
+    ["Palm Island 2"] = CFrame.new(1960, -5.900, -1501),
+    ["Palm Island 3"] = CFrame.new(4344, -5.900, -1813),
+    ["Fine Art Shop"] = CFrame.new(5207, -166, 719),
+    ["SnowGlow Biome"] = CFrame.new(-1086.85, -5.89978, -945.316),
+    ["Cave"] = CFrame.new(3581, -179, 430),
+    ["Shrine Of Sight"] = CFrame.new(-1600, 195, 919),
+    ["Fancy Furnishings"] = CFrame.new(491, 13, -1720),
+    ["Docks"] = CFrame.new(1114, 3.2, -197),
+    ["Strange Man"] = CFrame.new(1061, 20, 1131),
+    ["Wood Dropoff"] = CFrame.new(323.406, -2.8, 134.734),
+    ["Snow Biome"] = CFrame.new(889.955, 59.7999, 1195.55),
+    ["Wood RUs"] = CFrame.new(265, 5, 57),
+    ["Green Box"] = CFrame.new(-1668.05, 351.174, 1475.39),
+    ["Cherry Meadow"] = CFrame.new(220.9, 59.8, 1305.8),
+    ["Bird Cave"] = CFrame.new(4813.1, 33.5, -978.8),
+}
+
+local Dropdown = WRD:CreateDropdown({
+    Name = "Teleport to Waypoints",
+    Options = {"The Den", "Lighthouse", "Safari", "Bridge", "Bob's Shack", "EndTimes Cave", "The Swamp", "The Cabin", "Volcano", "Boxed Cars", "Tiaga Peak", "Land Store", "Link's Logic", "Palm Island", "Palm Island 2", "Palm Island 3", "Fine Art Shop", "SnowGlow Biome", "Cave", "Shrine Of Sight", "Fancy Furnishings", "Docks", "Strange Man", "Wood Dropoff", "Snow Biome", "Wood RUs", "Green Box", "Spawn", "Cherry Meadow", "Bird Cave"},
+    CurrentOption = {"Select waypoint"},
+    MultipleOptions = false,
+    Flag = "WaypointsDropdown",
+    Callback = function(Options)
+        local selectedWaypoint = Options[1]
+        local waypointCFrame = WaypointsPositions[selectedWaypoint]
+        if waypointCFrame then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = waypointCFrame
+        end
+    end,
+})
+
+-- UNSECURE SECTION
+
+local placeID = game.PlaceId  -- Get the current place's ID
+
+-- Define the ID for the specific place
+local targetPlaceID = 10042772221  -- Replace with the actual Place ID you provided
+
+-- Check if the current place ID matches the target place ID
+if placeID == targetPlaceID then
+    local Section = Unsecure:CreateSection("Unsecure Only")
+
+    local Button = Unsecure:CreateButton({
+        Name = "FreeLand",
+        Callback = function()
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "You Got Land",
+                Duration = 6.5,
+                Image = 18368530595,
+            })
+            FreeLand()
+        end,
+    })
+else
+    print("This section is not available in this place.")
+end
+
+
+
+-- Slot Section
+
+local Section = Slt:CreateSection("Land Tools")
+
+local Button = Slt:CreateButton({
+    Name = "FreeLand",
+    Callback = function()
+        Rayfield:Notify({
+			Title = "Odyssey | " .. detectedGameName,
+			Content = "You Got Land",
+			Duration = 6.5,
+			Image = 18368530595,
+		})
+		FreeLand()
+    end,
+})
+
+local Button = Slt:CreateButton({
+    Name = "MaxLand",
+    Callback = function()
+        Rayfield:Notify({
+			Title = "Odyssey | " .. detectedGameName,
+			Content = "You Got Maxland",
+			Duration = 6.5,
+			Image = 18368530595,
+		})
+		MaxLand()
+    end,
+})
+
+local Button = Slt:CreateButton({
+    Name = "Claim Land Tool",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "Odyssey | " .. detectedGameName,
+			Content = "Use this Tool to Claim Any Plot",
+			Duration = 6.5,
+			Image = 18368530595,
+		})
+		ClaimLandTool()
+    end,
+})
+
+local Toggle = Slt:CreateToggle({
+    Name = "Land Art",
+    CurrentValue = false,
+    Flag = "LandArt",
+    Callback = function(Value)
+        if Value then
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "Click any Plot you want",
+                Duration = 6.5,
+                Image = 13868530595,
+            })
+            LandArt(Value)
+        else
+            Rayfield:Notify({
+                Title = "Odyssey | " .. detectedGameName,
+                Content = "Enjoy the New Land",
+                Duration = 6.5,
+                Image = 13868530595,
+            })
+        end
+    end,
+})
+
+local Section = Slt:CreateSection("Load Tools")
+local Slider = Slt:CreateSlider({
+	Name = "Select Slot",
+	Range = {1, 6},
+	Increment = 1,
+	Suffix = "Slot",
+	CurrentValue = 1,
+	Flag = "Slot", 
+	Callback = function(Value)
+        loadslot = Value
+	end,
+})
+
+local Button = Slt:CreateButton({
+    Name = "Load",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Loading Slot ".. loadslot,
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        game:GetService("ReplicatedStorage").LoadSaveRequests.RequestLoad:InvokeServer(loadslot, OwnerNm);
+
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName .. " | Error", -- Added missing comma
+            Content = "Load Cooldown",
+            Duration = 60,
+            Image = 18368530595,
+        })
+    end,
+})
+
+
+local Button = Slt:CreateButton({
+	Name = "Unload Slot",
+	Callback = function()
+		if   game.Players.LocalPlayer.CurrentSaveSlot.Value ~= 1 then
+            LoadSlot(math.huge)
+        else
+			Rayfield:Notify({
+				Title = "Odyssey | " .. detectedGameName,
+				Content = "Error You currenly do not have a slot loaded",
+				Duration = 60,
+				Image = 18368530595,
+			})
+		end
+	end,
+})
+
+local Button = Slt:CreateButton({
+	Name = "Overwrite Slot",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "Odyssey | " .. detectedGameName,
+			Content = "Overwrited Slot ".. loadslot,
+			Duration = 6.5,
+			Image = 18368530595,
+		})
+        game:GetService("ReplicatedStorage").LoadSaveRequests.RequestSave:InvokeServer(loadslot, OwnerNm);
+	end,
+})
+
+
+local Button = Slt:CreateButton({
+	Name = "Sell Land Sign",
+	Callback = function()
+		Rayfield:Notify({
+			Title = "Odyssey | " .. detectedGameName,
+			Content = "Land Sign Sold",
+			Duration = 6.5,
+			Image = 18368530595,
+		})
+        SellSoldSign()
+	end,
+})
+
+
+SellSoldSign()
+
+local Section = Slt:CreateSection("Slot Tools (Misc)")
+
+local originalColor = Color3.fromRGB(126, 104, 63)
+
+local ColorPicker = Slt:CreateColorPicker({
+    Name = "Plot Color",
+    Color = originalColor,
+    Flag = "PlotColoring", 
+    Callback = function(color)
+        for _, v in pairs(game.Workspace.Properties:GetChildren()) do
+            if v.Owner.Value == game.Players.LocalPlayer then
+                for _, v2 in pairs(v:GetChildren()) do
+                    if v2:IsA("BasePart") then
+                        v2.Color = color 
+                    end
+                end
+                break 
+            end
+        end
+    end
+})
+
+local Button = Slt:CreateButton({
+    Name = "Revert Plot to Normal",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Plot Has Been Reverted",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+        for _, v in pairs(game.Workspace.Properties:GetChildren()) do
+            if v.Owner.Value == game.Players.LocalPlayer then
+                for _, v2 in pairs(v:GetChildren()) do
+                    if v2:IsA("BasePart") then
+                        v2.Color = originalColor
+                    end
+                end
+                break
+            end
+        end
+        -- Ensure we update the color picker's displayed color
+        if ColorPicker.SetColor then
+            ColorPicker:SetColor(originalColor)
+        else
+            -- If SetColor is not available, directly set the Color property
+            ColorPicker.Color = originalColor
+            if ColorPicker.Flag then
+                Slt.Flags[ColorPicker.Flag] = originalColor
+            end
+            if ColorPicker.Callback then
+                ColorPicker.Callback(originalColor)
+            end
+        end
+    end,
+})
+
+-- Auto Buy Section
+
+local Section = Abuy:CreateSection("Auto Buy")
+
+local Slider = Abuy:CreateSlider({
+	Name = "Amount of Items",
+	Range = {1, 150},
+	Increment = 1,
+	Suffix = "Amount of Items",
+	CurrentValue = 1,
+	Flag = "AutoBuySlider", 
+	Callback = function(value)
+		print("Coming soon")
+	end,
+})
+
+local Toggle = Abuy:CreateToggle({
+    Name = "Open Box",
+    CurrentValue = false,
+    Flag = "OpenBox",
+    Callback = function(Value)
+        print("Coming Soon")
+    end,
+})
+
+local Dropdown = Abuy:CreateDropdown({
+    Name = "Select Items",
+    Options = {"Option 1","Option 2"},
+    CurrentOption = {"Option 1"},
+    MultipleOptions = false,
+    Flag = "AutoBuy Item Select", 
+    Callback = function(Options)
+    print("Coming Soon")
+    end,
+ })
+
+local Button = Abuy:CreateButton({
+    Name = "Purchase Items",
+    Callback = function()
+        print("Coming Soon")
+    end,
+})
+
+local Button = Abuy:CreateButton({
+    Name = "Abort Purchase",
+    Callback = function()
+        print("Coming Soon")
+    end,
+})
+
+
+
+local Section = Abuy:CreateSection("Misc Auto Buy")
+
+local Button = Abuy:CreateButton({
+    Name = "Purchase All BluePrints",
+    Callback = function()
+        print("Coming Soon")
+    end,
+})
+
+local Button = Abuy:CreateButton({
+    Name = "Purchase Bridge",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "You Bought the Bridge",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+        Pay(15)
+    end,
+})
+
+local Button = Abuy:CreateButton({
+    Name = "Purchase Ferry Ticket",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "You Bought a Ferry Ticket",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+        Pay(13)
+    end,
+})
+
+
+local Button = Abuy:CreateButton({
+    Name = "Purchase Power to Build with Ease",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "You Bought the Power to Build With Ease",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+        Pay(3)
+    end,
+})
+
+
+
+
+-- Troll Section
+
+
+
+
+-- Dupe Section
+
+-- Settings
+ 
+local Section = Settings:CreateSection("Gui Settings")
+
+local Paragraph = Settings:CreateParagraph({
+    Title = "Anti- Status",
+    Content = "Inactive" -- Initial status
+})
+
+local Toggle = Settings:CreateToggle({
+    Name = "Anti-AFK Toggle",
+    CurrentValue = false,
+    Flag = "Anti Afk",
+    Callback = function(Value)
+        Rayfield:Notify({
+            Title = "ODYSSEY",
+            Content = "Anti Afk Loaded",
+            Duration = 6.5,
+            Image = 13868530595,
+        })
+
+        if Value then
+            startAntiAFK() -- Start the Anti-AFK function
+            Paragraph:Set({Title = "Anti-AFK Status", Content = "Active"})
+        else
+            stopAntiAFK() -- Stop the Anti-AFK function
+            Paragraph:Set({Title = "Anti-AFK Status", Content = "Inactive"})
+        end
+    end,
+})
+
+local antiAFKRunning = false
+local antiAFKThread
+
+function startAntiAFK()
+    if not antiAFKRunning then
+        antiAFKRunning = true
+        antiAFKThread = coroutine.create(function()
+            while antiAFKRunning do
+                wait(60) -- Wait for 60 seconds
+                if character then
+                    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                    if humanoidRootPart then
+                        humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.new(0, 0, 1)
+                    end
+                end
+            end
+        end)
+        coroutine.resume(antiAFKThread)
+    end
+end
+
+function stopAntiAFK()
+    antiAFKRunning = false
+end
+
+
+
+local Section = Settings:CreateSection("Discord Importer")
+
+local Label = Settings:CreateLabel("How To Use Discord Importer")
+local Label = Settings:CreateLabel("Step #1 Name Slots")
+local Label = Settings:CreateLabel("Step #2 Click Save Slot Names")
+local Label = Settings:CreateLabel("Step #3 Insert Discord Webhook Url")
+local Label = Settings:CreateLabel("Step #4 Click Send to Discord")
+local Label = Settings:CreateLabel("Founded By Ancestor (Credit to him)")
+ 
+local Input = Settings:CreateInput({
+     Name = "Slot 1 Name",
+     PlaceholderText = "Slot 1",
+     RemoveTextAfterFocusLost = false,
+     Callback = function(value, focusLost)
+         Slot1Export = value
+  
+         if focusLost then
+ 
+             Rayfield:Notify({
+                 Title = "Odyssey | " .. detectedGameName,
+                 Content = value,
+                 Duration = 6.5,
+                 Image = 18368530595,
+             })
+         end
+     end,
+ 
+})
+ 
+local Input = Settings:CreateInput({
+     Name = "Slot 2 Name",
+     PlaceholderText = "Slot 2",
+     RemoveTextAfterFocusLost = false,
+     Callback = function(value, focusLost)
+         Slot2Export = value
+  
+         if focusLost then
+ 
+             Rayfield:Notify({
+                 Title = "Odyssey | " .. detectedGameName,
+                 Content = value,
+                 Duration = 6.5,
+                 Image = 18368530595,
+              })
+         end
+     end,
+ 
+})
+ 
+local Input = Settings:CreateInput({
+     Name = "Slot 3 Name",
+     PlaceholderText = "Slot 3",
+     RemoveTextAfterFocusLost = false,
+     Callback = function(value, focusLost)
+         Slot3Export = value
+  
+         if focusLost then
+ 
+             Rayfield:Notify({
+                 Title = "Odyssey | " .. detectedGameName,
+                 Content = value,
+                 Duration = 6.5,
+                 Image = 18368530595,
+              })
+         end
+     end,
+ 
+})
+ 
+local Input = Settings:CreateInput({
+     Name = "Slot 4 Name",
+     PlaceholderText = "Slot 4",
+     RemoveTextAfterFocusLost = false,
+     Callback = function(value, focusLost)
+         Slot4Export = value
+  
+         if focusLost then
+ 
+             Rayfield:Notify({
+                 Title = "Odyssey | " .. detectedGameName,
+                 Content = value,
+                 Duration = 6.5,
+                 Image = 18368530595,
+              })
+         end
+     end,
+ 
+})
+ 
+local Input = Settings:CreateInput({
+     Name = "Slot 5 Name",
+     PlaceholderText = "Slot 5",
+     RemoveTextAfterFocusLost = false,
+     Callback = function(value, focusLost)
+         Slot5Export = value
+  
+         if focusLost then
+ 
+             Rayfield:Notify({
+                 Title = "Odyssey | " .. detectedGameName,
+                 Content = value,
+                 Duration = 6.5,
+                 Image = 18368530595,
+              })
+         end
+     end,
+ 
+})
+ 
+local Input = Settings:CreateInput({
+     Name = "Slot 6 Name",
+     PlaceholderText = "Slot 6",
+     RemoveTextAfterFocusLost = false,
+     Callback = function(value, focusLost)
+         Slot6Export = value
+  
+         if focusLost then
+ 
+             Rayfield:Notify({
+                 Title = "Odyssey | " .. detectedGameName,
+                 Content = value,
+                 Duration = 6.5,
+                 Image = 18368530595,
+              })
+         end
+     end,
+ 
+})
+ 
+-- Button to save slot names
+local Button = Settings:CreateButton({
+    Name = "Save Slot Names",
+    Callback = function()
+        Rayfield:Notify({
+            Title = "Odyssey | " .. detectedGameName,
+            Content = "Slot Names Saved",
+            Duration = 6.5,
+            Image = 18368530595,
+        })
+
+        BaseName[1] = Slot1Export
+        BaseName[2] = Slot2Export
+        BaseName[3] = Slot3Export
+        BaseName[4] = Slot4Export
+        BaseName[5] = Slot5Export
+        BaseName[6] = Slot6Export
+
+        -- Save the slot names to the configuration file
+        local slotNamesToSave = {
+            Slot1Val = Slot1Export,
+            Slot2Val = Slot2Export,
+            Slot3Val = Slot3Export,
+            Slot4Val = Slot4Export,
+            Slot5Val = Slot5Export,
+            Slot6Val = Slot6Export
+        }
+
+        local slotNamesOld = HttpService:JSONDecode(readfile("ODYSSEYSlotNames.cfg"))
+        slotNamesOld[tostring(Player)] = slotNamesToSave
+        writefile("ODYSSEYSlotNames.cfg", HttpService:JSONEncode(slotNamesOld))
+    end
+})
+ 
+local Input = Settings:CreateInput({
+     Name = "Slot Importer",
+     PlaceholderText = "Insert Webhook URL Here!",
+     RemoveTextAfterFocusLost = false,
+     Callback = function(value, focusLost)
+         ExportWebHook = value
+  
+         if focusLost then
+         end
+     end,
+ 
+})
+ 
+local Button = Settings:CreateButton({
+     Name = "Send to Discord",
+     Callback = function()
+         Rayfield:Notify({
+             Title = "Odyssey | " .. detectedGameName,
+             Content = "All Names Has Been Sent to Discord",
+             Duration = 6.5,
+             Image = 18368530595,
+         })
+ 
+         local request = http_request or request or (syn and syn.request)
+         local LoadSaveClient = getsenv(game.Players.LocalPlayer.PlayerGui.LoadSaveGUI.LoadSaveClient)
+         local message = ''
+         
+         function GetPlayersSlotInfo(Client)
+             local Data = game.ReplicatedStorage.LoadSaveRequests.GetMetaData:InvokeServer(Client)
+             local Info = {}
+         
+             for i = 1, #Data do
+                 if Data[i].SaveMeta[#Data[i].SaveMeta] then
+                     local Datasize, Timestamp = Data[i].SaveMeta[#Data[i].SaveMeta].NumKeys, Data[i].SaveMeta[#Data[i].SaveMeta].Timestamp
+                     Info[#Info + 1] = {
+                     Datasize = Datasize,
+                     Timestamp = LoadSaveClient.getDate(Timestamp + 1435708800)
+                     }
+                 end
+             end
+             return Info
+         end
+         
+         request({
+             Method = "POST",
+             Url = ExportWebHook,
+             Headers = {
+                 ["Content-Type"] = "application/json",
+             },
+             Body = game:GetService("HttpService"):JSONEncode({
+                 username = "Lt2 Shop Export",
+                 content = "Exporting "..game.Players.LocalPlayer.Name.."'s Bases:"
+             })
+         })
+         
+         
+         local SlotInfo = GetPlayersSlotInfo(game.Players.LocalPlayer)
+         for i = 1, #SlotInfo do
+             local SlotInformation = SlotInfo[i]
+             local BaseNames = BaseName[i]
+             local Datasize, Timestamp = SlotInformation.Datasize, SlotInformation.Timestamp
+             message = message.."Slot "..i.." ( "..tostring(BaseNames).." ) Data Size: "..Datasize.." Base Last Loaded "..Timestamp.."\n"
+         end
+         
+         request({
+             Method = "POST",
+             Url = ExportWebHook,
+             Headers = {
+                 ["Content-Type"] = "application/json",
+             },
+             Body = game:GetService("HttpService"):JSONEncode({
+                 username = "Lt2 Shop Export",
+                 content = "```"..message.."```"
+             })
+         })
+ 
+     end,
+})
+ 
+
+
+
+
+
+
+local Section = Settings:CreateSection("Character Status")
+local Paragraph = Settings:CreateParagraph({Title = "Display Name", Content = game:GetService("Players").LocalPlayer.DisplayName})
+local Paragraph = Settings:CreateParagraph({Title = "UserName", Content = game:GetService("Players").LocalPlayer.Name})
+local Paragraph = Settings:CreateParagraph({Title = "User ID", Content = game:GetService("Players").LocalPlayer.UserId})
+local Paragraph = Settings:CreateParagraph({Title = "Hwid", Content = game:GetService("RbxAnalyticsService"):GetClientId()})
+local Paragraph = Settings:CreateParagraph({Title = "Executor", Content = identifyexecutor()})
+local Paragraph = Settings:CreateParagraph({
+    Title = "Date and Time Display",
+    Content = os.date("%B %d, %Y %I:%M:%S %p") -- Initial display with month, day, year, hours, minutes, seconds, and AM/PM
+})
+
+local function updateDateTime()
+    while true do
+        local currentDateTime = os.date("%B %d, %Y %I:%M:%S %p") -- Get the current date and time in 12-hour format with AM/PM
+        Paragraph:Set({Title = "Date and Time Display", Content = currentDateTime}) -- Update the paragraph content with the current date and time
+        wait(1) -- Update every second
+    end
+end
+
+spawn(updateDateTime)
+
+
+
